@@ -20,7 +20,7 @@ lang: ""
 
 ![](../assets/images/coxp-1.webp)
 
-这就是 **CORP（Cross-Origin Resource Policy） - 跨域资源策略**，它管的是 **资源给不给用** 
+这就是 **CORP（Cross-Origin-Resource-Policy） - 跨域资源策略**，它管的是 **资源给不给用** 
 
 |      值       |                    描述                     |
 | :----------: | :---------------------------------------: |
