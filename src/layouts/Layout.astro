@@ -890,6 +890,18 @@ const setup = () => {
 	}, true)
 }
 
+const initSwup = () => {
+	if (window.swup && !window.swup.initialized) {
+		window.swup.init()
+	}
+}
+
+if (document.readyState !== 'loading') {
+	initSwup()
+} else {
+	document.addEventListener('DOMContentLoaded', initSwup)
+}
+
 if (window.swup) {
 	setup()
 } else {

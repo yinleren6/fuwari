@@ -196,6 +196,7 @@ export default defineConfig({
 			updateHead: true,
 			updateBodyClass: false,
 			globalInstance: true,
+			init: false,
 		}),
 		icon({
 			iconDir: "public/icons",
