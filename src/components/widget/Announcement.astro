@@ -184,6 +184,17 @@ const currentColor = colorMap[level] || colorMap.info;
 	animation: rainbow-flow 3s linear infinite;
 }
 
+.notice-happy .notice-text::selection,
+.notice-happy .notice-text *::selection {
+	color: var(--primary);
+	-webkit-text-fill-color: var(--primary);
+}
+
+.notice-happy .notice-text::-moz-selection,
+.notice-happy .notice-text *::-moz-selection {
+	color: var(--primary);
+}
+
 .notice-happy .notice-emoji {
 	font-size: 1.5rem;
 	line-height: 1;
