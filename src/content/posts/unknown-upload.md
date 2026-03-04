@@ -10,10 +10,8 @@ tags:
 draft: false
 lang: ""
 ---
-> [!ai] qwen/qwen3-vl-8b
-> 项目需求：在非家庭环境、通过公网设备上传小文件至家庭内网存储。  
-> 方案一（EdgeOne + 对象存储）：稳定、无需家庭设备在线，需配置云函数，成本低但复杂；方案二（Python uploadserver）：依赖家庭电脑在线，启动简单，成本为零，但稳定性受网络限制。  
-> 推荐：若追求稳定选方案一，若家庭电脑常在线选方案二。
+> [!ai] gpt-5.3-codex
+> 文章围绕在外网环境上传小文件回家庭网络的需求，对比了 EdgeOne Pages + 对象存储与本地 Python uploadserver 两种方案，并给出按稳定性与设备在线条件选择的实践建议。
 
 # 视频
 https://www.bilibili.com/video/BV1Hz1DBZEov/

@@ -8,8 +8,8 @@ published: 2024-11-22
 tags: []
 title: 自建正向代理服务器
 ---
-> [!ai] qwen/qwen3-vl-8b
-> 使用Cloudflare Pages部署VLESS代理（EdgeTunnel）需上传main.zip、绑定UUID变量、重新部署并绑定自定义域名；通过`https://域名/uuid`访问仪表盘，导入V2Ray客户端使用。测速可达500Mbps，但部分区域`pages.dev`访问受限。新账号易被风控（错误1101），建议重命名项目重部署。配额有限，勿分享或商用。Hysteria2协议可替代，支持一键安装；旧协议V2Ray可用脚本安装，客户端支持多平台。
+> [!ai] gpt-5.3-codex
+> 文章汇总了多种自建代理路线，包括基于 Cloudflare Pages 的 EdgeTunnel 与基于海外 VPS 的 Hysteria2/V2Ray，并从部署门槛、客户端接入与平台风控限制等角度给出实践提示。
 
 # 将Cloudflare作为代理使用（Vless - EdgeTunnel）
 

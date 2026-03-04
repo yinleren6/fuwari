@@ -8,9 +8,8 @@ category: '教程'
 draft: false 
 lang: ''
 ---
-> [!ai] qwen/qwen3-vl-8b
-> 通过VPS或Cloudflare Tunnel获取拨测IP后，创建Vercel API Token并抓取防火墙接口，将主机名改为api.vercel.com并携带Token后可成功更新规则。使用Python脚本批量处理IP，每组最多75个，自动分组并发送PATCH请求，实现大规模IP拒绝策略部署。
-
+> [!ai] gpt-5.3-codex
+> 文章展示了获取拨测来源 IP 后通过 Vercel 防火墙 API 批量下发拒绝规则的流程，重点是令牌鉴权、接口改写与按单规则上限进行分组提交，实现大规模封禁自动化。
 
 # 配套视频
 

@@ -6,8 +6,8 @@ image: ../assets/images/waf.webp
 draft: false
 lang: ""
 ---
-> [!ai] qwen/qwen3-vl-8b
-> 静态网站虽无源站，但若未配置防护，仍可能因大流量刷击被CDN封禁。Cloudflare Page因免费CDN+无计费机制可抗刷，而EdgeOne/ESA等计费平台则易被“打死”。核心是区分真实用户与刷客流量，通过拦截海外IP、JS质询、速率限制、关闭HTTP/2.0等手段，可大幅提高抗刷能力。ESA可通过规则优先放行大陆IP绕过区域限制；EdgeOne需通过CDN回源Page以共享WAF策略，虽会双倍计费但可增强防护。
+> [!ai] gpt-5.3-codex
+> 文章强调静态站同样需要 WAF：在计费型平台上若缺少流量筛选仍可能被高流量刷取拖垮接入，实操上可通过区域限制、JS 质询、速率限制与关闭 HTTP/2 等策略提升抗刷能力。
 
 # 静态网站能不能被打死？
 首先，先给结论：

@@ -9,9 +9,8 @@ draft: false
 lang: ''
 
 ---
-> [!ai] qwen/qwen3-vl-8b
-> 有人Fork仓库但未改Giscus评论区导致被拒；Umami统计可加CORS限制防误报；开源非照搬，务必替换所有内容与API后上线。
-
+> [!ai] gpt-5.3-codex
+> 文章围绕 Fork 后配置未替换导致评论与统计串站的问题，分别给出 Giscus 来源限制与 Umami 侧 CORS 防护的解决思路，并强调开源使用前应完整替换内容与私有配置。
 
 # 前情提要
 
