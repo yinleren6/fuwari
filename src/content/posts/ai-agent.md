@@ -5,7 +5,7 @@ description: 从实战角度对比 AI IDE 与 AI Agent，并演示如何用 ZCF 
 image: ../assets/images/ai-agent.png
 draft: false
 lang: ""
-ai_level: 2
+ai_level: 1
 ---
 > [!ai] gpt-5
 > 本文从实战角度对比了 AI IDE 与 AI Agent：前者强调图形化开发体验，后者强调“自然语言 + 终端执行 + 工具链自动化”。文中介绍了 OpenCode、Claude Code、Codex 的使用差异，并演示如何通过 ZCF 与 CC-Switch 快速完成 Agent、模型与 MCP 的配置。最后重点提醒了 `--dangerously-bypass-approvals-and-sandbox` 的风险，建议仅在可控场景下使用。

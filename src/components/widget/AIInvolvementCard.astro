@@ -19,28 +19,18 @@ const levelMap: Record<
 	}
 > = {
 	1: {
-		label: "纯人工编写",
-		description: "本文由作者独立完成，未使用 AI 参与正文生成。",
-		icon: "fa6-solid:pen",
-	},
-	2: {
 		label: "人工编写，AI润色",
 		description: "正文由作者完成，AI 主要用于措辞优化和语言打磨。",
 		icon: "fa6-solid:wand-magic-sparkles",
 	},
-	3: {
-		label: "人工主导，AI参与编写",
-		description: "作者主导结构和核心观点，部分段落由 AI 协助生成。",
+	2: {
+		label: "人工主导，AI编写",
+		description: "作者主导结构和核心观点，正文部分内容由 AI 协助生成。",
 		icon: "fa6-solid:people-group",
 	},
-	4: {
-		label: "AI主导，人工校订",
-		description: "初稿主要由 AI 产出，作者负责审核、修正与定稿。",
-		icon: "fa6-solid:robot",
-	},
-	5: {
-		label: "AI全权主导",
-		description: "内容主要由 AI 生成，人工仅做最小化处理或发布操作。",
+	3: {
+		label: "AI主导，AI编写",
+		description: "文章内容由 AI 主导并生成，人工主要负责发布与必要校验。",
 		icon: "fa6-solid:microchip",
 	},
 };
@@ -64,7 +54,7 @@ const current = levelMap[level];
 					<div class="flex flex-wrap items-center gap-2 mb-1">
 						<span class="text-white/85 text-sm font-semibold">AI参与度</span>
 						<span class="px-2 py-1 rounded-md text-xs font-bold bg-[var(--btn-regular-bg)] text-[var(--btn-content)]">
-							Lv.{level}/5
+							Lv.{level}/3
 						</span>
 						<span class="text-xs text-white/60">{current.label}</span>
 					</div>

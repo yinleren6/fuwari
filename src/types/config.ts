@@ -92,7 +92,7 @@ export type UmamiConfig = {
 	timezone: string;
 };
 
-export type AiInvolvementLevel = 1 | 2 | 3 | 4 | 5;
+export type AiInvolvementLevel = 1 | 2 | 3;
 
 export type BlogPostData = {
 	body: string;
