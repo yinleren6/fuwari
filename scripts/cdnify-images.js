@@ -2,13 +2,12 @@
 
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
-import { glob } from "glob";
+import {
+	CONTENT_DIR,
+	buildMarkdownGlob,
+	listFiles,
+} from "./utils/content-files.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const CONTENT_DIR = path.join(process.cwd(), "src/content");
 const OLD_PATH = "../assets/images/";
 const NEW_PATH = "https://cnb.cool/2x.nz/fuwari/-/git/raw/main/src/content/assets/images/";
 
@@ -17,8 +16,7 @@ const NEW_PATH = "https://cnb.cool/2x.nz/fuwari/-/git/raw/main/src/content/asset
  */
 async function getAllMarkdownFiles() {
 	try {
-		const pattern = path.join(CONTENT_DIR, "**/*.md").replace(/\\/g, "/");
-		return await glob(pattern);
+		return await listFiles(buildMarkdownGlob(CONTENT_DIR, ["md"]));
 	} catch (error) {
 		console.error("获取 markdown 文件失败:", error.message);
 		return [];
