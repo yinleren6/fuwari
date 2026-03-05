@@ -951,7 +951,7 @@ function downloadLink(url: string, filename: string) {
                 </div>
                 
                 {#if searchResults.length > 0}
-                    <div class="grid grid-cols-4 gap-2 mt-2 max-h-40 overflow-y-auto p-2 bg-transparent rounded-lg border border-[var(--line-color)]">
+                    <div class="grid grid-cols-4 gap-2 mt-2 h-60 sm:h-40 max-h-[60vh] overflow-y-auto resize-y p-2 bg-transparent rounded-lg border border-[var(--line-color)]">
                         {#each searchResults as icon}
                             {@const isSelected = icon === iconName}
                             <button 
