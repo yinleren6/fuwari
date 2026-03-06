@@ -11,6 +11,9 @@ permissions:
   pull-requests: write
   issues: write
 
+env:
+  PAT: ${{ secrets.PAT }}
+
 concurrency:
   group: auto-pr-${{ github.event.pull_request.number || github.event.issue.number }}
   cancel-in-progress: true
@@ -24,7 +27,7 @@ jobs:
       - name: Label PR by changed paths
         uses: actions/github-script@v7
         with:
-          github-token: ${{ github.token }}
+          github-token: ${{ env.PAT }}
           script: |
             const owner = context.repo.owner
             const repo = context.repo.repo
@@ -668,7 +671,7 @@ jobs:
       - name: Auto-merge
         uses: actions/github-script@v7
         with:
-          github-token: ${{ github.token }}
+          github-token: ${{ env.PAT }}
           script: |
             const owner = context.repo.owner
             const repo = context.repo.repo
