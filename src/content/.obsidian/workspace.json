@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "posts/codex-unlimited-blade-works.md",
+                "file": "posts/obs-realtime-process-name.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "codex-unlimited-blade-works"
+              "title": "obs-realtime-process-name"
             }
           }
         ]
@@ -171,23 +171,24 @@
   },
   "active": "f6b5e7abc96521b9",
   "lastOpenFiles": [
-    "posts/cookie-consent.md",
+    "assets/images/livehime_vtq9relmFS.gif",
+    "assets/images/WindowsTerminal_wV1C4TbD15.gif",
+    "assets/images/obs-realtime-process-name-2.png",
+    "assets/images/obs-realtime-process-name-1.png",
+    "assets/images/obs64_ZV5MPVYEXj.gif",
+    "assets/images/obs-realtime-process-name.png",
+    "assets/images/OBS-RT-PC.png",
     "posts/codex-unlimited-blade-works.md",
+    "posts/cookie-consent.md",
     "posts/codex-unlimited-blade-works.md.tmp.47664.1772805958791",
     "assets/images/codex-unlimited-blade-works-5.png",
     "assets/images/codex-unlimited-blade-works-4.png",
     "assets/images/codex-unlimited-blade-works-3.png",
     "assets/images/codex-unlimited-blade-works-2.png",
-    "assets/images/codex-unlimited-blade-works-1.png",
-    "assets/images/codex-unlimited-blade-works.png",
-    "assets/images/mermaid-diagram.png",
-    "assets/images/codex.png",
     "posts/ai-agent.md",
     "posts/codex-unlimited-blade-works.md.tmp.47664.1772804894124",
     "CLAUDE.md",
     "CLAUDE.md.tmp.51576.1772767822869",
-    "assets/images/uptimeflare-13.webp",
-    "assets/images/uptimeflare-14.webp",
     "assets/images",
     "assets",
     "spec/announcement.md",
@@ -211,7 +212,6 @@
     "posts copy/static-redirect-group.md",
     "posts copy/starrail-fast.md",
     "posts copy/sshfs.md",
-    "posts copy/sixqi-py.md",
     "posts copy",
     "posts/posts.zip",
     "posts/watermark.zip",
