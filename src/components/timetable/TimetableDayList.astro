@@ -18,7 +18,7 @@ const { viewModel } = Astro.props;
 				{courses.length > 0 ? (
 					<div class="space-y-2.5">
 						{courses.map((course) => (
-							<TimetableCourseCard course={course} />
+							<TimetableCourseCard course={course} showTime={true} />
 						))}
 					</div>
 				) : (

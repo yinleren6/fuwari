@@ -4,9 +4,10 @@ import type { TimetableCourseView } from "@/types/timetable";
 interface Props {
 	course: TimetableCourseView;
 	compact?: boolean;
+	showTime?: boolean;
 }
 
-const { course, compact = false } = Astro.props;
+const { course, compact = false, showTime = false } = Astro.props;
 const borderColor = course.color || "#6b7280";
 ---
 
@@ -15,7 +16,8 @@ const borderColor = course.color || "#6b7280";
 		<h3 class:list={["font-semibold text-90 leading-tight", compact ? "text-xs" : "text-sm"]}>{course.courseName}</h3>
 		<span class="text-[10px] text-50 whitespace-nowrap">{course.startWeek}-{course.endWeek}周</span>
 	</div>
-	<p class:list={["text-50 mt-1", compact ? "text-[11px]" : "text-xs"]}>教室：{course.room}</p>
+	{showTime && <p class:list={["text-50 mt-1", compact ? "text-[11px]" : "text-xs"]}>时间：{course.timeText}</p>}
+	<p class:list={["text-50", showTime ? "mt-0.5" : "mt-1", compact ? "text-[11px]" : "text-xs"]}>教室：{course.room}</p>
 	<p class:list={["text-50 mt-0.5", compact ? "text-[11px]" : "text-xs"]}>教师：{course.teacher}</p>
 </article>
 
