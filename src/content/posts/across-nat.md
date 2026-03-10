@@ -12,9 +12,6 @@ tags:
 - STUN
 title: 究极喂饭教程，手把手教你内网穿透
 ---
-> [!ai] gemini-3-flash-preview
-> Zerotier在复杂NAT环境下的打洞能力显著优于Tailscale，尤其在双端NAT3/NAT4环境下支持UDP P2P，而Tailscale无法穿透。若具备公网IPv6、UPnP或DMZ之一，Zerotier打洞成功率接近100%。两者均需在端点安装软件并加入同一网络ID，经后台授权后建立连接。若延迟超过200ms通常代表处于中继模式而非P2P。此外，Cloudflare Tunnel适用于免客户端配置的Web服务穿透。
-
 # 经实测，Zerotier的打洞能力明显优于Tailscale，所以建议通过Zerotier来实现内网穿透
 
 详细报表：

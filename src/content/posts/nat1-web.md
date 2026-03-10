@@ -8,9 +8,6 @@ category: '教程'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 创建具备权限的Cloudflare API令牌，在Cloudflare设置通配符域名重定向规则并获取其API接口与Payload。在Lucky中配置DDNS、SSL及STUN服务，利用WebHook功能将STUN探测到的动态端口通过API实时同步至Cloudflare重定向规则，从而实现通过固定域名访问基于STUN的动态端口服务。
-
 
 
 # 配套视频

@@ -9,9 +9,6 @@ tags:
 draft: false
 lang: ""
 ---
-> [!ai] gpt-5.3-codex
-> 文章介绍了将 Vaultwarden 的 Rust 代码编译为 WASM 并部署到 Cloudflare Worker + D1 的实现方案，覆盖数据库初始化、密钥配置、账号注册与 2FA 启用及密码库导入等核心步骤。
-
 # 原理
 项目参考开源的 [dani-garcia/vaultwarden: Unofficial Bitwarden compatible server written in Rust, formerly known as bitwarden_rs](https://github.com/dani-garcia/vaultwarden) 将Rust源码编译为WASM以支持在Cloudflare Worker上运行。其中Worker负责REST API，D1负责存储加密后的数据
 

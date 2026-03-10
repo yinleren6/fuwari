@@ -9,9 +9,6 @@ tags:
 - 飞牛NAS
 title: 飞牛NAS玩机体验
 ---
-> [!ai] gemini-3-flash-preview
-> 飞牛NAS支持高速影视刮削及多用户相册备份。系统基于Debian 12，安装需预留64GB独立系统分区且不可与他盘混组。应用访问目录须手动授权。支持SSH密钥登录及目录挂载。硬件上，部分瑞昱网卡需自装驱动，Intel及USB网卡多免驱。存储提供Basic（可转RAID）与Linear（可扩容）等模式。
-
 
 ### 吸引我的东西
 

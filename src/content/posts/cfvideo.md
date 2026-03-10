@@ -6,9 +6,6 @@ image: ../assets/images/cfvideo.png
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> 利用Cloudflare Pages分发静态资产时，通过FFmpeg将大体积视频转换为DASH流式格式，可将文件切分为小于25MB的片段以绕过平台单文件限制。将生成的切片与索引文件上传至Cloudflare并配合Dash.js库调用，即可实现超大视频在边缘节点的免费托管与流式播放。
-
 # 引言
 
 你可能看过 [这一期文章](/posts/jkw/) ，在该文章中，我们嵌入了一个视频，并且是由Cloudflare“原生”提供的，你是否想知道这是怎么做到的？

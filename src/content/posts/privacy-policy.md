@@ -6,9 +6,6 @@ image: ""
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> 站点利用Cloudflare、Umami、百度、Google及Clarity统计访问，通过Giscus提供评论并由Adsense投放广告。
-
 
 # All Cookies
 

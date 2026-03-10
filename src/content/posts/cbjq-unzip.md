@@ -8,9 +8,6 @@ category: '记录'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 确认游戏为UE4 4.26版本，分离Content\Paks中UI类PAK文件。利用QuickBMS及脚本解包，再经UE Viewer（设为4.26版本）导出资源，搜索“PlotCG”关键字即可获取.TGA格式CG图。
-
 
 > 参考了 [虚幻4游戏解包导出及Mod制作指南 - 知乎](https://zhuanlan.zhihu.com/p/7144045084)
 

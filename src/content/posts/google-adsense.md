@@ -6,9 +6,6 @@ image: ../assets/images/google-adsense1.png
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> Google AdSense是网站广告获利服务，申请需验证所有权并提供真实地址以接收验证码。通过审核需保持代码与域名稳定、高频更新、确保原创文章达标且SEO良好，严禁违禁内容并配置隐私政策与Cookie组件，同时提升流量与运行稳定性。若申请被拒，应持续优化网站并反复提交申请直至通过。
-
 
 # Google Adsense 是什么
 

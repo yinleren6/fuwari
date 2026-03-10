@@ -9,9 +9,6 @@ draft: false
 lang: ''
 ai_level: 1
 ---
-> [!ai] gemini-3-flash-preview
-> 安装Motrix并获取其RPC端口与密钥，在Chromium浏览器配置Aria2 Explorer插件对接，开启拦截后由Motrix接管下载。
-
 
 
 # 原理

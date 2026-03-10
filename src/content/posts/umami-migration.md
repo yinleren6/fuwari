@@ -9,9 +9,6 @@ tags:
 draft: false
 lang: ""
 ---
-> [!ai] gpt-5.3-codex
-> 文章记录了 Umami Cloud 迁移到本地 PostgreSQL 的关键流程，包括导出并清洗 CSV、对齐新旧 `website_id`、临时调整 `session` 约束完成导入，以及清理重复会话后恢复唯一约束。
-
 # 正式开始
 首先，我们想要迁移，首先肯定是要拿到原来的Umami Cloud存放的数据
 

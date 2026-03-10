@@ -8,9 +8,6 @@ tags: [AI, Gemini, Google]
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 在Google AI Studio上传图片并结合英文Prompt，可实现立绘转真人COS、动漫角色融入现实场景及背景去除。立绘转换需保证主体完整且动作现实以精准还原构图；场景融合应强调环境写实与自然互动。建议利用ChatGPT辅助生成提示词并不断优化迭代。
-
 
 
 # 快速上手

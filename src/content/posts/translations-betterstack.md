@@ -9,9 +9,6 @@ draft: false
 lang: ''
 ai_level: 1
 ---
-> [!ai] gemini-3-flash-preview
-> BetterStack状态面板经Translations菜单汉化，日期后缀及CST时区歧义需硬编码修正。
-
 
 
 # 速览

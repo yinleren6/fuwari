@@ -8,9 +8,6 @@ category: '记录'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 使用pgAdmin4备份本地PostgreSQL数据库并还原至Supabase云端。在Render平台利用Umami官方镜像部署Web服务，配置APP_SECRET与Supabase数据库连接字符串。通过接入EdgeOne CDN并设置回源HOST与CORS规则，实现统计数据的跨域访问控制。
-
 
 
 > 回滚了

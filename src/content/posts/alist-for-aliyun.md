@@ -10,9 +10,6 @@ tags:
 - AList
 title: 利用阿里云云函数 FC 搭建AList后端，每月仅需5毛！
 ---
-> [!ai] gemini-3-flash-preview
-> 利用Vercel部署AList前端并以阿里云函数计算（FC）为后端。通过挂载NAS文件系统并执行指定数据目录参数实现数据持久化。具体需在FC创建Web函数并上传Linux二进制文件，配置VPC、NAS及监听端口，将函数公网URL填入前端配置文件，最后通过FC日志提取初始管理员密码完成搭建。
-
 # 还是建议购买一个便宜的云服务器来部署或者用家里云，这种方法很灵车
 
 推荐Akile：https://akile.io/register?aff_code=503fe5ea-e7c5-4d68-ae05-6de99513680e

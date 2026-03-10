@@ -11,9 +11,6 @@ tags:
 title: 如何在安卓手机上优雅的写我的博客
 ai_level: 1
 ---
-> [!ai] gemini-3-flash-preview
-> 使用PuppyGit及GitHub Token进行Git管理，配合Obsidian移动端编辑Markdown，通过复制文章副本实现手机端撰写与发布博客。
-
 
 # 正式开始
 为了让我在出门时也能直接用手机写博客，我专门研究了一下，发现这套方案完全可行。

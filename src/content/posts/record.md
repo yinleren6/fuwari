@@ -9,9 +9,6 @@ tags:
 - 记录
 title: 记录
 ---
-> [!ai] gemini-3-flash-preview
-> ZeroTier重置ID需停止服务并删除identity文件。r2.py需安装keyboard、pillow等依赖。ShellClash实现Linux CLI代理。AMD笔记本优化需通过组策略禁用fTPM和Windows更新。提供Vless配置、VPS性能测试及Hysteria2、x-ui、EdgeTunnel等部署脚本，包含Cloudflare SaaS/Pages/Workers优选方案与RDP中继。推荐使用v2rayN/NG客户端。FRP需配置Token认证，Debian系统支持安装Speedtest-cli。
-
 
 
 # zt重置设备ID

@@ -11,9 +11,6 @@ tags:
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> AI翻唱流程包含模型训练、歌曲转换及音轨分离：准备10-60分钟单音色素材，通过RVC训练生成.pth模型；利用Replay加载模型与原曲制作AI人声；使用UVR或MSST工具及特定模型提取伴奏与人声。
-
 
 # 视频教程
 

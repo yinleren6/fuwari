@@ -6,9 +6,6 @@ image: ../assets/images/deepwiki.png
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> DeepWiki利用AI自动生成GitHub仓库Wiki。用户可查询收录状态，通过在README添加徽章实现每周定期更新。该服务支持作为集成知识库或辅助快速上手项目。
-
 # 这是什么？
 
 在AI大道当行的时代，DeepWiki提供免费的AI用以分析全球的Github仓库，只要你的仓库有一些Star，稍微流行一些，就有可能被DeepWiki收录，并且自动通过AI大模型创建专属于你的Github仓库的强大Wiki！

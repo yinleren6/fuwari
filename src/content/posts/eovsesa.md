@@ -6,9 +6,6 @@ image: ../assets/images/eovsesa.webp
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> EdgeOne与ESA在2026年体验相近。EdgeOne采用自研规则引擎，规则先于WAF执行，其Page服务支持完整Node.js与海量文件托管，且允许直接配置回源端口。ESA设计多效仿Cloudflare，WAF优先级最高，免费版限5条规则，SSL支持泛域名管理，但Page服务环境及文件规格受限。两家均会对长时单IP请求限速至约500KB/s，不适合反向代理对象存储或大文件分发业务。
-
 
 # 前言
 

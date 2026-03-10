@@ -8,9 +8,6 @@ tags: [Python]
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 为解决批量顺序重命名时的同名冲突及报错，先将所有文件重命名为随机数以消除命名占用，再重新执行顺序命名。
-
 
 
 # 正式开始

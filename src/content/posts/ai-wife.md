@@ -8,9 +8,6 @@ category: '教程'
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> AI绘图通过ComfyUI或Stable Diffusion Forge工具实现，建议优先使用NVIDIA CUDA硬件。核心流程包括部署基底模型与风格角色模型，并将其放置于对应的models文件夹。绘图时需加载JSON工作流，选择模型后输入英文正反向提示词，通过Danbooru标签或LoRA触发词定义内容。最终需依据不同基底模型的规范设置图像分辨率并执行生成。
-
 # 引言
 
 曾经我写过一篇文章，记录了从零开始研究AI绘图的经历——当时把Stable Diffusion WebUI、Stable Diffusion Forge WebUI、ComfyUI全装了一遍，各种找教程、实操、试错。好在凭借着仅剩的记忆也是顺着这些蛛丝马迹把丢掉的知识找回来了。

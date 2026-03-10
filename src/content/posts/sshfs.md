@@ -8,9 +8,6 @@ category: '教程'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 安装sshfs-win及管理工具，配置并建立连接后，即可在资源管理器挂载远程磁盘。
-
 
 
 # 正式开始

@@ -8,9 +8,6 @@ category: '记录'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 企业微信工作台创建并配置机器人。
-
 
 
 # 正式开始

@@ -8,9 +8,6 @@ category: '教程'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 安装Chevereto 4.3.6 Pro需PHP 8.1+（含fileinfo、imagemagick、exif扩展并取消putenv、proc_open禁用）及MySQL 8.0+环境。将源码解压至根目录，按环境配置Apache或Nginx伪静态后执行网页安装向导，遇错通过调试模式或错误日志排障。
-
 
 # 视频教程
 

@@ -9,9 +9,6 @@ tags:
 - USTC
 title: 绕过USTC的浏览器JS验证
 ---
-> [!ai] gemini-3-flash-preview
-> USTC镜像站在下载大文件时采用JavaScript验证机制，要求浏览器将访问IP写入名为addr的Cookie，否则返回403错误。对于wget等不支持JS的工具，可以通过在请求头中手动添加该IP Cookie并伪造浏览器User-Agent来绕过验证并成功下载。
-
 # 前言
 
 当我们去下载类似于 https://mirrors.ustc.edu.cn/debian-cd/12.10.0/amd64/iso-dvd/debian-12.10.0-amd64-DVD-1.iso 这样的大文件时，USTC大概率会给你一个这样的：正在验证你的浏览器 的页面

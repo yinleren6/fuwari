@@ -8,9 +8,6 @@ category: '记录'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> Netlify OSS计划不接受个人博客。申请者需将托管在该平台的开源项目信息提交至opensource-form.netlify.com，获批后账户将由Starter升级至Open Source。
-
 
 
 # 正式开始

@@ -8,9 +8,6 @@ category: '记录'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 发现内容丰富且移除JavaScript的博客，产生共鸣并捐赠100元支持。
-
 
 
 今天偶然找到一个神秘博客，还挺有意思的，于是捐了 100 CNY

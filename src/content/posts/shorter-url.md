@@ -6,9 +6,6 @@ image: ../assets/images/shorter-url.webp
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> 利用Cloudflare和GitHub重定向文件搭建短链服务，需配置中间页防滥用，并遵循系统重定向条数限制。
-
 
 # 视频
 https://www.bilibili.com/video/BV1BCi1B7E1q/

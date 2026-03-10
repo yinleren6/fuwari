@@ -8,9 +8,6 @@ tags: [Oracle]
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 甲骨文云账户区域不可更改，热门区域ARM资源紧张。建议启用两步验证。创建Debian实例需将镜像上传至对象存储后导入，ARM镜像需手动配置兼容性。网络需建立VCN、附加IPv6前缀并放行安全规则。免费套餐包含两台x86或4c24g ARM实例，负载长期低于20%将被回收。SSH连接初始用户为debian，通过修改authorized_keys并重启服务可开启root登录。
-
 
 
 # 区域选择

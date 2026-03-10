@@ -9,9 +9,6 @@ tags:
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> 获取OneDrive凭据并在Vercel部署，配置环境变量并集成Upstash Redis。通过微软授权完成初始化；更换账号需更新环境变量并清除Redis缓存。
-
 
 # 正式开始
 你可以根据[前文](/posts/ms-e3/)免费拿E3，得到至高免费5T的OneDrive存储空间，也可以用你个人永久免费的5G空间，都可以！

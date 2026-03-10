@@ -8,9 +8,6 @@ category: '教程'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 优选域名需利用多线机子通过Curl+Resolve方式筛选CDN IP段，建议仅测试C段以提高效率。筛选结果经API同步至支持高容量记录与极低TTL的华为云海外版DNS。运维阶段需配置默认解析线路并实时监控IP段变动，若遇攻击应及时还原官方CNAME配置，避免因无法自动调度导致业务封禁。
-
 
 
 # 基本思路

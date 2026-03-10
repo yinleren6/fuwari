@@ -11,9 +11,6 @@ draft: false
 lang: ""
 ai_level: 2
 ---
-> [!ai] gemini-3-flash-preview
-> 64位系统开启UPnP后使用网易UU远程实现P2P连接。32位系统需在NAT1环境下将电脑设为DMZ主机，利用Natter等工具通过STUN协议将3389端口映射至公网IP与随机端口，最后通过mstsc完成远程访问。
-
 
 # 前言
 你可能会觉得：远程控制电脑而已，直接装个 UU 远程、向日葵之类的软件不就好了，为什么还要专门写一篇文章？

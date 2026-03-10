@@ -8,9 +8,6 @@ published: 2025-04-15
 tags: [Github, 反向代理, Cloudflare Worker, EdgeOne, Vercel]
 title: Github全站反向代理搭建指南
 ---
-> [!ai] gemini-3-flash-preview
-> 搭建GitHub全站反向代理需通过透明代理与HTML覆写解决外域资源依赖，并屏蔽登录、注册等路径以规避钓鱼风险。核心逻辑是建立完整的域名映射体系，将请求转发至原站并动态重写返回内容中的链接。部署方案包括Vercel Function、Cloudflare Worker、EdgeOne Pages及VPS+Go，重点在于配置映射规则并绑定所有相关子域名，从而实现全站资源的顺畅访问与安全性合规。
-
 
 
 # 引言

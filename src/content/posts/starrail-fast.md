@@ -8,9 +8,6 @@ published: 2025-04-15
 tags: [崩坏星穹铁道, DLL注入]
 title: 崩坏星穹铁道全局加速
 ---
-> [!ai] gemini-3-flash-preview
-> 编译DLL源码并使用Extreme Injector注入游戏进程，绕过ACE反作弊系统后，利用Cheat Engine变速精灵实现游戏加速。
-
 
 # 原理剖析
 

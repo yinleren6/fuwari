@@ -9,9 +9,6 @@ tags:
 - 生活
 title: 卧室布局整改记录
 ---
-> [!ai] gemini-3-flash-preview
-> 整理了杂乱的卧室及布线。
-
 
 # 前言
 

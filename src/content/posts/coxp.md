@@ -6,9 +6,6 @@ image: ../assets/images/coxp.webp
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> CORP通过same-origin或same-site响应头控制资源是否允许被跨源加载。CORS通过Access-Control系列头字段（如Origin、Methods、Headers、Expose-Headers等）授权特定源对API的访问权限、请求方式及响应头读取。COOP通过隔离浏览器窗口上下文和进程，防止跨源页面共享执行环境并限制window.opener访问，以抵御侧信道攻击。这些策略共同定义了Web环境中资源、接口与页面环境的跨域访问及隔离规则。
-
 # 正式开始
 如果你做过网站（HTML），你就会知道，一个网页除了自身提供内容，如 `<p>hello world</p>` ，还可以 **内嵌外链资源** ，如 `<img src="https://othersite.com/hello.webp">`
 

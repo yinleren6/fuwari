@@ -9,9 +9,6 @@ tags:
 - Phira
 title: Phira多人联机服务器搭建/使用教程
 ---
-> [!ai] gemini-3-flash-preview
-> 可通过GitHub或下载站获取phira-mp服务端直接运行，默认端口12346，支持自定义端口与日志等级。亦可部署Rust环境后，克隆仓库并执行`cargo build --release -p phira-mp-server`自行编译运行。
-
 
 # 直接下载服务端文件并运行
 

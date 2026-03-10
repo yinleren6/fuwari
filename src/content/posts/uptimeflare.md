@@ -6,9 +6,6 @@ image: ../assets/images/uptimeflare.webp
 draft: false
 lang: ""
 ---
-> [!ai] gpt-5.3-codex
-> 文章围绕 UptimeFlare 从 KV 迁移到 D1 的升级实践，梳理了权限补充、配置迁移、自动部署与数据迁移步骤，并说明其基于 Cloudflare Worker + D1 + Pages 的监控与展示架构。
-
 # 从KV迁移
 由于原项目于26/1/3将数据存储从KV迁移到了D1，并且配备了完备的i18n，如果你仍在运营旧版的UptimeFlare，建议升级，下面是迁移教程
 

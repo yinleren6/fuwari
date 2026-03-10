@@ -6,9 +6,6 @@ image: ../assets/images/avatar.webp
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> 多数APP头像接口因未严格执行SSL或身份校验，可依据W3C规范直接跨域引用，而微软及部分社交应用则通过Cookie或非Web协议限制访问。Referer白名单防盗链手段因可伪造而失效。建议采用基于Cookie的后端处理、Accept请求头白名单校验或CORP（Cross-Origin-Resource-Policy）策略以实现有效的静态资源保护。
-
 
 
 # 这是什么？

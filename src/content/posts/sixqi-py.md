@@ -8,9 +8,6 @@ category: '记录'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 利用 Python Flask 框架与 AI 辅助开发的 sixqi 项目已上线（https://sixqi.afo.im/）并于 GitHub 开源。
-
 
 
 # 前情提要

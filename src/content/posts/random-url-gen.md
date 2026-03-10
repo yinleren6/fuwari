@@ -6,9 +6,6 @@ image: ../assets/images/random-url-gen.webp
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> 随机图API架构从传统服务器演进至云函数与资产托管一体化，以降低带宽成本并提升并发性能。其核心机制分为直接响应和302重定向：前者单次连接效率高，后者利于逻辑与资产分离。创新方案包括利用Cloudflare Origin Rules通过生成UUID匹配静态资产实现零计费边缘分发，以及通过客户端JS生成随机数拼接URL以消除后端依赖。现代架构正向边缘化、无服务器化和前端去中心化方向转变。
-
 
 # 探索架构
 我们先不讲一个抽象的概念，我们首先来做一个小项目

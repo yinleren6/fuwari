@@ -6,9 +6,6 @@ image: ../assets/images/bitwarden.png
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> Bitwarden.com免费版仅在前端限制TOTP自动填充。用户无需自建服务器，可通过Android端KeyGuard或浏览器插件Sunsetvault等第三方客户端绕过前端校验，将账户识别为VIP以激活该功能。该方案能直接利用官方云服务及安全日志，但属于非官方绕过，用户必须妥善保管无法找回的主密码，并建议将Bitwarden自身的登录凭据存储在外部以防访问受限。
-
 
 # Bitwarden以及Bitwarden.com是什么
 

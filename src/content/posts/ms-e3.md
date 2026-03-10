@@ -9,9 +9,6 @@ tags:
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> 注册微软E3全局管理员，国家选CN并经支付宝订阅。分配许可证后，在SharePoint设置中将OneDrive存储限额调至5120GB，或通过活跃用户管理强制扩容，并绑定安全信息。
-
 
 # 参考文献
 [微软Office365 E3订阅回归？25个E3 Dev免费开通指南 - 极圈 奶昔论坛](https://forum.naixi.net/thread-6702-1-1.html)

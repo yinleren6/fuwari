@@ -10,9 +10,6 @@ tags:
   - Cloudflare Byoip
 title: 试试Cloudflare IP优选！让Cloudflare在国内再也不是减速器！
 ---
-> [!ai] gemini-3-flash-preview
-> 优选是手动将域名解析至国内访问更快的Cloudflare节点，以解决官方分配IP延迟高或无法访问的问题。其核心原理是利用SaaS或Worker路由自主控制规则层与解析层，确保在DNS指向优选IP时路由规则依然生效。优选资源包括传统社区IP段及延迟更低的Cloudflare Byoip。具体实现上，Worker项目可通过配置路由并将DNS解析至优选域名完成加速；进阶方案则利用Worker代码反代源站，再将域名指向优选节点，从而优化入口访问质量。
-
 > 本教程初始发布时间为 25年6月
 
 #### 未优选

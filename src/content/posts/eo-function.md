@@ -8,9 +8,6 @@ category: '教程'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 部署EdgeOne边缘函数并配置R2存储，通过/h或/v路径获取随机图，月限300万次请求。
-
 
 
 # 正式开始

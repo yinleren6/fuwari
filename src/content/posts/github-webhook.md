@@ -8,9 +8,6 @@ category: '教程'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 结合Github识别变动与Netlify确认构建的WebHook，通过自托管Bot接收双重信号是静态博客更新通知的最佳方案。实现需在两端仓库配置WebHook，由服务器监听Push及构建成功事件后即刻推送。
-
 
 
 # 原理解析

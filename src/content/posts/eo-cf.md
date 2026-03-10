@@ -8,9 +8,6 @@ category: '记录'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 通过推特兑换EdgeOne免费版，建议优选香港优化IP替换默认CNAME，SSL需手动上传。重定向可利用规则引擎或回源Cloudflare实现，反代需将回源HOST头设为源站地址。
-
 
 
 # 引言

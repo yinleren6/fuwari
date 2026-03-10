@@ -8,9 +8,6 @@ tags: [Vercel, 重定向]
 draft: false 
 lang: ''
 ---
-> [!ai] gpt-5.3-codex
-> 文章演示了在项目根目录新增 `vercel.json` 并配置 `redirects` 规则实现服务器级重定向的方式，核心参数是 `source`、`destination` 与 `permanent`，可按需切换 307/308 行为。
-
 # 正式开始
 
 > 官方文档： [Redirects](https://vercel.com/docs/redirects)

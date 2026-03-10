@@ -8,9 +8,6 @@ category: '记录'
 draft: false 
 lang: ''
 ---
-> [!ai] gpt-5.3-codex
-> 文章对比了传统 Whois 与 RDAP 的查询特性，指出传统结果缺乏统一格式不利于程序化处理，因此在构建第三方查询服务时需要按顶级域能力在纯文本 Whois 与标准化 RDAP 间做兼容分流。
-
 # 前言
 
 ### Whois查询是什么？

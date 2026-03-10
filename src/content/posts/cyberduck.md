@@ -8,9 +8,6 @@ tags: [Cyberduck, 对象存储]
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> Cyberduck是直连S3、R2及SFTP的跨平台存储浏览器，无需部署中转且自带统计功能，可提升管理效率；其姊妹软件Mountain Duck支持将云存储映射为本地磁盘。
-
 
 # 前情提要
 

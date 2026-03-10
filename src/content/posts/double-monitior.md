@@ -6,9 +6,6 @@ image: ../assets/images/double-monitior.webp
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> 分流网站监测建议采用国内自托管Uptime Kuma与海外云监控互监，并为自托节点配置Cloudflare Tunnel防护。进阶方案通过在国内监测源向CDN节点发送携带自定义Host头的HTTP请求，利用CDN识别机制强制访问特定节点，实现单点对分流域名全球节点存活状态的精准监控。
-
 
 
 > [!warning]

@@ -8,9 +8,6 @@ category: '教程'
 draft: false 
 lang: ''
 ---
-> [!ai] gpt-5.3-codex
-> 文章展示了获取拨测来源 IP 后通过 Vercel 防火墙 API 批量下发拒绝规则的流程，重点是令牌鉴权、接口改写与按单规则上限进行分组提交，实现大规模封禁自动化。
-
 # 配套视频
 
 https://www.bilibili.com/video/BV1w7GTzMEy7

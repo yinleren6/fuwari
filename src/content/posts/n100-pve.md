@@ -9,9 +9,6 @@ tags:
 - PVE
 title: N100 - PVE（fnOS+Debian）基建记录
 ---
-> [!ai] gemini-3-flash-preview
-> 在N100硬件平台上部署PVE系统，利用Ventoy及USB网卡完成安装，通过快捷脚本优化环境并手动安装R8168网卡驱动。配置路由器DMZ与Lucky工具实现STUN穿透。在PVE中创建fnOS虚拟机，通过直通核显与SATA硬盘实现NAS功能；同步部署Debian虚拟机，用于运行QQBot、博客及AList应用。
-
 
 # 配置&需求
 

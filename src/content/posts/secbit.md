@@ -8,9 +8,6 @@ category: '记录'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 安徽移动节点测试证实，Secbit回源Cloudflare R2在延迟与带宽表现上显著优于直连，对大陆网络更友好，高流量网站可申请使用。
-
 
 
 # 官网

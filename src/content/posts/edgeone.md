@@ -8,9 +8,6 @@ category: '记录'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> EdgeOne CDN支持非备案用户通过优选IP提速，需配置回源与SSL。免费版EdgeOne Pages海外节点IP已优化，但严禁通过手动指向IP进行优选，否则会触发418错误。备案用户使用Pages延迟可低于50ms，同样不支持优选。
-
 
 
 # 这是个啥？

@@ -9,9 +9,6 @@ tags:
 - Steam
 title: 使用ArchiSteamFarm进行Steam自动挂卡
 ---
-> [!ai] gemini-3-flash-preview
-> ArchiSteamFarm是跨平台无头Steam客户端，经WebUI配置登录后可全自动挂卡。其在账号占用时自动暂停，空闲恢复，不干扰正常游戏。
-
 # 可用的目标作业系统
 
 Windows x86/Arm64

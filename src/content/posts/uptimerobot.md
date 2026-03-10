@@ -8,9 +8,6 @@ tags: [UptimeRobot]
 draft: false 
 lang: ''
 ---
-> [!ai] gpt-5.3-codex
-> 文章介绍了 UptimeRobot 免费监控的基础能力与限制，并给出创建公开状态页及自动同步新监控的配置方法，适合作为无需自托管的轻量可用性展示方案。
-
 # 正式开始
 
 进入 https://dashboard.uptimerobot.com/

@@ -10,9 +10,6 @@ draft: false
 lang: ""
 ai_level: 1
 ---
-> [!ai] gemini-3-flash-preview
-> 作者基于Fuwari开发的静态博客在加入Umami访问量统计后，因Swup处理不当导致站内跳转时产生冗余请求。通过配置Swup不再管理相关JS脚本，成功解决了多实例重复请求Token及统计接口的问题。经测试，目前全站及单页统计请求逻辑已恢复正常，消除了冗余数据交互。
-
 
 # 正式开始
 正如标题所说，我的博客是在 [saicaca/fuwari: ✨A static blog template built with Astro.](https://github.com/saicaca/fuwari) 的基础上深度改造而来的。

@@ -7,9 +7,6 @@ draft: false
 lang: ""
 ai_level: 2
 ---
-> [!ai] gemini-3-flash-preview
-> 利用Git版本控制系统读取文章修订历史，通过编写脚本在网站构建阶段生成更改索引JSON文件。针对Cloudflare CI构建环境默认缺失Git历史的问题，采用在构建命令中重新克隆完整仓库并提取索引文件的方案，实现了文章更新明细的自动化生成与生产环境展示。
-
 
 # 正式开始
 

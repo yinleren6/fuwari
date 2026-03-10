@@ -8,9 +8,6 @@ category: '教程'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> Fork `Redirect_Group` 仓库并部署至 Cloudflare，通过修改 `_redirects` 配置重定向，且不占用配额或 Worker 请求数。
-
 
 # 快速上手！
 

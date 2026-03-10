@@ -8,9 +8,6 @@ tags:
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> 从acf文件获取AppId与LastOwner，配置steam_client_loader并移入游戏目录，运行主程序以实现脱离Steam启动。
-
 
 # 正式开始
 

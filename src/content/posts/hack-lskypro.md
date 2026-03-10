@@ -8,9 +8,6 @@ category: '记录'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 针对兰空图床Pro v2.2.3提供三种绕过授权方案：一是使用修改后的本地源码包，使授权与更新验证恒为真并脱离官方服务器运行，推荐宝塔或特定Nginx配置环境；二是通过Burp Suite拦截并替换授权接口响应实现手动破解；三是利用Cloudflare Workers自建模拟授权服务器返回成功数据。
-
 
 
 > 仅供学习交流，请在下载后24h内删除。体验地址： https://lsky.2x.nz

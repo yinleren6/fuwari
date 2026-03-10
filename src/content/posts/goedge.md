@@ -8,9 +8,6 @@ tags: [CDN, GoEdge]
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 通过脚本安装GoEdge，卸载需定位安装目录。配置API节点须确保端口空闲且公网可达。核心流程为：添加DNS服务商与子域名，利用SSH自动安装节点并绑定公网DNS IP，通过ACME签发SSL证书，开启仅限绑定域名访问的安全限制，最后在管理端创建网站。
-
 
 
 # 安装GoEdge

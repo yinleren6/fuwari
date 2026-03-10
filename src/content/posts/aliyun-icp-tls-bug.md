@@ -6,9 +6,6 @@ image: ""
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> 阿里云网关针对未备案域名的SNI阻断策略存在缺陷，其DPI引擎因无法重组或解析因MTU限制触发TCP分片的TLS Client Hello报文，导致Fail-Open放行。由于现代浏览器默认启用后量子加密（PQC）使握手包体积激增并分片，此类流量可天然绕过阻断，仅未分片的小包请求仍被拦截。该漏洞根源在于DPI缺乏TCP流重组能力，建议升级引擎以支持跨包SNI解析。
-
 > [!caution]
 > 提了Bug也没人管，公开了，侵删
 

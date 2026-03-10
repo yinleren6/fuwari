@@ -8,9 +8,6 @@ category: '记录'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 修改Typora安装目录下e.hasActivated代码为恒真即可激活。
-
 
 
 进入 [Typora 官方中文站](https://typoraio.cn/)

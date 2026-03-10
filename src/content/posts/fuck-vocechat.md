@@ -8,9 +8,6 @@ category: '记录'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> VoceChat采用弱安全的前端授权验证。利用BurpSuite将授权响应体中的`"sign": false`全局替换为`true`，并手动上传一段包含域名、用户上限及有效期等字段的Base58编码伪造数据，即可绕过激活限制。该方法利用了其前端判断逻辑与数据格式校验的漏洞，可实现全域名及无用户限制的授权激活。
-
 
 
 # 前因

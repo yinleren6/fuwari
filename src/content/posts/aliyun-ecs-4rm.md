@@ -6,9 +6,6 @@ image: ../assets/images/aliyun-ecs-4rm.webp
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> 通过阿里云香港地域部署抢占型实例，利用自定义导入的Alpine镜像将云盘占用压缩至1GB以降低存储成本。开通云数据传输（CDT）服务并绑定弹性公网IP，可利用每月200GB免费流量额度。系统安装需通过VNC完成网络、SSH及磁盘分区配置，并建议配合Cloudflare Worker监控流量用量，在超出额度前执行自动停机以避免产生额外费用。
-
 # 正式开始
 > [!CAUTION]
 > 抢占型实例在高峰期可能会进行回收，不要跑生产业务

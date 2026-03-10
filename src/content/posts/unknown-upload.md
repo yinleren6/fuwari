@@ -10,9 +10,6 @@ tags:
 draft: false
 lang: ""
 ---
-> [!ai] gpt-5.3-codex
-> 文章围绕在外网环境上传小文件回家庭网络的需求，对比了 EdgeOne Pages + 对象存储与本地 Python uploadserver 两种方案，并给出按稳定性与设备在线条件选择的实践建议。
-
 # 视频
 https://www.bilibili.com/video/BV1Hz1DBZEov/
 

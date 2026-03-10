@@ -7,9 +7,6 @@ draft: false
 lang: ""
 ai_level: 1
 ---
-> [!ai] gpt-5.4
-> 这篇记录展示了所谓“无限剑制”的基本做法：先准备大量 OAuth Token，再部署 CLIProxyAPI，把多种命令行 AI 工具包装成兼容接口，通过管理页面上传认证文件、添加 API Key、查看可用模型，并最终接入 Claude Code 使用。
-
 # 原理
 
 ![](../assets/images/mermaid-diagram.png)

@@ -10,9 +10,6 @@ tags:
   - Vercel
 title: Netlify、Vercel反代网站
 ---
-> [!ai] gemini-3-flash-preview
-> 利用Netlify反代IPv6站点可解决家宽缺少公网IPv4的问题，需在GitHub仓库配置netlify.toml重定向规则并部署。Vercel虽支持通过JSON与CLI实现反代，但目前不支持IPv6。两方案均需完成域名绑定。
-
 
 
 # 原理思路

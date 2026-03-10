@@ -9,9 +9,6 @@ tags:
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> Serverless模式免除了底层基础设施管理，用户仅需上传源码即可由平台自动完成CI/CD与业务部署。其核心优势在于极低的运维成本、便捷的Git集成调试及普遍的免费额度；弊端则体现为对CPU时长、总请求数及流量等存在严格的用量约束。主流平台如Vercel、Cloudflare、Netlify、Zeabur等提供多语言支持与生态协同。尽管Serverless提升了开发效率，但受限于IO性能与资源配额，其更适用于非高负载的轻量级或非商用场景。
-
 
 # 何为Serverless
 就像简介所说，传统来说我们搭建Web服务一般会选择买一个VPS，然后在其上安装管理面板，再安装所需软件，如Nginx，AList，最后运行，开放端口，再设置DNS解析，这样，一个网站就成功上线了

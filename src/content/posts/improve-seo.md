@@ -9,9 +9,6 @@ draft: false
 lang: ''
 ai_level: 2
 ---
-> [!ai] gemini-3-flash-preview
-> 网站SEO优化需确保标题唯一并避开知名事物，建议自创英文名并跨页面锚定主标题。Description应言简意赅，无需设置关键词。同内容网站须通过301重定向统一域名，避免重复命名云托管服务。利用Lighthouse分析站点性能，接入Bing、Google等站长工具与分析系统。主动提交站点地图，并利用IndexNow或Cloudflare Crawler Hints实现内容主动推送以加速收录。
-
 
 
 # 标题

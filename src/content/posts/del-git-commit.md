@@ -6,9 +6,6 @@ image: ../assets/images/del-git-commit-1.webp
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> 使用git-filter-repo工具及其--invert-paths参数可从Git全量提交历史中剔除敏感文件。若需删除特定提交记录，利用git rebase --onto架空目标提交，配合git checkout --theirs解决冲突并强制推送。针对GitHub远端仍可通过哈希访问的孤立提交，需联系官方支持团队提交工单，申请从服务器彻底清除包含敏感信息的孤立页面。
-
 
 # 引言
 接简介

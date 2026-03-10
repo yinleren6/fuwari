@@ -8,9 +8,6 @@ category: '记录'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> xLog图床API地址为https://ipfs-relay.crossbell.io/upload，采用POST方式上传form-data（key为file），无需鉴权，返回的web2url无CORS限制。
-
 
 
 # 正式开始

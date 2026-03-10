@@ -8,9 +8,6 @@ category: '教程'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 通过 pip 安装并克隆 meme-generator 及其扩展表情仓库，配置 config.toml 路径与服务器参数后运行后端。在 Koishi 插件市场部署 1.0.3 版本插件对接后端，即可使用指令查询和生成表情。
-
 
 
 # 正式开始

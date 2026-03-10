@@ -6,9 +6,6 @@ image: ../assets/images/jkw.png
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> 基于DASH协议的AV1视频播放器需等待加载并支持解码，项目源码及原理见GitHub仓库GeekerwanTest2026与/posts/cfvideo/。
-
 <video  
 data-dashjs-player  
 src="https://f.2x.nz/jkw/manifest.mpd"  

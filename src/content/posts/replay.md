@@ -9,9 +9,6 @@ tags:
 - Replay
 title: 傻瓜式AI翻唱软件Replay！选歌！选模型！然后CREATE SONG！
 ---
-> [!ai] gemini-3-flash-preview
-> 下载Replay及数据，选定歌曲模型制作AI翻唱。
-
 
 ### AI翻唱！仅需两步！
 

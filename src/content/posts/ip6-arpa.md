@@ -8,9 +8,6 @@ category: '教程'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> ip6.arpa用于IPv6反向解析。通过TunnelBroker获取地址并按倒序规则在Cloudflare托管。需调用API将Cloudflare SSL提供商更换为SSL.COM以完成签发，且该域名仅限在Cloudflare CDN环境使用。
-
 
 
 # 这是什么

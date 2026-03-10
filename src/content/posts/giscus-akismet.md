@@ -10,9 +10,6 @@ category: 教程
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> 创建启用Discussion的公开仓库，在giscus.app中推荐选用pathname映射及严格标题匹配，将JS代码嵌入网页。反垃圾需注册Akismet并部署GitHub Action，配置API Key与GH_TOKEN。针对持续骚扰，可手动封禁用户或开启仓库临时交互限制以屏蔽新账号。
-
 
 
 # 配置Giscus

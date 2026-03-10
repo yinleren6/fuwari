@@ -9,9 +9,6 @@ tags:
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> 安装Git LFS克隆Index-TTS仓库，使用UV安装依赖并下载模型，运行webui.py。通过输入参考音频和文本生成语音，推荐使用情感向量控制。
-
 
 # 正式开始
 

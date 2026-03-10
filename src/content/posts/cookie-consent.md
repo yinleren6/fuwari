@@ -6,9 +6,6 @@ image: ../assets/images/cookie-consent.webp
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> CookieConsent.com提供符合GDPR和ePrivacy要求的脚本管理方案。操作流程包括：选择授权逻辑、配置站点信息与隐私政策、将现有追踪脚本分类导入并生成JS代码。用户将代码插入网站`<body>`后，访客即可通过弹窗自主控制四类Cookie的开启状态。该方案支持通过设置ID为`open_preferences_center`的按钮供用户随时调整偏好，无需编写额外的复杂代码。
-
 # 前言
 你的网站是否有很多的跟踪器？如 **Google Analytics、Google Adsense、Microsoft Clarity、百度统计** 等等？
 

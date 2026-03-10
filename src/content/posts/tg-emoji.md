@@ -8,9 +8,6 @@ category: '教程'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 向@Stickers发送/newemojipack上传100x100图片并发布，Premium用户可用于昵称显示。
-
 
 
 # 正式开始

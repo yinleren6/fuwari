@@ -10,9 +10,6 @@ tags:
 - Cloudflare Workers
 title: Cloudflare R2+Workers！马上搭建自己的云上图床！
 ---
-> [!ai] gemini-3-flash-preview
-> 通过Cloudflare R2存储桶托管图源，利用API令牌连接本地AList实现图片的高速上传与分类管理。创建Workers脚本绑定R2存储桶，通过调用Workers URL实现横竖屏随机图片的提取与展示。该方案利用R2提供的免费存储额度与Workers的逻辑处理能力，构建可供静态页面引用的随机图床系统。
-
 ### **结果图**
 
 ![QmVgqgoC7G8NLS21WvR8j9gf5amu33XvuV68ZrgM5B9iFf.webp](../assets/images/408795f3ec1a5a9baf91b6cd7564d6f1d7dbc5bd.webp)

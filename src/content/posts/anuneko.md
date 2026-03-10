@@ -10,9 +10,6 @@ tags:
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> AnuNeko平台利用x-token进行接口鉴权，通过调用API可实现对话流发送、回复分支选择及猫咪模型切换，相关功能已集成至开源的NoneBot2插件。
-
 # 这是What
 这是橘猫，会哈气（见封面
 

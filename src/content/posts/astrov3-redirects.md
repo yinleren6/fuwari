@@ -8,9 +8,6 @@ tags: [重定向, Astro]
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> Astro v3 支持原生重定向配置。SSG 模式建议通过适配器或构建服务商实现服务器级重定向。
-
 
 
 # 正式开始

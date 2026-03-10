@@ -8,9 +8,6 @@ category: '教程'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> S3cloudrive-index利用Vercel Function实现S3文件目录索引，支持按README部署并可扩展对接多种存储。
-
 
 
 > 视频教程（推荐）： https://www.bilibili.com/video/BV17b5gz5Ea4

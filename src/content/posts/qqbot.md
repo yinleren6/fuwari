@@ -9,9 +9,6 @@ tags:
 - QQBot
 title: 使用NoneBot2搭建你的QQBot！
 ---
-> [!ai] gemini-3-flash-preview
-> 下载NapCat.Shell并运行launcher.bat扫码登录，在WebUI配置通信端口。安装Python、pipx及nb-cli，运行nb bs创建NoneBot2项目并设置与NapCat一致的监听端口。执行nb run启动，通过/ping指令验证连接。
-
 
 # 安装 NapCat(Win)
 

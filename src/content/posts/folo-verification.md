@@ -8,9 +8,6 @@ category: '记录'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 在个人博客发布包含特定验证信息的RSS文章，并在folo.is点击认证，以完成Folo平台的RSS所有权验证。
-
 
 
 # 这是啥？

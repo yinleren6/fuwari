@@ -8,9 +8,6 @@ category: '教程'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 将低亮度隐藏图以棋盘格嵌入原图，提高曝光可使原图过曝消失并显现隐藏图。
-
 
 
 # 体验站点

@@ -8,9 +8,6 @@ category: '记录'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> Cloudflare带宽联盟通过代理模式免除或降低成员云服务的传输费用。用户需开启Cloudflare代理并严防源站泄露，建议配合私有访问设置，以规避非代理产生的流量扣费。
-
 
 # 这是什么
 

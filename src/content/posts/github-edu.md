@@ -8,9 +8,6 @@ category: '教程'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 进行GitHub学生认证需提供学生证件，确保账户支付信息姓名与证件拼音一致并使用中国大陆网络，非英文证件需附翻译。认证成功后可从GitHub Student Developer Pack领取一年期免费福利，包括1个.tech域名、1个.me域名及2个额外域名（需绑卡验证），建议通过修改NS至Cloudflare完成域名激活。
-
 
 
 # Github学生认证教程

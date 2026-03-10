@@ -6,9 +6,6 @@ image: ../assets/images/watermark.webp
 draft: false
 lang: ""
 ---
-> [!ai] gpt-5.3-codex
-> 文章围绕内容被搬运后的防护策略演进，说明了盲水印在压缩链路下易失效的问题，最终转向全图可见水印并通过清理历史资源降低无水印原图被二次提取的可能性。
-
 > [!CAUTION]
 > 2月4号的2xss你好呀
 > 

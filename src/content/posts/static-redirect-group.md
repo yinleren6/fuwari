@@ -7,9 +7,6 @@ draft: false
 lang: ""
 ai_level: 2
 ---
-> [!ai] gemini-3-flash-preview
-> Static_Redirect_Group是基于Cloudflare Worker与GitHub的短链系统，通过404 fallback机制配合JavaScript实现重定向，突破了静态规则数量限制。系统整合前后端逻辑，利用GitHub Action自动清理过期链接。部署需Fork仓库、修改HTML配置并配置GITHUB_TOKEN等环境变量。用户通过/_url页面创建短链，并建议设置WAF交互式质询以防护接口。
-
 
 # 前言
 原本这篇内容更适合写进仓库的 `README`，因为它本质上就是一个简洁的自部署教程。不过在实际整理时，我发现如果强行拆成 GitHub Pages + Cloudflare Worker 的前后端分离方案，反而会增加不少额外工作。实际上，这个项目只需要一个 Cloudflare Worker 就能跑起来，所以干脆单独写成一篇文章，方便说明整体思路。

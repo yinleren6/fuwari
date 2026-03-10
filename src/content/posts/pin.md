@@ -5,9 +5,6 @@ published: 2025-05-24
 pinned: true
 description: 关于如何联系二叉树树~
 ---
-> [!ai] gemini-3-flash-preview
-> 官方群组提供Telegram群及需赞助10元申请加入的QQ群，另设有粉丝自建的非官方Telegram频道。
-
 
 
 # 官方

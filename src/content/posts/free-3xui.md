@@ -8,9 +8,6 @@ category: '记录'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 利用FOFA搜索并汇总3x-ui站点，针对其`/login`接口编写爬虫进行弱口令批量探测，通过记录登录成功的站点获取节点资源。
-
 
 
 # 正式开始

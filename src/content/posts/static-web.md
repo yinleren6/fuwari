@@ -14,9 +14,6 @@ tags:
 - Render
 title: N款CDN/静态托管服务商的优缺点比较
 ---
-> [!ai] gemini-3-flash-preview
-> Netlify速度快且限制少，支持IPv6但注册门槛高；Vercel注册简便但限制严且国内需绑域名；EdgeOne内测无流量限制，大陆区需实名备案；Cloudflare无限流且防护强；Render限制严；GitHub Pages国内易遭阻断，不推荐使用。
-
 
 
 # [Netlify](https://www.netlify.com)

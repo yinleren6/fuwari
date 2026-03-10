@@ -9,9 +9,6 @@ tags:
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> 下载AssetRipper，通过软件打开Steam游戏的Data文件夹，待加载完毕后导出所有文件，即可在Assets目录获取解包资源。
-
 
 # 正式开始
 前往 https://github.com/AssetRipper/ ，下载 **AssetRipper** 并打开

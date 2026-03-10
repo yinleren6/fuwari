@@ -8,9 +8,6 @@ category: '教程'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 明确技术栈与功能需求，表述应简洁干练，建议要求AI在编码前反馈执行思路。复杂需求宜先构建大框架。需核实AI产出信息的准确性，Debug时须提供完整报错信息而非令其自我检查。项目开发应优先选择AI IDE（如Claude、Cursor、Trae等）而非网页端大模型。
-
 > 视频链接： https://www.bilibili.com/video/BV1jw38z9EEn/
 # 正确的引导方法
 

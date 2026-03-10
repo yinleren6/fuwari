@@ -8,9 +8,6 @@ tags: [Astro]
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> Astro默认图片优化压缩效果微乎其微且显著拖慢构建速度。在尝试将图片移至public目录（导致编辑器预览失效）及使用官方no-op配置（未能生效）均失败后，最终通过`pnpm patch`修改源码实现禁用：在`transformToPath.js`中强制返回原始路径与后缀以绕过哈希和格式转换，并在`generate.js`中硬编码跳过优化执行流程，从而彻底关闭构建时的图片优化。
-
 
 
 > 视频： [禁用Astro跟弱智一般的静态构建图像优化_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV12VH2z1EDb)

@@ -8,9 +8,6 @@ tags: [随机图API]
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 图片API现采用EdgeOne Pages Functions实现（https://eopfapi.acofork.com/pic?img=ua），支持通过h/v/ua参数区分横竖屏及自适应方向。该方案利用其免费特性，取代了此前因产生高额请求费用而废弃的Cloudflare R2版本。
-
 
 # API端点
 

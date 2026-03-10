@@ -8,9 +8,6 @@ category: '记录'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 使用美国家宽IP及Gmail注册E-Hentai账号，一周后经无痕模式登录Exhentai并保存Cookie以供后续直接访问。
-
 
 
 # 前期准备

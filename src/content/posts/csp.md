@@ -9,9 +9,6 @@ draft: false
 lang: ''
 ai_level: 1
 ---
-> [!ai] gemini-3-flash-preview
-> 网站通过innerHTML直接插入未过滤的URL参数会导致XSS漏洞，攻击者可借此执行恶意脚本窃取Cookie等敏感信息。配置严格的Content Security Policy（CSP）策略（如`script-src 'self'`）能有效拦截未经授权的内联脚本执行，是预防此类攻击的核心技术手段。保障数据安全需站点部署严谨的CSP策略，并要求用户谨慎访问不明链接。
-
 
 # 举个例子吧！
 

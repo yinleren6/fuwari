@@ -9,9 +9,6 @@ tags:
 - Rewrite
 title: 关于Rewrite MV无法播放\没有画面的解决方法
 ---
-> [!ai] gemini-3-flash-preview
-> 装扩展设WMP，或装K-Lite设MCI。
-
 # 我使用的解决方法（Windows 10及以上带有Microsoft Store的系统）
 
 安装这个即可

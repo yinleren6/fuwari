@@ -6,9 +6,6 @@ image: ../assets/images/post-diff-guide.png
 draft: false
 category: 公告
 ---
-> [!ai] gemini-3-flash-preview
-> 博客新增基于客户端的文章更新检测系统（右下角铃铛图标），通过自动比对RSS源与本地缓存，实时提醒新文章及内容变动。系统支持自动跳转至更新点，并以红色划线和绿色下划线形式展示正文DIFF对比效果，用户可随时通过清空按钮重置检测状态。
-
 
 
 > 没错，就是你现在看到的右下角那个并不起眼的小铃铛。

@@ -10,9 +10,6 @@ tags:
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> 针对Arm架构Mac运行Windows游戏，建议利用VMware Fusion虚拟机安装Windows 11 ARM系统。该方案依托系统自带的x64转译机制，通过安装VM Tools及DirectX、VC++等必要运行库，可实现高兼容性地运行Windows程序。
-
 
 # 思路
 首先，新版的Mac用的是Arm架构的Apple自研芯片并且搭载基于Unix的MacOS系统。而大部分游戏则是专为Windows x64打造的。也就是说，我们需要翻译两层，首先将Unix转Win，再将Arm架构专为x64架构

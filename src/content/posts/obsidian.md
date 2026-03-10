@@ -9,9 +9,6 @@ tags:
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> Obsidian将文件夹视为仓库。适配Fuwari需以src/content为根目录，在设置中关闭Wikilinks并采用相对路径引用附件。安装Paste image rename插件可解决图片空格导致的链接失效问题。通过其属性面板，可可视化管理文章元数据、标签及布尔字段。
-
 
 > 视频链接： https://www.bilibili.com/video/BV1C7pDzpEHY
 # 下载

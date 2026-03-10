@@ -8,9 +8,6 @@ category: '教程'
 draft: false 
 lang: ''
 ---
-> [!ai] gemini-3-flash-preview
-> 使用1Panel部署Synapse：先安装PostgreSQL并利用PGAdmin4将数据库排序规则及字符类型设为C；随后在1Panel创建存储卷并安装Synapse，编辑homeserver.yaml配置服务器名称、数据库、邮件及注册规则；最后在容器终端执行register_new_matrix_user指令创建管理员账号，即可通过Element客户端接入私有服务器。
-
 
 
 # 前置环境准备

@@ -6,9 +6,6 @@ author: "hxsyzl"
 image: "https://fastr2.497995.xyz/fuwari/image/5fd0835b-93da-4edc-bde5-f0c8aaa24b93.webp"
 tags: ["fuwari优化"]
 ---
-> [!ai] gemini-3-flash-preview
-> 为防止机器人抓取邮箱，项目集成 `rehype-email-protection` 插件并在 `astro.config.mjs` 中配置 `base64` 混淆。该插件在构建时对邮箱进行编码，由客户端 JavaScript 解码还原，实现在不影响用户体验的前提下阻断爬虫抓取，是低成本增强静态网站隐私安全的有效手段。
-
 
 > 本文非站长原创，由 https://github.com/afoim/fuwari/pull/31 提供
 

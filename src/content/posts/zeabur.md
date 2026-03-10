@@ -8,9 +8,6 @@ tags: [k3s, Zeabur]
 draft: false 
 lang: ''
 ---
-> [!ai] gpt-5.3-codex
-> 文章介绍了将满足基础配置的 VPS 接入 Zeabur 并通过 SSH 完成初始化后交由面板管理的流程，核心价值是用较低运维门槛实现 k3s 环境与自托管服务的可视化部署。
-
 # 这是个啥？
 
 它可以连接你的VPS（前提，CPU≥1c，RAM≥2G）。然后在你的机子上面跑服务，包括

@@ -6,9 +6,6 @@ image: ../assets/images/fenliu.webp
 draft: false
 lang: ""
 ---
-> [!ai] gemini-3-flash-preview
-> 针对主站、统计及随机图等站点实施国内外流量分流。SSL申请采用EdgeOne直签、ESA DCV委派及Cloudflare HTTP验证（需排除重定向路径）。静态资源境内部署于CDN Page，境外部署于Cloudflare Worker；动态内容境内通过EdgeOne以IPv6回源，境外利用Cloudflare Tunnel。解析需由国内DNS服务商托管，默认指向Cloudflare，境内解析至国内节点。境内节点须配置海外封锁以防DDoS攻击。利用浏览器JS读取响应头Server字段实现访问节点监控。Cloudflare SaaS建议采用HTTP验证以实现SSL证书自动续期。
-
 
 # 需分流的网站
 博客本体，主站

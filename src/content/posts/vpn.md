@@ -8,9 +8,6 @@ published: 2024-11-22
 tags: []
 title: 自建正向代理服务器
 ---
-> [!ai] gpt-5.3-codex
-> 文章汇总了多种自建代理路线，包括基于 Cloudflare Pages 的 EdgeTunnel 与基于海外 VPS 的 Hysteria2/V2Ray，并从部署门槛、客户端接入与平台风控限制等角度给出实践提示。
-
 # 将Cloudflare作为代理使用（Vless - EdgeTunnel）
 
 下面内容参考自：[CF VLESS 从入门到精通 cmliu/edgetunnel 必看内容 免费节点 优选订阅 Workers & Pages CM喂饭干货满满24 | CMLiussss Blog](https://vercel.blog.cmliussss.com/p/CM24/) 请支持原创作者！

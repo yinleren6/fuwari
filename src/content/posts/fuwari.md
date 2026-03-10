@@ -10,9 +10,6 @@ tags:
 title: Fuwari静态博客搭建教程
 ai_level: 2
 ---
-> [!ai] gemini-3-flash-preview
-> 搭建Fuwari博客需准备Git、Node.js、GitHub与Cloudflare账号，并利用Markdown编辑器编写内容。整体流程为本地部署编写后推送至GitHub仓库，由Cloudflare Pages执行自动构建。具体步骤包含Fork并克隆项目仓库、使用pnpm安装依赖，以及通过编辑src/config.ts文件自定义站点标题、主题、用户信息与导航栏等核心配置。
-
 
 
 ### 你需要准备的东西
