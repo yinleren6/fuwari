@@ -35,8 +35,7 @@
               "title": "eo-cf"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -184,10 +183,10 @@
       "bases:新建数据库": false
     }
   },
-  "active": "ee215ba144416f8f",
+  "active": "f6b5e7abc96521b9",
   "lastOpenFiles": [
-    "posts/email-privacy.md",
     "posts/eo-cf.md",
+    "posts/email-privacy.md",
     "posts/random-url-gen.md",
     "posts/privacy-policy.md",
     "posts/coxp.md",
