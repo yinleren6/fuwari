@@ -145,7 +145,7 @@ const setup = () => {
 		});
 	};
 
-	window.swup.hooks.on("link:click", () => {
+	window.swup.hooks.on("link:click", (visit: { el?: HTMLElement }) => {
 		document.documentElement.style.setProperty("--content-delay", "0ms");
 
 		if (!bannerEnabled) {
@@ -186,8 +186,18 @@ const setup = () => {
 			// Fragment-like behavior: if navigating between sort pages, only refresh article list
 			const currentPath = window.location.pathname;
 			const targetPath = new URL(visit.to.url, window.location.origin).pathname;
+			const sortContainer = document.getElementById("sort-container");
+
 			if (isSortPath(currentPath) && isSortPath(targetPath)) {
+				// Navigating between sort pages: only refresh article list
 				visit.containers = ["#swup-container"];
+				// Prevent sort container from animating out
+				if (sortContainer) {
+					sortContainer.classList.add("sort-keep");
+				}
+			} else if (sortContainer) {
+				// Navigating away or to sort page: let sort container animate normally
+				sortContainer.classList.remove("sort-keep");
 			}
 		},
 	);
@@ -209,6 +219,12 @@ const setup = () => {
 			const toc = document.getElementById("toc-wrapper");
 			if (toc) {
 				toc.classList.remove("toc-not-ready");
+			}
+
+			// Clean up sort-keep class
+			const sortContainer = document.getElementById("sort-container");
+			if (sortContainer) {
+				sortContainer.classList.remove("sort-keep");
 			}
 		}, 200);
 	});
