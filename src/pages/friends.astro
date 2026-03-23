@@ -50,9 +50,9 @@ const breadcrumbSchema = {
             {friends.map((friend) => (
                 <a href={friend.url} target="_blank" class="friend-card">
                     <div class="flex items-center gap-2">
-                        <div class="relative w-5 h-5 rounded overflow-hidden bg-white/10" style={`--theme-hue: ${siteConfig.themeColor.hue}`}>
+                        <div class="relative w-5 h-5 rounded overflow-hidden" style={`--theme-hue: ${siteConfig.themeColor.hue}`}>
                             <Icon name="material-symbols:person" class="absolute inset-0 m-auto text-gray-400 text-[0.7rem]" />
-                            <img src={friend.avatar} loading="lazy" class="absolute inset-0 w-full h-full object-cover" alt={`${friend.name}的头像`} onerror="this.style.display='none'" />
+                            <img src={friend.avatar} loading="lazy" class="w-full h-full object-cover" alt={`${friend.name}的头像`} onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
                         </div>
                         <div class="font-bold text-white">{friend.name}</div>
                     </div>

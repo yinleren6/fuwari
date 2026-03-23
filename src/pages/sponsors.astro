@@ -142,10 +142,10 @@ const breadcrumbSchema = {
                     <div class="sponsor-card">
                         <div class="flex items-center gap-3 p-4 rounded-lg bg-[var(--card-bg)] border border-white/10 backdrop-blur-md">
                             <div class="w-10 h-10 rounded-lg flex items-center justify-center overflow-hidden">
-                            <div class="relative w-full h-full rounded-lg overflow-hidden bg-white/10" style={`--theme-hue: ${siteConfig.themeColor.hue}`}>
+                            <div class="relative w-full h-full rounded-lg overflow-hidden" style={`--theme-hue: ${siteConfig.themeColor.hue}`}>
                                 <Icon name="material-symbols:person" class="absolute inset-0 m-auto text-gray-400 text-[1.2rem]" />
                                 {sponsor.avatar && (
-                                    <img src={sponsor.avatar} alt={`${sponsor.name}的头像`} loading="lazy" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+                                    <img src={sponsor.avatar} alt={`${sponsor.name}的头像`} loading="lazy" class="w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
                                 )}
                             </div>
                         </div>
