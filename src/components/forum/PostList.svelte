@@ -29,8 +29,9 @@
 					<div class="min-w-0 flex-1">
 						<div class="mb-2 flex flex-wrap items-center gap-2">
 							{#if post.isPinned}
-								<span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[var(--primary)]/12 text-[var(--primary)]" title="置顶帖子" aria-label="置顶帖子">
+								<span class="inline-flex items-center gap-1 rounded-lg border border-[var(--primary)]/25 bg-[var(--primary)]/12 px-2.5 py-1 text-xs font-medium text-[var(--primary)]" title="置顶帖子" aria-label="置顶帖子">
 									<Icon icon="material-symbols:keep-rounded" />
+									<span>置顶</span>
 								</span>
 							{/if}
 							<h2 class="text-lg font-bold text-white transition group-hover:text-[var(--primary)]">{post.title}</h2>

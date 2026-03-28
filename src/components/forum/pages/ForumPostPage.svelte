@@ -246,8 +246,9 @@
 				<div class="flex flex-wrap items-center justify-between gap-3 text-xs text-white/40">
 					<div class="flex flex-wrap items-center gap-3">
 						{#if post.isPinned}
-							<span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[var(--primary)]/12 text-[var(--primary)]" title="置顶帖子" aria-label="置顶帖子">
+							<span class="inline-flex items-center gap-1 rounded-lg border border-[var(--primary)]/25 bg-[var(--primary)]/12 px-2.5 py-1 text-xs font-medium text-[var(--primary)]" title="置顶帖子" aria-label="置顶帖子">
 								<Icon icon="material-symbols:keep-rounded" />
+								<span>置顶</span>
 							</span>
 						{/if}
 						<span class="rounded-full bg-white/8 px-3 py-1 text-[var(--primary)]">{post.category?.name || "未分类"}</span>
@@ -289,12 +290,11 @@
 			</div>
 		</article>
 		<section class="space-y-4">
-			<div class="flex items-center justify-between">
-				<h2 class="text-xl font-bold text-white">评论</h2>
-				<span class="text-sm text-white/35">{comments.length} 条</span>
-			</div>
-
 			<div class="card-base border border-white/10 p-4 md:p-5">
+				<div class="mb-4 flex items-center justify-between border-b border-white/10 pb-4">
+					<h2 class="text-xl font-bold text-white">评论</h2>
+					<span class="text-sm text-white/35">{comments.length} 条</span>
+				</div>
 				{#if hasToken}
 					<div class="space-y-3">
 						<ForumMarkdownEditor bind:value={commentContent} mode="comment" uploadType="comment" uploadPostId={postId} placeholder="写下你的评论（支持 Markdown）" submitting={commentSubmitting} minHeight={180} submitHint="Ctrl/Cmd + Enter 提交评论" on:submit={() => submitComment()} />
