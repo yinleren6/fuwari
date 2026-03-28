@@ -72,7 +72,7 @@ npm install -D concurrently
 
 最后，我们需要设置一下 Vite 的 Proxy ，将 `/api` 也就是后端的请求转发给 Wrangler ，配置 Vite 配置文件的 `server` 块
 
-```ts vite.config.ts ins={6-8}
+```ts vite.config.ts ins={5-9}
     server: {
         fs: {
             allow: ['..']
