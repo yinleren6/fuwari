@@ -639,7 +639,9 @@
 
 									<div class="flex flex-wrap gap-2">
 										<button class="rounded-xl border border-white/10 px-3 py-2 text-xs font-bold text-white/75 disabled:opacity-60" disabled={hasUserActionConflict(forumUser.id)} on:click={() => startEditUser(forumUser)}>编辑资料</button>
-										<button class="rounded-xl border border-white/10 px-3 py-2 text-xs font-bold text-white/75 disabled:opacity-60" disabled={userActionBusyId === forumUser.id || Boolean(editingUserId)} on:click={() => runUserAction(forumUser.id, "resend")}>{userActionBusyId === forumUser.id && userActionType === "resend" ? "发送中..." : "重发验证"}</button>
+										{#if !forumUser.verified}
+											<button class="rounded-xl border border-white/10 px-3 py-2 text-xs font-bold text-white/75 disabled:opacity-60" disabled={userActionBusyId === forumUser.id || Boolean(editingUserId)} on:click={() => runUserAction(forumUser.id, "resend")}>{userActionBusyId === forumUser.id && userActionType === "resend" ? "发送中..." : "重发验证"}</button>
+										{/if}
 										<button class="rounded-xl border border-emerald-300/20 px-3 py-2 text-xs font-bold text-emerald-200 disabled:opacity-60" disabled={userActionBusyId === forumUser.id || forumUser.verified || Boolean(editingUserId)} on:click={() => runUserAction(forumUser.id, "verify")}>{userActionBusyId === forumUser.id && userActionType === "verify" ? "处理中..." : "手动通过"}</button>
 										<button class="rounded-xl border border-red-200/20 px-3 py-2 text-xs font-bold text-red-200 disabled:opacity-60" disabled={userActionBusyId === forumUser.id || Boolean(editingUserId)} on:click={() => runUserAction(forumUser.id, "delete")}>{userActionBusyId === forumUser.id && userActionType === "delete" ? "删除中..." : "删除用户"}</button>
 									</div>
@@ -723,7 +725,9 @@
 											<td class="px-3 py-3 whitespace-nowrap">
 												<div class="flex flex-wrap gap-2">
 													<button class="rounded-xl border border-white/10 px-3 py-2 text-xs font-bold text-white/75 disabled:opacity-60" disabled={hasUserActionConflict(forumUser.id)} on:click={() => startEditUser(forumUser)}>编辑资料</button>
-													<button class="rounded-xl border border-white/10 px-3 py-2 text-xs font-bold text-white/75 disabled:opacity-60" disabled={userActionBusyId === forumUser.id || Boolean(editingUserId)} on:click={() => runUserAction(forumUser.id, "resend")}>{userActionBusyId === forumUser.id && userActionType === "resend" ? "发送中..." : "重发验证"}</button>
+													{#if !forumUser.verified}
+														<button class="rounded-xl border border-white/10 px-3 py-2 text-xs font-bold text-white/75 disabled:opacity-60" disabled={userActionBusyId === forumUser.id || Boolean(editingUserId)} on:click={() => runUserAction(forumUser.id, "resend")}>{userActionBusyId === forumUser.id && userActionType === "resend" ? "发送中..." : "重发验证"}</button>
+													{/if}
 													<button class="rounded-xl border border-emerald-300/20 px-3 py-2 text-xs font-bold text-emerald-200 disabled:opacity-60" disabled={userActionBusyId === forumUser.id || forumUser.verified || Boolean(editingUserId)} on:click={() => runUserAction(forumUser.id, "verify")}>{userActionBusyId === forumUser.id && userActionType === "verify" ? "处理中..." : "手动通过"}</button>
 													<button class="rounded-xl border border-red-200/20 px-3 py-2 text-xs font-bold text-red-200 disabled:opacity-60" disabled={userActionBusyId === forumUser.id || Boolean(editingUserId)} on:click={() => runUserAction(forumUser.id, "delete")}>{userActionBusyId === forumUser.id && userActionType === "delete" ? "删除中..." : "删除用户"}</button>
 												</div>
