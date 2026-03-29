@@ -71,7 +71,7 @@ export interface AdminEmailTestResult {
 export interface AdminEmailTestOptions {
 	to: string;
 	template?: string;
-	testAll?: boolean;
+	payload?: Record<string, string>;
 }
 
 export interface AdminUserActionResult {

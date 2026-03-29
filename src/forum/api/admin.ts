@@ -158,7 +158,7 @@ export async function sendAdminTestEmail(options: AdminEmailTestOptions) {
 		json: {
 			to: options.to,
 			template: options.template,
-			test_all: options.testAll,
+			payload: options.payload,
 		},
 	});
 	return normalizeEmailTestResults(result);

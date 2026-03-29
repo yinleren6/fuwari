@@ -48,10 +48,24 @@
 	let settings: ForumAdminSettings = { ...defaultSettings };
 	let users: ForumUser[] = [];
 	let categories: ForumCategory[] = [];
+	const emailTemplateOptions = [
+		{ value: "smtp_test", label: "SMTP 测试邮件" },
+		{ value: "reset_password", label: "密码重置邮件" },
+		{ value: "change_email_confirm", label: "更换邮箱确认邮件" },
+		{ value: "register_verify", label: "注册验证邮件" },
+		{ value: "admin_resend_verify", label: "后台重发验证邮件" },
+		{ value: "admin_avatar_updated", label: "后台头像更新通知" },
+		{ value: "admin_username_updated", label: "后台用户名更新通知" },
+		{ value: "admin_manual_verified", label: "后台手动验证通知" },
+		{ value: "admin_account_deleted", label: "后台删号通知" },
+		{ value: "post_new_comment", label: "帖子新评论提醒" },
+		{ value: "comment_new_reply", label: "评论新回复提醒" },
+	] as const;
+
 	let emailResults: AdminEmailTestResult[] = [];
 	let newCategoryName = "";
 	let emailTestTo = "";
-	let emailTestTemplate = "all";
+	let emailTestTemplates = emailTemplateOptions.map((item) => item.value);
 	let emailTesting = false;
 	let editingCategoryId = "";
 	let editingCategoryName = "";
@@ -164,16 +178,35 @@
 		}
 	}
 
+	function toggleAllEmailTemplates(checked: boolean) {
+		emailTestTemplates = checked ? emailTemplateOptions.map((item) => item.value) : [];
+	}
+
+	function isAllEmailTemplatesSelected() {
+		return emailTestTemplates.length === emailTemplateOptions.length;
+	}
+
 	async function sendEmailTestAction() {
-		if (!emailTestTo.trim() || emailTesting) return;
+		if (!emailTestTo.trim() || emailTesting || emailTestTemplates.length === 0) return;
 		emailTesting = true;
-		status = emailTestTemplate === "all" ? "正在测试全部邮件模板..." : "正在发送测试邮件...";
+		status = isAllEmailTemplatesSelected() ? "正在测试全部邮件模板..." : `正在发送 ${emailTestTemplates.length} 个测试模板...`;
 		try {
-			emailResults = await sendAdminTestEmail({
-				to: emailTestTo.trim(),
-				template: emailTestTemplate === "all" ? undefined : emailTestTemplate,
-				testAll: emailTestTemplate === "all",
-			});
+			if (isAllEmailTemplatesSelected()) {
+				emailResults = await sendAdminTestEmail({
+					to: emailTestTo.trim(),
+					template: "all",
+				});
+			} else {
+				const resultGroups = await Promise.all(
+					emailTestTemplates.map((template) =>
+						sendAdminTestEmail({
+							to: emailTestTo.trim(),
+							template,
+						}),
+					),
+				);
+				emailResults = resultGroups.flat();
+			}
 			status = emailResults.length > 0 ? "测试邮件已提交。" : "请求已提交，但后端未返回详细结果。";
 		} catch (error) {
 			emailResults = [];
@@ -481,24 +514,25 @@
 						<label class="text-sm text-white/65" for="forum-admin-email-test">收件邮箱</label>
 						<input id="forum-admin-email-test" bind:value={emailTestTo} type="email" class="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-white outline-none focus:border-[var(--primary)]" placeholder="name@example.com" />
 					</div>
-					<div class="space-y-2">
-						<label class="text-sm text-white/65" for="forum-admin-email-template">测试模板</label>
-						<select id="forum-admin-email-template" bind:value={emailTestTemplate} class="forum-select w-full rounded-xl border border-white/10 px-4 py-3 text-white outline-none focus:border-[var(--primary)]">
-							<option value="all">全部模板</option>
-							<option value="smtp_test">SMTP 测试邮件</option>
-							<option value="reset_password">密码重置邮件</option>
-							<option value="change_email_confirm">更换邮箱确认邮件</option>
-							<option value="register_verify">注册验证邮件</option>
-							<option value="admin_resend_verify">后台重发验证邮件</option>
-							<option value="admin_avatar_updated">后台头像更新通知</option>
-							<option value="admin_username_updated">后台用户名更新通知</option>
-							<option value="admin_manual_verified">后台手动验证通知</option>
-							<option value="admin_account_deleted">后台删号通知</option>
-							<option value="post_new_comment">帖子新评论提醒</option>
-							<option value="comment_new_reply">评论新回复提醒</option>
-						</select>
+					<div class="space-y-3">
+						<div class="flex items-center justify-between gap-3">
+							<label class="text-sm text-white/65">测试模板</label>
+							<label class="flex items-center gap-2 text-sm text-white/65">
+								<input type="checkbox" checked={isAllEmailTemplatesSelected()} on:change={(event) => toggleAllEmailTemplates((event.currentTarget as HTMLInputElement).checked)} />
+								全选
+							</label>
+						</div>
+						<div class="grid gap-2 rounded-xl border border-white/10 bg-black/20 p-4 sm:grid-cols-2">
+							{#each emailTemplateOptions as option}
+								<label class="flex items-center gap-2 text-sm text-white/70">
+									<input type="checkbox" bind:group={emailTestTemplates} value={option.value} />
+									{option.label}
+								</label>
+							{/each}
+						</div>
+						<p class="text-xs text-white/40">已选择 {emailTestTemplates.length} / {emailTemplateOptions.length} 个模板；全选时将走后端批量发送。</p>
 					</div>
-					<button class="rounded-xl border border-white/10 px-5 py-3 font-bold text-white/80 disabled:opacity-60" disabled={emailTesting || !emailTestTo.trim()} on:click={sendEmailTestAction}>{emailTesting ? "测试中..." : emailTestTemplate === "all" ? "测试全部模板" : "发送测试邮件"}</button>
+					<button class="rounded-xl border border-white/10 px-5 py-3 font-bold text-white/80 disabled:opacity-60" disabled={emailTesting || !emailTestTo.trim() || emailTestTemplates.length === 0} on:click={sendEmailTestAction}>{emailTesting ? "测试中..." : isAllEmailTemplatesSelected() ? "测试全部模板" : `发送 ${emailTestTemplates.length} 个测试模板`}</button>
 					{#if emailResults.length > 0}
 						<div class="space-y-2">
 							{#each emailResults as result}
