@@ -172,7 +172,7 @@
 			</div>
 		</section>
 
-		<section class="space-y-4">
+		<section class="card-base p-6 md:p-8 space-y-4">
 			<div class="flex items-center justify-between gap-3">
 				<h2 class="text-xl font-bold text-white">TA 发布的帖子</h2>
 				<span class="text-sm text-white/35">{posts.length} 篇</span>
