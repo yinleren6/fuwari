@@ -3,14 +3,14 @@ import PageCardHeader from "@components/misc/PageCardHeader.astro";
 import PhantomTankGenerator from "@components/PhantomTankGenerator.svelte";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 
-const title = "隐藏图 / 幻影图生成器";
+const title = "光棱坦克 / 暗影坦克图片工具";
 ---
 
 <MainGridLayout title={title}>
 	<div class="card-base p-6 md:p-8">
 		<PageCardHeader title={title} icon="material-symbols:layers-rounded" pathname="/phantom-tank/" />
 		<p class="mb-6 text-sm leading-relaxed text-50">
-			上传原图与隐藏图后，可在浏览器本地完成合成、预览与 PNG 下载；所有处理均在前端完成，不会上传到服务端。
+			同页支持光棱坦克与暗影坦克两种模式：可在浏览器本地完成双图上传、生成、预览与 PNG 下载；所有处理均在前端完成，不会上传到服务端。
 		</p>
 		<PhantomTankGenerator client:load />
 	</div>

@@ -47,6 +47,7 @@ scripts/__pycache__/
 
 # Claude Code local workspace
 .claude/
+.claude-temp/
 
 # Spec workflow local artifacts
 .spec-workflow/
