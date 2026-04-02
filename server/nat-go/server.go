@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/gorilla/websocket"
@@ -25,141 +26,246 @@ type Result struct {
 	PublicIP string `json:"public_ip"`
 }
 
+type ClientSession struct {
+	ws         *websocket.Conn
+	pcA        *webrtc.PeerConnection
+	pcB        *webrtc.PeerConnection
+	publicIP   string
+	ports      map[string]bool
+	mu         sync.Mutex
+	dataChanA  *webrtc.DataChannel
+	dataChanB  *webrtc.DataChannel
+	probeRecv  bool
+}
+
 func main() {
 	http.HandleFunc("/ws", wsHandler)
-	log.Println("Server running :9000")
+	log.Println("NAT检测服务器启动在 :9000")
 	http.ListenAndServe(":9000", nil)
 }
 
 func wsHandler(w http.ResponseWriter, r *http.Request) {
-	ws, _ := upgrader.Upgrade(w, r, nil)
+	ws, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		log.Println("WebSocket升级失败:", err)
+		return
+	}
+	defer ws.Close()
 
-	// === Peer A（正常连接）===
-	pcA, _ := webrtc.NewPeerConnection(webrtc.Configuration{
+	session := &ClientSession{
+		ws:      ws,
+		ports:   make(map[string]bool),
+		probeRecv: false,
+	}
+
+	// === 创建pcA（主连接）===
+	pcA, err := webrtc.NewPeerConnection(webrtc.Configuration{
 		ICEServers: []webrtc.ICEServer{
 			{URLs: []string{"stun:stun.l.google.com:19302"}},
 		},
 	})
+	if err != nil {
+		log.Println("创建pcA失败:", err)
+		return
+	}
+	session.pcA = pcA
+	defer pcA.Close()
 
-	// === Peer B（隐藏探测）===
-	pcB, _ := webrtc.NewPeerConnection(webrtc.Configuration{})
+	// === 创建pcB（探测连接）===
+	pcB, err := webrtc.NewPeerConnection(webrtc.Configuration{})
+	if err != nil {
+		log.Println("创建pcB失败:", err)
+		return
+	}
+	session.pcB = pcB
+	defer pcB.Close()
 
-	var publicIP string
-	ports := make(map[string]bool)
-
-	var dataChannelA *webrtc.DataChannel
-
-	// === A：接收 DataChannel ===
+	// === pcA接收DataChannel ===
 	pcA.OnDataChannel(func(dc *webrtc.DataChannel) {
-		dataChannelA = dc
+		session.dataChanA = dc
+		log.Println("pcA收到DataChannel:", dc.Label())
 
 		dc.OnOpen(func() {
-			log.Println("A DataChannel open")
+			log.Println("pcA DataChannel已打开")
 
+			// 等待3秒后开始分析
 			go func() {
 				time.Sleep(3 * time.Second)
-
-				// === Symmetric 判断 ===
-				if len(ports) > 1 {
-					send(ws, "Symmetric NAT", publicIP)
-					return
-				}
-
-				// === 启动 B 探测 ===
-				testPortRestricted(pcB, dataChannelA, ws, publicIP)
+				session.analyzeAndSendResult()
 			}()
 		})
 
 		dc.OnMessage(func(msg webrtc.DataChannelMessage) {
-			log.Println("A 收到:", string(msg.Data))
+			text := string(msg.Data)
+			log.Println("pcA收到消息:", text)
+
+			// 收到探测响应
+			if text == "probe-ack" {
+				session.mu.Lock()
+				session.probeRecv = true
+				session.mu.Unlock()
+				log.Println("收到探测响应，可能是Restricted Cone")
+			}
 		})
 	})
 
-	// === ICE 收集 ===
+	// === pcA的ICE候选者处理 ===
 	pcA.OnICECandidate(func(c *webrtc.ICECandidate) {
 		if c == nil {
 			return
 		}
-		ws.WriteJSON(map[string]string{
-			"ice-candidate": c.ToJSON().Candidate,
+		candidate := c.ToJSON().Candidate
+		log.Println("pcA ICE候选者:", candidate)
+
+		// 发送给客户端
+		session.ws.WriteJSON(map[string]string{
+			"ice-candidate": candidate,
 		})
 	})
 
-	// === WebSocket 接收 ===
+	// === pcA ICE连接状态 ===
+	pcA.OnICEConnectionStateChange(func(state webrtc.ICEConnectionState) {
+		log.Println("pcA ICE状态:", state.String())
+	})
+
+	// === 处理WebSocket消息 ===
 	for {
 		var msg Msg
 		if err := ws.ReadJSON(&msg); err != nil {
+			log.Println("读取消息失败:", err)
 			break
 		}
 
 		if msg.SDP != "" {
-			pcA.SetRemoteDescription(webrtc.SessionDescription{
-				Type: webrtc.SDPTypeOffer,
-				SDP:  msg.SDP,
-			})
-
-			answer, _ := pcA.CreateAnswer(nil)
-			pcA.SetLocalDescription(answer)
-
-			ws.WriteJSON(map[string]string{
-				"sdp": answer.SDP,
-			})
+			log.Println("收到SDP Offer")
+			session.handleSDP(msg.SDP)
 		}
 
 		if msg.ICECandidate != "" {
-			pcA.AddICECandidate(webrtc.ICECandidateInit{
-				Candidate: msg.ICECandidate,
-			})
+			session.handleICECandidate(msg.ICECandidate)
+		}
+	}
+}
 
-			// === 解析 srflx ===
-			if strings.Contains(msg.ICECandidate, "srflx") {
-				parts := strings.Split(msg.ICECandidate, " ")
-				ip := parts[4]
-				port := parts[5]
+func (s *ClientSession) handleSDP(sdp string) {
+	err := s.pcA.SetRemoteDescription(webrtc.SessionDescription{
+		Type: webrtc.SDPTypeOffer,
+		SDP:  sdp,
+	})
+	if err != nil {
+		log.Println("设置RemoteDescription失败:", err)
+		return
+	}
 
-				publicIP = ip
-				ports[port] = true
+	answer, err := s.pcA.CreateAnswer(nil)
+	if err != nil {
+		log.Println("创建Answer失败:", err)
+		return
+	}
+
+	err = s.pcA.SetLocalDescription(answer)
+	if err != nil {
+		log.Println("设置LocalDescription失败:", err)
+		return
+	}
+
+	s.ws.WriteJSON(map[string]string{
+		"sdp": answer.SDP,
+	})
+	log.Println("已发送SDP Answer")
+}
+
+func (s *ClientSession) handleICECandidate(candidate string) {
+	err := s.pcA.AddICECandidate(webrtc.ICECandidateInit{
+		Candidate: candidate,
+	})
+	if err != nil {
+		log.Println("添加ICE候选者失败:", err)
+		return
+	}
+
+	// 解析srflx候选者
+	if strings.Contains(candidate, "srflx") && strings.Contains(candidate, "udp") {
+		parts := strings.Split(candidate, " ")
+		if len(parts) >= 6 {
+			ip := parts[4]
+			port := parts[5]
+
+			// 跳过IPv6
+			if !strings.Contains(ip, ":") {
+				s.mu.Lock()
+				s.publicIP = ip
+				s.ports[port] = true
+				s.mu.Unlock()
+				log.Printf("记录srflx: IP=%s, Port=%s\n", ip, port)
 			}
 		}
 	}
 }
 
-// === Port Restricted 测试 ===
-func testPortRestricted(pcB *webrtc.PeerConnection, dcA *webrtc.DataChannel, ws *websocket.Conn, ip string) {
+func (s *ClientSession) analyzeAndSendResult() {
+	s.mu.Lock()
+	defer s.mu.Unlock()
 
-	log.Println("开始 Port Restricted 测试")
+	log.Printf("分析结果: IP=%s, 端口数=%d\n", s.publicIP, len(s.ports))
 
-	// 创建隐藏 DataChannel（不会被客户端主动连接）
-	dcB, _ := pcB.CreateDataChannel("probe", nil)
+	if s.publicIP == "" {
+		s.sendResult("Blocked", "")
+		return
+	}
 
-	received := false
+	// 端口超过1个，对称型NAT
+	if len(s.ports) > 1 {
+		s.sendResult("Symmetric", s.publicIP)
+		return
+	}
+
+	// 尝试探测端口限制型
+	log.Println("开始探测Port Restricted...")
+
+	// 创建探测DataChannel
+	dcB, err := s.pcB.CreateDataChannel("probe", nil)
+	if err != nil {
+		log.Println("创建探测DataChannel失败:", err)
+		s.sendResult("Port Restricted Cone", s.publicIP)
+		return
+	}
+	s.dataChanB = dcB
 
 	dcB.OnOpen(func() {
-		log.Println("B channel open")
-
+		log.Println("探测DataChannel已打开，发送probe")
 		dcB.SendText("probe")
 	})
 
 	dcB.OnMessage(func(msg webrtc.DataChannelMessage) {
-		if string(msg.Data) == "pong" {
-			received = true
-		}
+		log.Println("探测收到消息:", string(msg.Data))
 	})
 
-	// 等待结果
+	// 等待探测结果
 	time.Sleep(2 * time.Second)
 
-	if received {
-		send(ws, "Restricted Cone NAT", ip)
+	// 通过pcA的DataChannel发送探测请求
+	if s.dataChanA != nil {
+		s.dataChanA.SendText("ping-probe")
+	}
+
+	time.Sleep(1 * time.Second)
+
+	if s.probeRecv {
+		s.sendResult("Restricted Cone", s.publicIP)
 	} else {
-		send(ws, "Port Restricted Cone NAT", ip)
+		s.sendResult("Port Restricted Cone", s.publicIP)
 	}
 }
 
-func send(ws *websocket.Conn, nat string, ip string) {
-	res := Result{
-		NATType:  nat,
+func (s *ClientSession) sendResult(natType, ip string) {
+	result := Result{
+		NATType:  natType,
 		PublicIP: ip,
 	}
-	ws.WriteJSON(res)
+
+	jsonData, _ := json.Marshal(result)
+	log.Println("发送结果:", string(jsonData))
+
+	s.ws.WriteJSON(result)
 }
