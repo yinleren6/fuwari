@@ -13,9 +13,7 @@ const ICE_CONFIG: RTCConfiguration = {
 	],
 };
 
-const SIGNALING_SERVER =
-	import.meta.env.PUBLIC_NAT_SIGNALING_URL ||
-	"wss://your-nat-signaling-server.com/ws";
+const SIGNALING_SERVER = "ws://127.0.0.1:8080";
 
 function isUdpSrflxCandidate(candidate: string): boolean {
 	const c = candidate.toLowerCase();
