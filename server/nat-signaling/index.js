@@ -63,10 +63,10 @@ function handleMessage(client, message) {
 		client.ws.send(JSON.stringify({ sdp: answer }));
 		console.log("[NAT] 已发送SDP Answer");
 
-		// 等待一段时间后分析结果
+		// 等待更长时间让ICE候选者收集完成
 		setTimeout(() => {
 			analyzeAndSendResult(client);
-		}, 4000);
+		}, 8000);
 	}
 
 	// 处理ICE候选者
@@ -146,23 +146,42 @@ function analyzeAndSendResult(client) {
 	// 分析IPv4 NAT类型
 	if (client.ipv4Candidates.length > 0) {
 		const srflx4 = client.ipv4Candidates.filter((c) => c.type === "srflx");
-		const publicIp = srflx4[0]?.ip || client.ipv4Candidates[0].ip;
-		const uniquePorts = new Set(srflx4.map((c) => c.port));
+		const host4 = client.ipv4Candidates.filter((c) => c.type === "host");
 
+		let publicIp;
 		let natType;
-		if (srflx4.length === 1) {
-			natType = "Restricted Cone";
-		} else if (uniquePorts.size > 1) {
-			natType = "Symmetric";
-		} else {
-			natType = "Port Restricted Cone";
+
+		if (srflx4.length > 0) {
+			publicIp = srflx4[0].ip;
+			const uniquePorts = new Set(srflx4.map((c) => c.port));
+
+			if (srflx4.length === 1) {
+				natType = "Restricted Cone";
+			} else if (uniquePorts.size > 1) {
+				natType = "Symmetric";
+			} else {
+				natType = "Port Restricted Cone";
+			}
+		} else if (host4.length > 0) {
+			// 只有host候选者，可能是公网IP直接连接
+			publicIp = host4[0].ip;
+			natType = host4[0].ip.includes(":") ? "可直连" : "公网IP";
 		}
 
+		if (publicIp) {
+			result.ipv4 = {
+				nat_type: natType || "未知",
+				public_ip: publicIp,
+			};
+			console.log("[NAT] IPv4 NAT类型: " + natType + ", 公网IP: " + publicIp);
+		}
+	} else {
+		// 没有IPv4候选者
 		result.ipv4 = {
-			nat_type: natType,
-			public_ip: publicIp,
+			nat_type: "不可用",
+			public_ip: "未检测到",
 		};
-		console.log("[NAT] IPv4 NAT类型: " + natType + ", 公网IP: " + publicIp);
+		console.log("[NAT] 未检测到IPv4候选者，可能STUN被阻止");
 	}
 
 	// 分析IPv6状态
