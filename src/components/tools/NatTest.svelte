@@ -2,26 +2,26 @@
 import Icon from "@iconify/svelte";
 
 let testing = false;
-let result: { natType: string; publicIp: string } | null = null;
+let result: { natType: string; publicIp: string; description?: string } | null =
+	null;
 let error = "";
 let iceCandidates: string[] = [];
 
 const ICE_CONFIG: RTCConfiguration = {
-	iceServers: [
-		{ urls: "stun:stun.l.google.com:19302" },
-		{ urls: "stun:stun1.l.google.com:19302" },
-		{ urls: "stun:stun2.l.google.com:19302" },
-		{ urls: "stun:stun3.l.google.com:19302" },
-		{ urls: "stun:stun4.l.google.com:19302" },
-		{ urls: "stun:stun.cloudflare.com:3478" },
-	],
+	iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
 };
 
-const SIGNALING_SERVER = "ws://87.83.110.226:8080";
+// 两个WebSocket端口
+const WS_PORT_A = "ws://87.83.110.226:8080";
+const WS_PORT_B = "ws://87.83.110.226:8081";
 
 function isUdpSrflxCandidate(candidate: string): boolean {
 	const c = candidate.toLowerCase();
 	return c.includes(" udp ") && c.includes(" srflx ");
+}
+
+function generateSessionId(): string {
+	return crypto.randomUUID();
 }
 
 async function startTest() {
@@ -30,152 +30,170 @@ async function startTest() {
 	error = "";
 	iceCandidates = [];
 
-	let pc: RTCPeerConnection | null = null;
-	let ws: WebSocket | null = null;
-	let candidateResolve: (() => void) | null = null;
+	const sessionId = generateSessionId();
+	let pcA: RTCPeerConnection | null = null;
+	let pcB: RTCPeerConnection | null = null;
+	let wsA: WebSocket | null = null;
+	let wsB: WebSocket | null = null;
 
 	try {
-		pc = new RTCPeerConnection(ICE_CONFIG);
-		pc.createDataChannel("nat-test");
+		// 创建两个RTCPeerConnection
+		pcA = new RTCPeerConnection(ICE_CONFIG);
+		pcB = new RTCPeerConnection(ICE_CONFIG);
 
-		// 等待收集足够候选者
-		const candidatePromise = new Promise<void>((resolve) => {
-			candidateResolve = resolve;
-		});
+		pcA.createDataChannel("nat-test-a");
+		pcB.createDataChannel("nat-test-b");
 
-		pc.onicecandidate = (event) => {
-			if (event.candidate) {
-				const candidateStr = event.candidate.candidate;
-				console.log("[NAT] ICE candidate:", candidateStr);
-
-				if (isUdpSrflxCandidate(candidateStr)) {
-					iceCandidates = [...iceCandidates, candidateStr];
-
-					if (ws && ws.readyState === WebSocket.OPEN) {
-						ws.send(JSON.stringify({ "ice-candidate": candidateStr }));
-					}
-
-					// 收集到足够候选者后结束
-					if (iceCandidates.length >= 3 && candidateResolve) {
-						candidateResolve();
-						candidateResolve = null;
-					}
-				}
-			} else {
-				// ICE收集完成
-				if (candidateResolve) {
-					candidateResolve();
-					candidateResolve = null;
+		// ICE候选者处理
+		pcA.onicecandidate = (event) => {
+			if (event.candidate && isUdpSrflxCandidate(event.candidate.candidate)) {
+				iceCandidates = [...iceCandidates, event.candidate.candidate];
+				if (wsA?.readyState === WebSocket.OPEN) {
+					wsA.send(
+						JSON.stringify({
+							type: "ice-candidate",
+							candidate: event.candidate.candidate,
+						}),
+					);
 				}
 			}
 		};
 
-		ws = new WebSocket(SIGNALING_SERVER);
-
-		ws.onopen = () => {
-			console.log("[NAT] Connected to signaling server");
-
-			pc?.createOffer().then((offer) => {
-				ws?.send(
-					JSON.stringify({
-						"user-agent": navigator.userAgent,
-						sdp: offer.sdp,
-					}),
-				);
-				pc?.setLocalDescription(offer);
-			});
+		pcB.onicecandidate = (event) => {
+			if (event.candidate && isUdpSrflxCandidate(event.candidate.candidate)) {
+				iceCandidates = [...iceCandidates, event.candidate.candidate];
+				if (wsB?.readyState === WebSocket.OPEN) {
+					wsB.send(
+						JSON.stringify({
+							type: "ice-candidate",
+							candidate: event.candidate.candidate,
+						}),
+					);
+				}
+			}
 		};
 
-		ws.onmessage = (event) => {
-			const data = JSON.parse(event.data);
-			console.log("[NAT] Received:", data);
+		// 连接WebSocket A
+		wsA = new WebSocket(WS_PORT_A);
+		await new Promise<void>((resolve, reject) => {
+			wsA!.onopen = () => {
+				console.log("[NAT] WS-A connected");
+				wsA!.send(JSON.stringify({ type: "register", session_id: sessionId }));
+				resolve();
+			};
+			wsA!.onerror = reject;
+		});
 
-			if (data.sdp && pc) {
-				pc.setRemoteDescription({ type: "answer", sdp: data.sdp });
-			} else if (data["ice-candidate"] && pc) {
-				pc.addIceCandidate({
-					candidate: data["ice-candidate"],
-					sdpMLineIndex: 0,
-				});
-			} else if (data.nat_type) {
+		// 连接WebSocket B
+		wsB = new WebSocket(WS_PORT_B);
+		await new Promise<void>((resolve, reject) => {
+			wsB!.onopen = () => {
+				console.log("[NAT] WS-B connected");
+				wsB!.send(JSON.stringify({ type: "register", session_id: sessionId }));
+				resolve();
+			};
+			wsB!.onerror = reject;
+		});
+
+		// 等待注册确认
+		await Promise.all([
+			new Promise<void>((resolve) => {
+				wsA!.onmessage = (e) => {
+					const data = JSON.parse(e.data);
+					if (data.type === "registered") {
+						console.log("[NAT] WS-A registered");
+						resolve();
+					}
+					handleWsMessage(data, "A");
+				};
+			}),
+			new Promise<void>((resolve) => {
+				wsB!.onmessage = (e) => {
+					const data = JSON.parse(e.data);
+					if (data.type === "registered") {
+						console.log("[NAT] WS-B registered");
+						resolve();
+					}
+					handleWsMessage(data, "B");
+				};
+			}),
+		]);
+
+		// 处理WebSocket消息的通用函数
+		function handleWsMessage(data: any, side: string) {
+			console.log("[NAT] Received from " + side + ":", data);
+
+			if (data.type === "answer" && data.sdp) {
+				const pc = side === "A" ? pcA : pcB;
+				pc?.setRemoteDescription({ type: "answer", sdp: data.sdp });
+			} else if (data.type === "ice-candidate" && data.candidate) {
+				const pc = side === "A" ? pcA : pcB;
+				pc?.addIceCandidate({ candidate: data.candidate, sdpMLineIndex: 0 });
+			} else if (data.type === "result") {
 				result = {
 					natType: data.nat_type,
 					publicIp: data.public_ip || "未知",
+					description: data.description,
 				};
-				ws?.close();
-			} else if (data.error) {
-				error = data.error;
-				ws?.close();
 			}
-		};
-
-		ws.onerror = () => {
-			error = "信令服务器连接失败";
-		};
-
-		ws.onclose = () => {
-			testing = false;
-			pc?.close();
-		};
-
-		// 等待候选者收集或超时
-		await Promise.race([
-			candidatePromise,
-			new Promise((resolve) => setTimeout(resolve, 8000)),
-		]);
-
-		// 如果没有通过WebSocket收到结果，自己分析
-		if (!result && iceCandidates.length > 0) {
-			const portInfo = iceCandidates.map((c) => {
-				const parts = c.split(" ");
-				const ip = parts[4];
-				const port = Number.parseInt(parts[5]);
-				const isIPv6 = ip.includes(":");
-				return { ip, port, isIPv6 };
-			});
-
-			console.log("[NAT] 所有端口:", portInfo);
-
-			// 只使用IPv4的候选者判断NAT类型
-			const ipv4Candidates = portInfo.filter((p) => !p.isIPv6);
-			const uniquePorts = new Set(ipv4Candidates.map((p) => p.port));
-			const publicIp = ipv4Candidates[0]?.ip || portInfo[0].ip;
-
-			console.log("[NAT] IPv4端口:", ipv4Candidates);
-			console.log("[NAT] 不同端口数:", uniquePorts.size);
-
-			let natType: string;
-			if (ipv4Candidates.length === 0) {
-				natType = "Blocked";
-			} else if (uniquePorts.size === 1) {
-				natType = "Full Cone";
-			} else {
-				natType = "Symmetric";
-			}
-
-			result = { natType, publicIp };
 		}
 
-		// 超时处理
-		setTimeout(() => {
-			if (testing && !result && !error) {
-				error = "测试超时";
-				ws?.close();
-				pc?.close();
-			}
-		}, 15000);
+		// 设置持续的消息处理
+		wsA.onmessage = (e) => handleWsMessage(JSON.parse(e.data), "A");
+		wsB.onmessage = (e) => handleWsMessage(JSON.parse(e.data), "B");
+
+		// 创建并发送offer
+		const [offerA, offerB] = await Promise.all([
+			pcA.createOffer(),
+			pcB.createOffer(),
+		]);
+
+		await Promise.all([
+			pcA.setLocalDescription(offerA),
+			pcB.setLocalDescription(offerB),
+		]);
+
+		wsA.send(JSON.stringify({ type: "offer", sdp: offerA.sdp }));
+		wsB.send(JSON.stringify({ type: "offer", sdp: offerB.sdp }));
+
+		console.log("[NAT] Offers sent");
+
+		// 等待结果或超时
+		await new Promise<void>((resolve, reject) => {
+			const timeout = setTimeout(() => {
+				if (!result) {
+					reject(new Error("测试超时"));
+				}
+				resolve();
+			}, 15000);
+
+			const check = setInterval(() => {
+				if (result) {
+					clearTimeout(timeout);
+					clearInterval(check);
+					resolve();
+				}
+			}, 100);
+		});
 	} catch (err) {
+		console.error("[NAT] Error:", err);
 		error = err instanceof Error ? err.message : "测试失败";
+	} finally {
 		testing = false;
-		pc?.close();
+		pcA?.close();
+		pcB?.close();
+		wsA?.close();
+		wsB?.close();
 	}
 }
 
 const natTypeDescriptions: Record<string, string> = {
-	"Full Cone": "完全锥形NAT - 最适合P2P连接",
-	"Restricted Cone": "受限锥形NAT - 较好的P2P兼容性",
-	"Port Restricted Cone": "端口受限锥形NAT - 中等P2P兼容性",
-	Symmetric: "对称型NAT - P2P连接困难",
+	"Full Cone NAT": "完全锥形NAT - 最适合P2P连接",
+	"Restricted Cone NAT": "受限锥形NAT - 较好的P2P兼容性",
+	"Port Restricted Cone NAT": "端口受限锥形NAT - 中等P2P兼容性",
+	"Symmetric NAT": "对称型NAT - P2P连接困难",
+	"Full/Restricted Cone NAT": "锥形NAT - P2P兼容性较好",
+	"Open Internet": "公网直连 - 无NAT",
 	Blocked: "网络被阻止",
 };
 
@@ -225,7 +243,7 @@ function getNatDescription(natType: string): string {
 			<div class="text-center">
 				<p class="text-sm text-50 mb-1">NAT类型</p>
 				<p class="text-3xl font-bold text-[var(--primary)]">{result.natType}</p>
-				<p class="text-sm text-50 mt-2">{getNatDescription(result.natType)}</p>
+				<p class="text-sm text-50 mt-2">{result.description || getNatDescription(result.natType)}</p>
 			</div>
 			<div class="border-t border-white/10 pt-4 text-center">
 				<p class="text-sm text-50 mb-1">公网IP</p>
