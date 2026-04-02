@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
 	"strings"
@@ -25,91 +26,88 @@ type Result struct {
 }
 
 func main() {
-	http.Handle("/", http.FileServer(http.Dir("./")))
 	http.HandleFunc("/ws", wsHandler)
-
-	log.Println("Server running at :8080")
-	http.ListenAndServe(":8080", nil)
+	log.Println("Server running :9000")
+	http.ListenAndServe(":9000", nil)
 }
 
 func wsHandler(w http.ResponseWriter, r *http.Request) {
-	conn, _ := upgrader.Upgrade(w, r, nil)
+	ws, _ := upgrader.Upgrade(w, r, nil)
 
-	pc, _ := webrtc.NewPeerConnection(webrtc.Configuration{
+	// === Peer A（正常连接）===
+	pcA, _ := webrtc.NewPeerConnection(webrtc.Configuration{
 		ICEServers: []webrtc.ICEServer{
 			{URLs: []string{"stun:stun.l.google.com:19302"}},
-			{URLs: []string{"stun:stun1.l.google.com:19302"}},
 		},
 	})
 
+	// === Peer B（隐藏探测）===
+	pcB, _ := webrtc.NewPeerConnection(webrtc.Configuration{})
+
 	var publicIP string
-	var ports = make(map[string]bool)
+	ports := make(map[string]bool)
 
-	pc.OnICECandidate(func(c *webrtc.ICECandidate) {
-		if c == nil {
-			return
-		}
-		conn.WriteJSON(map[string]string{
-			"ice-candidate": c.ToJSON().Candidate,
-		})
-	})
+	var dataChannelA *webrtc.DataChannel
 
-	pc.OnICEConnectionStateChange(func(state webrtc.ICEConnectionState) {
-		log.Println("ICE state:", state.String())
-	})
-
-	pc.OnDataChannel(func(dc *webrtc.DataChannel) {
+	// === A：接收 DataChannel ===
+	pcA.OnDataChannel(func(dc *webrtc.DataChannel) {
+		dataChannelA = dc
 
 		dc.OnOpen(func() {
-			log.Println("DataChannel open")
+			log.Println("A DataChannel open")
 
-			// === 延迟后分析 NAT ===
 			go func() {
 				time.Sleep(3 * time.Second)
 
-				natType := analyze(publicIP, ports)
-
-				result := Result{
-					NATType:  natType,
-					PublicIP: publicIP,
+				// === Symmetric 判断 ===
+				if len(ports) > 1 {
+					send(ws, "Symmetric NAT", publicIP)
+					return
 				}
 
-				conn.WriteJSON(result)
+				// === 启动 B 探测 ===
+				testPortRestricted(pcB, dataChannelA, ws, publicIP)
 			}()
 		})
 
 		dc.OnMessage(func(msg webrtc.DataChannelMessage) {
-			text := string(msg.Data)
-
-			// 收到客户端回包
-			if text == "pong" {
-				log.Println("收到 pong")
-			}
+			log.Println("A 收到:", string(msg.Data))
 		})
 	})
 
+	// === ICE 收集 ===
+	pcA.OnICECandidate(func(c *webrtc.ICECandidate) {
+		if c == nil {
+			return
+		}
+		ws.WriteJSON(map[string]string{
+			"ice-candidate": c.ToJSON().Candidate,
+		})
+	})
+
+	// === WebSocket 接收 ===
 	for {
 		var msg Msg
-		if err := conn.ReadJSON(&msg); err != nil {
+		if err := ws.ReadJSON(&msg); err != nil {
 			break
 		}
 
 		if msg.SDP != "" {
-			pc.SetRemoteDescription(webrtc.SessionDescription{
+			pcA.SetRemoteDescription(webrtc.SessionDescription{
 				Type: webrtc.SDPTypeOffer,
 				SDP:  msg.SDP,
 			})
 
-			answer, _ := pc.CreateAnswer(nil)
-			pc.SetLocalDescription(answer)
+			answer, _ := pcA.CreateAnswer(nil)
+			pcA.SetLocalDescription(answer)
 
-			conn.WriteJSON(map[string]string{
+			ws.WriteJSON(map[string]string{
 				"sdp": answer.SDP,
 			})
 		}
 
 		if msg.ICECandidate != "" {
-			pc.AddICECandidate(webrtc.ICECandidateInit{
+			pcA.AddICECandidate(webrtc.ICECandidateInit{
 				Candidate: msg.ICECandidate,
 			})
 
@@ -126,14 +124,42 @@ func wsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func analyze(ip string, ports map[string]bool) string {
-	if ip == "" {
-		return "Blocked"
-	}
+// === Port Restricted 测试 ===
+func testPortRestricted(pcB *webrtc.PeerConnection, dcA *webrtc.DataChannel, ws *websocket.Conn, ip string) {
 
-	if len(ports) > 1 {
-		return "Symmetric NAT"
-	}
+	log.Println("开始 Port Restricted 测试")
 
-	return "Cone NAT (Full / Restricted / Port Restricted)"
+	// 创建隐藏 DataChannel（不会被客户端主动连接）
+	dcB, _ := pcB.CreateDataChannel("probe", nil)
+
+	received := false
+
+	dcB.OnOpen(func() {
+		log.Println("B channel open")
+
+		dcB.SendText("probe")
+	})
+
+	dcB.OnMessage(func(msg webrtc.DataChannelMessage) {
+		if string(msg.Data) == "pong" {
+			received = true
+		}
+	})
+
+	// 等待结果
+	time.Sleep(2 * time.Second)
+
+	if received {
+		send(ws, "Restricted Cone NAT", ip)
+	} else {
+		send(ws, "Port Restricted Cone NAT", ip)
+	}
+}
+
+func send(ws *websocket.Conn, nat string, ip string) {
+	res := Result{
+		NATType:  nat,
+		PublicIP: ip,
+	}
+	ws.WriteJSON(res)
 }

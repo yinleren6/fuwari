@@ -7,13 +7,10 @@ let error = "";
 let iceCandidates: string[] = [];
 
 const ICE_CONFIG: RTCConfiguration = {
-	iceServers: [
-		{ urls: "stun:stun.l.google.com:19302" },
-		{ urls: "stun:stun1.l.google.com:19302" },
-	],
+	iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
 };
 
-const SIGNALING_SERVER = "ws://87.83.110.226:8080/ws";
+const SIGNALING_SERVER = "ws://87.83.110.226:9000/ws";
 
 function isUdpSrflxCandidate(candidate: string): boolean {
 	const c = candidate.toLowerCase();
@@ -71,9 +68,8 @@ async function startTest() {
 					sdpMLineIndex: 0,
 				});
 			} else if (data.nat_type) {
-				const natType = normalizeNatType(data.nat_type);
 				result = {
-					natType,
+					natType: normalizeNatType(data.nat_type),
 					publicIp: data.public_ip || "未知",
 				};
 				ws?.close();
@@ -105,11 +101,20 @@ async function startTest() {
 }
 
 function normalizeNatType(natType: string): string {
-	if (natType.includes("Cone NAT")) {
+	if (natType.includes("Symmetric")) {
+		return "Symmetric";
+	}
+	if (natType.includes("Full Cone")) {
 		return "Full Cone";
 	}
-	if (natType === "Symmetric NAT") {
-		return "Symmetric";
+	if (natType.includes("Restricted Cone")) {
+		return "Restricted Cone";
+	}
+	if (natType.includes("Port Restricted")) {
+		return "Port Restricted Cone";
+	}
+	if (natType.includes("Cone")) {
+		return "Full Cone";
 	}
 	return natType;
 }
