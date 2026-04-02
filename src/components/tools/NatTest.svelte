@@ -10,10 +10,14 @@ const ICE_CONFIG: RTCConfiguration = {
 	iceServers: [
 		{ urls: "stun:stun.l.google.com:19302" },
 		{ urls: "stun:stun1.l.google.com:19302" },
+		{ urls: "stun:stun2.l.google.com:19302" },
+		{ urls: "stun:stun3.l.google.com:19302" },
+		{ urls: "stun:stun4.l.google.com:19302" },
+		{ urls: "stun:stun.cloudflare.com:3478" },
 	],
 };
 
-const SIGNALING_SERVER = "ws://127.0.0.1:8080";
+const SIGNALING_SERVER = "ws://87.83.110.226:8080";
 
 function isUdpSrflxCandidate(candidate: string): boolean {
 	const c = candidate.toLowerCase();
@@ -46,23 +50,38 @@ async function startTest() {
 
 				if (isUdpSrflxCandidate(candidateStr)) {
 					iceCandidates = [...iceCandidates, candidateStr];
+				}
+			} else {
+				// ICE收集完成，发送所有候选者给后端
+				console.log(
+					"[NAT] ICE gathering complete, candidates:",
+					iceCandidates.length,
+				);
 
-					if (ws && ws.readyState === WebSocket.OPEN) {
-						ws.send(JSON.stringify({ "ice-candidate": candidateStr }));
-					}
+				if (
+					ws &&
+					ws.readyState === WebSocket.OPEN &&
+					iceCandidates.length > 0
+				) {
+					ws.send(
+						JSON.stringify({
+							type: "candidates",
+							candidates: iceCandidates,
+						}),
+					);
 				}
 			}
 		};
-
-		// 创建offer以触发ICE收集
-		const offer = await pc.createOffer();
-		await pc.setLocalDescription(offer);
 
 		// 连接信令服务器
 		ws = new WebSocket(SIGNALING_SERVER);
 
 		ws.onopen = () => {
 			console.log("[NAT] Connected to signaling server");
+			// 创建offer以触发ICE收集
+			pc?.createOffer().then((offer) => {
+				pc?.setLocalDescription(offer);
+			});
 		};
 
 		ws.onmessage = (event) => {
@@ -99,7 +118,7 @@ async function startTest() {
 				ws?.close();
 				pc?.close();
 			}
-		}, 30000);
+		}, 20000);
 	} catch (err) {
 		console.error("[NAT] Error:", err);
 		error = err instanceof Error ? err.message : "测试失败";

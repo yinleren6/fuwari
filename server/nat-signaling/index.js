@@ -14,7 +14,7 @@ wss.on("connection", (ws, req) => {
 	const clientId = generateId();
 	const clientIp = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
 
-	console.log(`[NAT] 新连接: ${clientId} 来自 ${clientIp}`);
+	console.log("[NAT] 新连接: " + clientId + " 来自 " + clientIp);
 
 	const client = {
 		id: clientId,
@@ -30,50 +30,64 @@ wss.on("connection", (ws, req) => {
 			const message = JSON.parse(data.toString());
 			handleMessage(client, message);
 		} catch (error) {
-			console.error(`[NAT] 解析消息失败:`, error);
+			console.error("[NAT] 解析消息失败:", error);
 			ws.send(JSON.stringify({ error: "消息格式错误" }));
 		}
 	});
 
 	ws.on("close", () => {
-		console.log(`[NAT] 连接关闭: ${clientId}`);
+		console.log("[NAT] 连接关闭: " + clientId);
 		clients.delete(clientId);
 	});
 
 	ws.on("error", (error) => {
-		console.error(`[NAT] 连接错误: ${clientId}`, error);
+		console.error("[NAT] 连接错误: " + clientId, error);
 		clients.delete(clientId);
 	});
 });
 
 function handleMessage(client, message) {
-	console.log(`[NAT] 收到消息类型: ${Object.keys(message).join(", ")}`);
+	console.log("[NAT] 收到消息类型: " + Object.keys(message).join(", "));
 
-	if (message["ice-candidate"]) {
-		// 客户端发送ICE候选者
-		const candidate = message["ice-candidate"];
-		client.iceCandidates.push(candidate);
+	// 处理批量候选者
+	if (message.type === "candidates" && Array.isArray(message.candidates)) {
+		console.log("[NAT] 收到 " + message.candidates.length + " 个ICE候选者");
 
-		console.log(`[NAT] 收到ICE候选者: ${candidate.substring(0, 80)}...`);
-
-		// 解析候选者信息
-		const candidateInfo = parseIceCandidate(candidate);
-		console.log(
-			`[NAT] 候选者类型: ${candidateInfo.type}, IP: ${candidateInfo.ip}:${candidateInfo.port}`,
-		);
-
-		// 收到srflx候选者后立即返回结果
-		if (candidateInfo.type === "srflx") {
-			const natResult = analyzeNatType(client, candidateInfo);
-			client.ws.send(JSON.stringify(natResult));
-			console.log(`[NAT] 发送结果: ${JSON.stringify(natResult)}`);
+		for (const candidate of message.candidates) {
+			const candidateInfo = parseIceCandidate(candidate);
+			console.log(
+				"[NAT] 候选者类型: " +
+					candidateInfo.type +
+					", IP: " +
+					candidateInfo.ip +
+					":" +
+					candidateInfo.port,
+			);
+			client.iceCandidates.push(candidateInfo);
 		}
+
+		// 分析NAT类型
+		const natResult = analyzeNatType(client);
+		client.ws.send(JSON.stringify(natResult));
+		console.log("[NAT] 发送结果: " + JSON.stringify(natResult));
+		return;
 	}
 
-	if (message.type === "test-complete") {
-		// 客户端测试完成，返回结果
-		const natResult = analyzeNatType(client, null);
-		client.ws.send(JSON.stringify(natResult));
+	// 兼容旧的单个候选者格式
+	if (message["ice-candidate"]) {
+		const candidate = message["ice-candidate"];
+		const candidateInfo = parseIceCandidate(candidate);
+		client.iceCandidates.push(candidateInfo);
+
+		console.log("[NAT] 收到ICE候选者: " + candidate.substring(0, 80) + "...");
+		console.log(
+			"[NAT] 候选者类型: " +
+				candidateInfo.type +
+				", IP: " +
+				candidateInfo.ip +
+				":" +
+				candidateInfo.port,
+		);
 	}
 }
 
@@ -85,20 +99,18 @@ function parseIceCandidate(candidate) {
 		protocol: parts[2],
 		priority: parts[3],
 		ip: parts[4],
-		port: parts[5],
+		port: Number.parseInt(parts[5]),
 		type: parts[7],
 	};
 }
 
-function analyzeNatType(client, latestCandidate) {
+function analyzeNatType(client) {
 	const candidates = client.iceCandidates;
 
-	console.log(`[NAT] 分析 ${candidates.length} 个候选者...`);
+	console.log("[NAT] 分析 " + candidates.length + " 个候选者...");
 
 	// 提取所有srflx候选者
-	const srflxCandidates = candidates
-		.map(parseIceCandidate)
-		.filter((c) => c.type === "srflx");
+	const srflxCandidates = candidates.filter((c) => c.type === "srflx");
 
 	if (srflxCandidates.length === 0) {
 		return {
@@ -113,15 +125,26 @@ function analyzeNatType(client, latestCandidate) {
 	// 检查端口是否变化（对称NAT特征）
 	const uniquePorts = new Set(srflxCandidates.map((c) => c.port));
 
+	console.log("[NAT] srflx候选者数量: " + srflxCandidates.length);
+	console.log("[NAT] 不同端口数量: " + uniquePorts.size);
+	console.log("[NAT] 端口列表: " + Array.from(uniquePorts).join(", "));
+
 	let natType;
 
-	if (uniquePorts.size > 1) {
+	if (srflxCandidates.length === 1) {
+		// 只有一个srflx候选者，无法准确判断
+		// 默认返回Restricted Cone（较常见且兼容性较好）
+		natType = "Restricted Cone";
+	} else if (uniquePorts.size > 1) {
 		// 多个不同端口 = 对称NAT
 		natType = "Symmetric";
+	} else if (uniquePorts.size === 1 && srflxCandidates.length >= 3) {
+		// 多个相同端口 = 端口受限锥形或受限锥形
+		// 如果来自不同STUN服务器但端口相同，更可能是Port Restricted Cone
+		natType = "Port Restricted Cone";
 	} else {
-		// 单个端口，检查候选者数量来推断
-		// 实际判断需要双向测试，这里简化处理
-		natType = candidates.length <= 2 ? "Full Cone" : "Port Restricted Cone";
+		// 默认
+		natType = "Restricted Cone";
 	}
 
 	return {
