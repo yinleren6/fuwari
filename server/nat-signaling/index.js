@@ -2,16 +2,13 @@ import { WebSocket, WebSocketServer } from "ws";
 
 const PORT = process.env.PORT || 8080;
 
-// STUN服务器配置
-const STUN_SERVERS = ["stun.l.google.com:19302", "stun1.l.google.com:19302"];
-
 // 存储连接信息
 const clients = new Map();
 
 // 创建WebSocket服务器
 const wss = new WebSocketServer({ port: PORT });
 
-console.log(`[NAT] 信令服务器启动在端口 ${PORT}`);
+console.log("[NAT] 信令服务器启动在端口 " + PORT);
 
 wss.on("connection", (ws, req) => {
 	const clientId = generateId();
@@ -24,8 +21,6 @@ wss.on("connection", (ws, req) => {
 		ws: ws,
 		ip: clientIp,
 		iceCandidates: [],
-		sdp: null,
-		userAgent: null,
 	};
 
 	clients.set(clientId, client);
@@ -54,27 +49,12 @@ wss.on("connection", (ws, req) => {
 function handleMessage(client, message) {
 	console.log(`[NAT] 收到消息类型: ${Object.keys(message).join(", ")}`);
 
-	if (message.sdp) {
-		// 客户端发送SDP Offer
-		client.sdp = message.sdp;
-		client.userAgent = message["user-agent"];
-
-		console.log(`[NAT] 收到SDP Offer, 生成Answer...`);
-
-		// 生成SDP Answer（回传相同的SDP作为模拟）
-		// 实际项目中应该使用完整的WebRTC栈
-		const answer = generateSdpAnswer(message.sdp);
-
-		client.ws.send(JSON.stringify({ sdp: answer }));
-		console.log(`[NAT] 已发送SDP Answer`);
-	}
-
 	if (message["ice-candidate"]) {
 		// 客户端发送ICE候选者
 		const candidate = message["ice-candidate"];
 		client.iceCandidates.push(candidate);
 
-		console.log(`[NAT] 收到ICE候选者: ${candidate.substring(0, 60)}...`);
+		console.log(`[NAT] 收到ICE候选者: ${candidate.substring(0, 80)}...`);
 
 		// 解析候选者信息
 		const candidateInfo = parseIceCandidate(candidate);
@@ -82,21 +62,18 @@ function handleMessage(client, message) {
 			`[NAT] 候选者类型: ${candidateInfo.type}, IP: ${candidateInfo.ip}:${candidateInfo.port}`,
 		);
 
-		// 如果收到了srflx候选者，可以开始判断NAT类型
+		// 收到srflx候选者后立即返回结果
 		if (candidateInfo.type === "srflx") {
-			// 发送一个模拟的服务器端候选者回去
-			const serverCandidate = generateServerCandidate(candidateInfo);
-			client.ws.send(JSON.stringify({ "ice-candidate": serverCandidate }));
+			const natResult = analyzeNatType(client, candidateInfo);
+			client.ws.send(JSON.stringify(natResult));
+			console.log(`[NAT] 发送结果: ${JSON.stringify(natResult)}`);
 		}
+	}
 
-		// 收到足够信息后返回NAT类型
-		if (client.iceCandidates.length >= 1) {
-			setTimeout(() => {
-				const natResult = analyzeNatType(client);
-				client.ws.send(JSON.stringify(natResult));
-				console.log(`[NAT] 发送结果: ${JSON.stringify(natResult)}`);
-			}, 2000);
-		}
+	if (message.type === "test-complete") {
+		// 客户端测试完成，返回结果
+		const natResult = analyzeNatType(client, null);
+		client.ws.send(JSON.stringify(natResult));
 	}
 }
 
@@ -113,21 +90,8 @@ function parseIceCandidate(candidate) {
 	};
 }
 
-function generateSdpAnswer(offerSdp) {
-	// 简单返回offer作为answer
-	// 实际项目中需要完整的SDP处理
-	return offerSdp;
-}
-
-function generateServerCandidate(clientInfo) {
-	// 生成一个模拟的服务器端候选者
-	// 实际项目中应该使用真实的STUN响应
-	return `candidate:1 1 udp 2130706431 127.0.0.1 12345 typ srflx raddr ${clientInfo.ip} rport ${clientInfo.port}`;
-}
-
-function analyzeNatType(client) {
+function analyzeNatType(client, latestCandidate) {
 	const candidates = client.iceCandidates;
-	const clientIp = client.ip;
 
 	console.log(`[NAT] 分析 ${candidates.length} 个候选者...`);
 
@@ -143,11 +107,10 @@ function analyzeNatType(client) {
 		};
 	}
 
-	// 获取公网IP（第一个srflx候选者的IP）
+	// 获取公网IP
 	const publicIp = srflxCandidates[0].ip;
-	const publicPort = srflxCandidates[0].port;
 
-	// 检查是否有多个不同的端口（对称NAT的特征）
+	// 检查端口是否变化（对称NAT特征）
 	const uniquePorts = new Set(srflxCandidates.map((c) => c.port));
 
 	let natType;
@@ -156,23 +119,9 @@ function analyzeNatType(client) {
 		// 多个不同端口 = 对称NAT
 		natType = "Symmetric";
 	} else {
-		// 单个端口，需要进一步测试
-		// 这里简化处理，实际需要双向测试
-		// 默认返回Restricted Cone（较常见）
-		natType = "Port Restricted Cone";
-	}
-
-	// 模拟测试结果（实际需要真实的STUN服务器交互）
-	const natTypes = [
-		"Full Cone",
-		"Restricted Cone",
-		"Port Restricted Cone",
-		"Symmetric",
-	];
-
-	// 如果候选者数量较多，可能是对称NAT
-	if (candidates.length > 2) {
-		natType = "Symmetric";
+		// 单个端口，检查候选者数量来推断
+		// 实际判断需要双向测试，这里简化处理
+		natType = candidates.length <= 2 ? "Full Cone" : "Port Restricted Cone";
 	}
 
 	return {

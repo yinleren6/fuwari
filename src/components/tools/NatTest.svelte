@@ -54,33 +54,22 @@ async function startTest() {
 			}
 		};
 
+		// 创建offer以触发ICE收集
 		const offer = await pc.createOffer();
 		await pc.setLocalDescription(offer);
 
+		// 连接信令服务器
 		ws = new WebSocket(SIGNALING_SERVER);
 
 		ws.onopen = () => {
 			console.log("[NAT] Connected to signaling server");
-			ws?.send(
-				JSON.stringify({
-					"user-agent": navigator.userAgent,
-					sdp: offer.sdp,
-				}),
-			);
 		};
 
 		ws.onmessage = (event) => {
 			const data = JSON.parse(event.data);
 			console.log("[NAT] Received:", data);
 
-			if (data.sdp && pc) {
-				pc.setRemoteDescription({ type: "answer", sdp: data.sdp });
-			} else if (data["ice-candidate"] && pc) {
-				pc.addIceCandidate({
-					candidate: data["ice-candidate"],
-					sdpMLineIndex: 0,
-				});
-			} else if (data.nat_type) {
+			if (data.nat_type) {
 				result = {
 					natType: data.nat_type,
 					publicIp: data.public_ip || "未知",
