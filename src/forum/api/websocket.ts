@@ -83,6 +83,18 @@ export class ForumWebSocket {
 				this.isConnecting = false;
 				this.reconnectAttempts = 0;
 				this.startPingInterval();
+
+				// 连接后主动发送订阅消息
+				if (this.currentPostId) {
+					console.log("[WebSocket] Subscribing to post:", this.currentPostId);
+					this.ws?.send(
+						JSON.stringify({
+							type: "subscribe_post",
+							payload: { postId: this.currentPostId },
+						}),
+					);
+				}
+
 				this.emit("connected", { message: "WebSocket connected" });
 			};
 
