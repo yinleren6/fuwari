@@ -18,6 +18,7 @@ let profile: ForumUser | null = null;
 let posts: ForumPostSummary[] = [];
 let currentUser: ForumUser | null = null;
 let loading = true;
+let contentVisible = false;
 let postsLoading = true;
 let errorMessage = "";
 
@@ -113,6 +114,9 @@ async function loadPage() {
 	} finally {
 		loading = false;
 		postsLoading = false;
+		setTimeout(() => {
+			contentVisible = true;
+		}, 50);
 	}
 }
 
@@ -127,16 +131,26 @@ onMount(() => {
 </script>
 
 {#if loading}
-	<ForumSkeleton type="profile" />
+	<div class="transition-opacity duration-200">
+		<ForumSkeleton type="profile" />
+	</div>
 {:else if !profile}
-	<div class="card-base p-6 text-white/50 space-y-2">
+	<div 
+		class="card-base p-6 text-white/50 space-y-2 transition-opacity duration-200"
+		class:opacity-0={!contentVisible}
+		class:opacity-100={contentVisible}
+	>
 		<p>用户主页不可用。</p>
 		{#if errorMessage}
 			<p class="text-sm text-white/35">{errorMessage}</p>
 		{/if}
 	</div>
 {:else}
-	<div class="space-y-6 forum-fade-in">
+	<div 
+		class="space-y-6 transition-opacity duration-200"
+		class:opacity-0={!contentVisible}
+		class:opacity-100={contentVisible}
+	>
 		<section class="card-base p-6 md:p-8 space-y-5">
 			<div class="flex flex-col gap-5 border-b border-white/10 pb-6 md:flex-row md:items-start md:justify-between">
 				<div class="flex items-start gap-4 min-w-0">

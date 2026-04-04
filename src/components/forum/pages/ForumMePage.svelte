@@ -22,6 +22,7 @@ import { onMount } from "svelte";
 
 let user: ForumUser | null = null;
 let loading = true;
+let contentVisible = false;
 let savingProfile = false;
 let changingEmail = false;
 let settingTotp = false;
@@ -173,6 +174,9 @@ async function loadSession() {
 		applyUser(null);
 	} finally {
 		loading = false;
+		setTimeout(() => {
+			contentVisible = true;
+		}, 50);
 	}
 }
 
@@ -383,14 +387,22 @@ onMount(() => {
 		</div>
 
 		{#if loading}
-			<ForumSkeleton type="me" />
+			<div class="transition-opacity duration-200">
+				<ForumSkeleton type="me" />
+			</div>
 		{:else if !user}
-			<div class="rounded-xl border border-white/10 bg-white/5 p-5 text-white/55">
-				<p class="mb-3">当前尚未登录，无法查看论坛个人资料。</p>
-				<a href="/forum/auth/login/" class="text-[var(--primary)]">前往登录</a>
+			<div class="transition-opacity duration-200" class:opacity-0={!contentVisible} class:opacity-100={contentVisible}>
+				<div class="rounded-xl border border-white/10 bg-white/5 p-5 text-white/55">
+					<p class="mb-3">当前尚未登录，无法查看论坛个人资料。</p>
+					<a href="/forum/auth/login/" class="text-[var(--primary)]">前往登录</a>
+				</div>
 			</div>
 		{:else}
-			<div class="grid gap-6 lg:grid-cols-2 forum-fade-in">
+			<div 
+				class="grid gap-6 lg:grid-cols-2 transition-opacity duration-200"
+				class:opacity-0={!contentVisible}
+				class:opacity-100={contentVisible}
+			>
 				<section class="rounded-2xl border border-white/10 bg-white/5 p-5 space-y-4">
 					<h2 class="text-lg font-bold text-white">基础资料</h2>
 					<div class="rounded-xl border border-white/10 bg-black/20 p-4">

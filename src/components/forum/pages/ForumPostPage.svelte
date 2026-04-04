@@ -34,6 +34,7 @@ export let postId = "";
 let post: ForumPostDetail | null = null;
 let comments: ForumComment[] = [];
 let loading = true;
+let contentVisible = false;
 let commentsLoading = true;
 let loadErrorKind: "not-found" | "unreachable" | "unknown" | null = null;
 let loadErrorMessage = "";
@@ -199,6 +200,9 @@ async function loadPost() {
 		}
 	} finally {
 		loading = false;
+		setTimeout(() => {
+			contentVisible = true;
+		}, 50);
 	}
 }
 
@@ -461,6 +465,7 @@ onMount(() => {
 		setupSSE();
 	} else {
 		loading = false;
+		contentVisible = true;
 		commentsLoading = false;
 		post = null;
 	}
@@ -472,9 +477,15 @@ onMount(() => {
 </script>
 
 {#if loading}
-	<ForumSkeleton type="post" />
+	<div class="transition-opacity duration-200">
+		<ForumSkeleton type="post" />
+	</div>
 {:else if !post}
-	<div class="card-base p-6 text-white/50 space-y-2">
+	<div 
+		class="card-base p-6 text-white/50 space-y-2 transition-opacity duration-200"
+		class:opacity-0={!contentVisible}
+		class:opacity-100={contentVisible}
+	>
 		{#if loadErrorKind === "not-found"}
 			<p>帖子不存在。</p>
 		{:else if loadErrorKind === "unreachable"}
@@ -487,7 +498,11 @@ onMount(() => {
 		{/if}
 	</div>
 {:else}
-	<div class="space-y-5 forum-fade-in">
+	<div 
+		class="space-y-5 transition-opacity duration-200"
+		class:opacity-0={!contentVisible}
+		class:opacity-100={contentVisible}
+	>
 		<article class="card-base border border-white/10 p-6 md:p-8">
 			<div class="mb-6 flex flex-col gap-4 border-b border-white/10 pb-6">
 				<div class="flex flex-wrap items-center justify-between gap-3 text-xs text-white/40">
