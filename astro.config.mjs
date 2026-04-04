@@ -189,13 +189,11 @@ export default defineConfig({
 		}),
 		swup({
 			theme: false,
-			animationClass: "transition-swup-", // see https://swup.js.org/options/#animationselector
-			// the default value `transition-` cause transition delay
-			// when the Tailwind class `transition-all` is used
+			animationClass: "transition-swup-",
 			containers: ["#sort-container", "#swup-container", "#toc"],
 			smoothScrolling: true,
-			cache: true,
-			preload: true,
+			cache: false,
+			preload: false,
 			accessibility: true,
 			updateHead: true,
 			updateBodyClass: false,
