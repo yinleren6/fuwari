@@ -5,12 +5,12 @@ import path from "path";
 
 function getDate() {
 	const today = new Date();
-	const year = today.getFullYear();
-	const month = String(today.getMonth() + 1).padStart(2, "0");
-	const day = String(today.getDate()).padStart(2, "0");
-	const hours = String(today.getHours()).padStart(2, "0");
-	const minutes = String(today.getMinutes()).padStart(2, "0");
-	const seconds = String(today.getSeconds()).padStart(2, "0");
+	const year = today.getUTCFullYear();
+	const month = String(today.getUTCMonth() + 1).padStart(2, "0");
+	const day = String(today.getUTCDate()).padStart(2, "0");
+	const hours = String(today.getUTCHours()).padStart(2, "0");
+	const minutes = String(today.getUTCMinutes()).padStart(2, "0");
+	const seconds = String(today.getUTCSeconds()).padStart(2, "0");
 
 	return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 }
