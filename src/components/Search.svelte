@@ -21,6 +21,7 @@ let keywordDesktop = "";
 let keywordMobile = "";
 let result: SearchResult[] = [];
 let isSearching = false;
+let showLoading = false;
 let searchTimer: ReturnType<typeof setTimeout> | undefined;
 
 const searchTypes = [
@@ -96,6 +97,8 @@ const search = async (
 	}
 
 	isSearching = true;
+	showLoading = true;
+	const startTime = Date.now();
 
 	try {
 		const params = new URLSearchParams({
@@ -114,7 +117,12 @@ const search = async (
 		result = [];
 		setPanelVisibility(true);
 	} finally {
+		const elapsed = Date.now() - startTime;
+		if (elapsed < 300) {
+			await new Promise((resolve) => setTimeout(resolve, 300 - elapsed));
+		}
 		isSearching = false;
+		showLoading = false;
 	}
 };
 
@@ -204,7 +212,7 @@ top-20 left-4 md:left-[unset] right-4 shadow-none rounded-2xl p-2">
 
     {#if keywordDesktop || keywordMobile}
         <!-- search loading -->
-        {#if isSearching}
+        {#if showLoading}
             <div class="flex items-center justify-center py-6">
                 <div class="w-5 h-5 border-2 border-white/20 border-t-[var(--primary)] rounded-full animate-spin"></div>
                 <span class="ml-2 text-sm text-white/50">搜索中...</span>
