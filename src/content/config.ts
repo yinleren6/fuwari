@@ -1,7 +1,8 @@
 import { defineCollection, z } from "astro:content";
+import type { CollectionConfig } from "astro:content";
 import { parsePostDateToDate } from "../utils/date-utils";
 
-const postsCollection = defineCollection({
+const postsCollection: ReturnType<typeof defineCollection> = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		published: z.preprocess(parsePostDateToDate, z.date()),
@@ -22,14 +23,14 @@ const postsCollection = defineCollection({
 	}),
 });
 
-const specCollection = defineCollection({
+const specCollection: ReturnType<typeof defineCollection> = defineCollection({
 	schema: z.object({
 		enable: z.boolean().optional().default(true),
 		level: z.string().optional().default("info"),
 	}),
 });
 
-export const collections = {
+export const collections: { posts: typeof postsCollection; spec: typeof specCollection } = {
 	posts: postsCollection,
 	spec: specCollection,
 };

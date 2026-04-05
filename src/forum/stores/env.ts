@@ -1,4 +1,5 @@
 import type { ForumApiEnv } from "@/forum/types/api";
+import type { Readable, Writable } from "svelte/store";
 import { readLocalStorage, writeLocalStorage } from "@/forum/utils/storage";
 import { derived, get, writable } from "svelte/store";
 
@@ -38,7 +39,22 @@ function sanitizeBaseUrl(value: string | null | undefined, env: ForumApiEnv) {
 	}
 }
 
-function createEnvStore() {
+interface ForumCustomBaseUrlStore {
+	subscribe: Writable<string>["subscribe"];
+	set(value: string): void;
+	reset(env: ForumApiEnv): void;
+}
+
+interface ForumEnvStore {
+	subscribe: Writable<ForumApiEnv>["subscribe"];
+	baseUrl: Readable<string>;
+	customBaseUrl: ForumCustomBaseUrlStore;
+	set(value: ForumApiEnv): void;
+	toggle(): void;
+	getBaseUrl(env: ForumApiEnv): string;
+}
+
+function createEnvStore(): ForumEnvStore {
 	const initialEnv = normalizeEnv(
 		readLocalStorage<ForumApiEnv | string>(FORUM_API_ENV_STORAGE_KEY, "prod"),
 	);
@@ -68,21 +84,21 @@ function createEnvStore() {
 
 	return {
 		subscribe: envStore.subscribe,
-		baseUrl,
+		baseUrl: baseUrl,
 		customBaseUrl: {
 			subscribe: customBaseUrlStore.subscribe,
-			set: (value: string) =>
+			set: (value: string): void =>
 				customBaseUrlStore.set(sanitizeBaseUrl(value, get(envStore))),
-			reset: (env: ForumApiEnv) =>
+			reset: (env: ForumApiEnv): void =>
 				customBaseUrlStore.set(FORUM_API_BASE_URLS[env]),
 		},
-		set: (value: ForumApiEnv) => {
+		set: (value: ForumApiEnv): void => {
 			const nextEnv = normalizeEnv(value);
 			writeLocalStorage(FORUM_API_ENV_STORAGE_KEY, nextEnv);
 			envStore.set(nextEnv);
 			customBaseUrlStore.set(FORUM_API_BASE_URLS[nextEnv]);
 		},
-		toggle: () => {
+		toggle: (): void => {
 			let nextEnv: ForumApiEnv = "prod";
 			envStore.update((current) => {
 				nextEnv = current === "prod" ? "dev" : "prod";
@@ -91,8 +107,8 @@ function createEnvStore() {
 			});
 			customBaseUrlStore.set(FORUM_API_BASE_URLS[nextEnv]);
 		},
-		getBaseUrl: (env: ForumApiEnv) => FORUM_API_BASE_URLS[env],
+		getBaseUrl: (env: ForumApiEnv): string => FORUM_API_BASE_URLS[env],
 	};
 }
 
-export const forumEnv = createEnvStore();
+export const forumEnv: ReturnType<typeof createEnvStore> = createEnvStore();

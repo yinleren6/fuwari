@@ -70,7 +70,7 @@ function normalizeComment(comment: RawCommentRecord): ForumComment {
 export async function getComments(
 	postId: string,
 	query: CommentListQuery = {},
-) {
+): Promise<ForumComment[]> {
 	const result = await forumRequest<RawCommentRecord[]>(
 		`/api/posts/${postId}/comments`,
 		{
@@ -83,7 +83,7 @@ export async function getComments(
 	return result.map(normalizeComment);
 }
 
-export async function createComment(payload: ForumCommentInput) {
+export async function createComment(payload: ForumCommentInput): Promise<ForumComment> {
 	const result = await forumRequest<RawCommentRecord>(
 		`/api/posts/${payload.postId}/comments`,
 		{
@@ -99,14 +99,14 @@ export async function createComment(payload: ForumCommentInput) {
 	return normalizeComment(result);
 }
 
-export function deleteComment(commentId: string) {
+export function deleteComment(commentId: string): Promise<{ success: boolean }> {
 	return forumRequest<{ success: boolean }>(`/api/comments/${commentId}`, {
 		method: "DELETE",
 		requiresAuth: true,
 	});
 }
 
-export async function likeComment(commentId: string) {
+export async function likeComment(commentId: string): Promise<{ liked: boolean; likeCount?: number }> {
 	const result = await forumRequest<CommentLikeResult>(
 		`/api/comments/${commentId}/like`,
 		{

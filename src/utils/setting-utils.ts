@@ -110,7 +110,7 @@ export function setDevServer(server: string): void {
 	localStorage.setItem("dev-server", server);
 }
 
-export function applyThemeToDocument() {
+export function applyThemeToDocument(): void {
 	document.documentElement.classList.add("dark");
 	document.documentElement.setAttribute(
 		"data-theme",

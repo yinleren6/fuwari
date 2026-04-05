@@ -8,7 +8,7 @@ interface RawForumConfig {
 	user_count?: number;
 }
 
-export async function getForumConfig() {
+export async function getForumConfig(): Promise<ForumConfig> {
 	const result = await forumRequest<RawForumConfig>("/api/config");
 	return {
 		turnstileEnabled: Boolean(result.turnstile_enabled),

@@ -14,7 +14,7 @@ function buildUrl(
 	path: string,
 	query?: ForumRequestOptions["query"],
 	baseUrl = get(forumEnv.baseUrl),
-) {
+): string {
 	const normalizedPath = path.startsWith("/") ? path : `/${path}`;
 	const url = new URL(normalizedPath, baseUrl);
 
@@ -48,7 +48,7 @@ async function parseResponse<T>(response: Response): Promise<T> {
 export async function forumRequest<T>(
 	path: string,
 	options: ForumRequestOptions = {},
-) {
+): Promise<T> {
 	const headers = new Headers(options.headers);
 	const method = (options.method || "GET").toUpperCase();
 	const token = forumAuth.getToken();

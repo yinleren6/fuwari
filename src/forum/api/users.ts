@@ -241,7 +241,7 @@ function resolveProfileUser(result: RawUserRecord | RawUserProfileResult) {
 	return null;
 }
 
-export async function getUserProfile(userId: string) {
+export async function getUserProfile(userId: string): Promise<ForumUser> {
 	const result = await forumRequest<RawUserRecord | RawUserProfileResult>(
 		`/api/users/${userId}`,
 	);

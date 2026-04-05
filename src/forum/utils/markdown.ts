@@ -37,7 +37,7 @@ const sanitizeOptions: sanitizeHtml.IOptions = {
 	allowedSchemes: ["http", "https", "mailto"],
 };
 
-function applyExternalLinkTarget(htmlText: string) {
+function applyExternalLinkTarget(htmlText: string): string {
 	const root = parseHtml(htmlText);
 	for (const anchor of root.querySelectorAll("a")) {
 		const href = anchor.getAttribute("href")?.trim();
@@ -50,7 +50,7 @@ function applyExternalLinkTarget(htmlText: string) {
 	return root.toString();
 }
 
-export function renderForumMarkdown(markdownText?: string) {
+export function renderForumMarkdown(markdownText?: string): string {
 	if (!markdownText) {
 		return "";
 	}
@@ -60,7 +60,7 @@ export function renderForumMarkdown(markdownText?: string) {
 	return applyExternalLinkTarget(sanitizedHtml);
 }
 
-export function extractFirstImageUrlFromMarkdown(markdownText?: string) {
+export function extractFirstImageUrlFromMarkdown(markdownText?: string): string | undefined {
 	if (!markdownText) {
 		return undefined;
 	}

@@ -11,7 +11,7 @@ export function readLocalStorage<T>(key: string, fallback: T): T {
 	}
 }
 
-export function writeLocalStorage<T>(key: string, value: T) {
+export function writeLocalStorage<T>(key: string, value: T): void {
 	if (typeof localStorage === "undefined") {
 		return;
 	}
@@ -23,7 +23,7 @@ export function writeLocalStorage<T>(key: string, value: T) {
 	}
 }
 
-export function removeLocalStorage(key: string) {
+export function removeLocalStorage(key: string): void {
 	if (typeof localStorage === "undefined") {
 		return;
 	}

@@ -45,7 +45,7 @@ function parseDateFromYmd(ymd: string): Date | null {
 export function resolveCurrentWeek(
 	startDateText: string,
 	maxWeek: number,
-	now = new Date(),
+	now: Date = new Date(),
 ): number {
 	const startDate = parseDateFromYmd(startDateText);
 	if (!startDate) {

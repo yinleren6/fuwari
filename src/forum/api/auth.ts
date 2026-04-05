@@ -297,7 +297,7 @@ function normalizeSession(result: RawSessionResult): SessionResult {
 	};
 }
 
-export async function login(payload: LoginPayload) {
+export async function login(payload: LoginPayload): Promise<SessionResult> {
 	const result = await forumRequest<RawSessionResult>("/api/login", {
 		method: "POST",
 		json: {
@@ -310,7 +310,7 @@ export async function login(payload: LoginPayload) {
 	return normalizeSession(result);
 }
 
-export async function register(payload: RegisterPayload) {
+export async function register(payload: RegisterPayload): Promise<RegisterResult> {
 	const result = await forumRequest<RegisterResult>("/api/register", {
 		method: "POST",
 		json: {
@@ -326,21 +326,21 @@ export async function register(payload: RegisterPayload) {
 	} satisfies RegisterResult;
 }
 
-export async function getSession() {
+export async function getSession(): Promise<SessionResult> {
 	const result = await forumRequest<RawSessionResult>("/api/session", {
 		requiresAuth: true,
 	});
 	return normalizeSession(result);
 }
 
-export async function getCurrentUser() {
+export async function getCurrentUser(): Promise<ForumUser | null> {
 	const result = await forumRequest<RawSessionUser>("/api/user/me", {
 		requiresAuth: true,
 	});
 	return normalizeUser(result);
 }
 
-export async function getCurrentUserAvatar() {
+export async function getCurrentUserAvatar(): Promise<string> {
 	const result = await forumRequest<CurrentUserAvatarResult>(
 		"/api/user/avatar",
 		{
@@ -350,7 +350,7 @@ export async function getCurrentUserAvatar() {
 	return result.avatar_url || "";
 }
 
-export async function updateProfile(payload: ProfilePayload) {
+export async function updateProfile(payload: ProfilePayload): Promise<ForumUser | null> {
 	const result = await forumRequest<RawProfileResult>("/api/user/profile", {
 		method: "POST",
 		requiresAuth: true,
@@ -369,7 +369,7 @@ export async function updateProfile(payload: ProfilePayload) {
 	return normalizeUser(resolvedUser);
 }
 
-export async function updateMyProfile(payload: ForumProfilePayload) {
+export async function updateMyProfile(payload: ForumProfilePayload): Promise<ForumUser | null> {
 	const result = await forumRequest<RawProfileResult>("/api/user/me/profile", {
 		method: "POST",
 		requiresAuth: true,
@@ -388,7 +388,7 @@ export async function updateMyProfile(payload: ForumProfilePayload) {
 	return normalizeUser(resolvedUser);
 }
 
-export async function uploadFile({ file, type, postId }: UploadPayload) {
+export async function uploadFile({ file, type, postId }: UploadPayload): Promise<string> {
 	const formData = new FormData();
 	formData.append("file", file);
 	formData.append("type", type);
@@ -404,11 +404,11 @@ export async function uploadFile({ file, type, postId }: UploadPayload) {
 	return result.url || result.path || "";
 }
 
-export function uploadAvatar(file: File) {
+export function uploadAvatar(file: File): Promise<string> {
 	return uploadFile({ file, type: "avatar" });
 }
 
-export function changeEmail(payload: ChangeEmailPayload) {
+export function changeEmail(payload: ChangeEmailPayload): Promise<{ success?: boolean; message?: string }> {
 	return forumRequest<{ success?: boolean; message?: string }>(
 		"/api/user/change-email",
 		{
@@ -422,7 +422,7 @@ export function changeEmail(payload: ChangeEmailPayload) {
 	);
 }
 
-export async function verifyEmailChange(token?: string) {
+export async function verifyEmailChange(token?: string): Promise<{ success?: boolean; message?: string; user?: ForumUser | null }> {
 	const result = await forumRequest<{
 		success?: boolean;
 		message?: string;
@@ -440,14 +440,14 @@ export async function verifyEmailChange(token?: string) {
 	};
 }
 
-export async function getTotpStatus() {
+export async function getTotpStatus(): Promise<boolean | undefined> {
 	const result = await forumRequest<TotpStatusResult>("/api/user/totp/status", {
 		requiresAuth: true,
 	});
 	return toOptionalBoolean(result.totp_enabled);
 }
 
-export async function setupTotp() {
+export async function setupTotp(): Promise<{ secret: string; uri: string }> {
 	const result = await forumRequest<TotpSetupResult>("/api/user/totp/setup", {
 		method: "POST",
 		requiresAuth: true,
@@ -459,7 +459,7 @@ export async function setupTotp() {
 	};
 }
 
-export async function verifyTotp(payload: TotpVerifyPayload) {
+export async function verifyTotp(payload: TotpVerifyPayload): Promise<{ success?: boolean; user?: ForumUser | null }> {
 	const result = await forumRequest<{
 		success?: boolean;
 		user?: RawSessionUser;
@@ -474,7 +474,7 @@ export async function verifyTotp(payload: TotpVerifyPayload) {
 	};
 }
 
-export function disableTotp(payload: DisableTotpPayload) {
+export function disableTotp(payload: DisableTotpPayload): Promise<{ success?: boolean }> {
 	return forumRequest<{ success?: boolean }>("/api/user/totp/disable", {
 		method: "POST",
 		requiresAuth: true,
@@ -485,7 +485,7 @@ export function disableTotp(payload: DisableTotpPayload) {
 	});
 }
 
-export function deleteAccount(payload: DeleteAccountPayload) {
+export function deleteAccount(payload: DeleteAccountPayload): Promise<{ success?: boolean }> {
 	return forumRequest<{ success?: boolean }>("/api/user/delete", {
 		method: "POST",
 		requiresAuth: true,
@@ -496,7 +496,7 @@ export function deleteAccount(payload: DeleteAccountPayload) {
 	});
 }
 
-export function forgotPassword(payload: ForgotPasswordPayload) {
+export function forgotPassword(payload: ForgotPasswordPayload): Promise<{ success?: boolean }> {
 	return forumRequest<{ success?: boolean }>("/api/auth/forgot-password", {
 		method: "POST",
 		json: {
@@ -506,7 +506,7 @@ export function forgotPassword(payload: ForgotPasswordPayload) {
 	});
 }
 
-export function resetPassword(payload: ResetPasswordPayload) {
+export function resetPassword(payload: ResetPasswordPayload): Promise<{ success?: boolean }> {
 	return forumRequest<{ success?: boolean }>("/api/auth/reset-password", {
 		method: "POST",
 		json: {
@@ -518,7 +518,7 @@ export function resetPassword(payload: ResetPasswordPayload) {
 	});
 }
 
-export function logout() {
+export function logout(): Promise<{ success: boolean }> {
 	return forumRequest<{ success: boolean }>("/api/logout", {
 		method: "POST",
 		requiresAuth: true,

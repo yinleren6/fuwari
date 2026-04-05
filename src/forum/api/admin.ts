@@ -81,20 +81,20 @@ function normalizeCategory(category: RawCategory): ForumCategory {
 	};
 }
 
-export function getAdminStats() {
+export function getAdminStats(): Promise<AdminStats> {
 	return forumRequest<AdminStats>("/api/admin/stats", {
 		requiresAuth: true,
 	});
 }
 
-export async function getAdminSettings() {
+export async function getAdminSettings(): Promise<ForumAdminSettings> {
 	const result = await forumRequest<RawAdminSettings>("/api/admin/settings", {
 		requiresAuth: true,
 	});
 	return normalizeAdminSettings(result);
 }
 
-export function saveAdminSettings(settings: ForumAdminSettings) {
+export function saveAdminSettings(settings: ForumAdminSettings): Promise<{ success?: boolean }> {
 	return forumRequest<{ success?: boolean }>("/api/admin/settings", {
 		method: "POST",
 		requiresAuth: true,
@@ -110,7 +110,7 @@ export function saveAdminSettings(settings: ForumAdminSettings) {
 	});
 }
 
-export async function getAdminUsers(query?: string) {
+export async function getAdminUsers(query?: string): Promise<ForumUser[]> {
 	const normalizedQuery = query?.trim() || undefined;
 	const result = await forumRequest<RawAdminUser[]>("/api/admin/users", {
 		requiresAuth: true,
@@ -119,7 +119,7 @@ export async function getAdminUsers(query?: string) {
 	return result.map(normalizeAdminUser);
 }
 
-export async function getAdminCategories() {
+export async function getAdminCategories(): Promise<ForumCategory[]> {
 	const result = await forumRequest<
 		RawCategory[] | { items?: RawCategory[]; categories?: RawCategory[] }
 	>("/api/categories");
@@ -129,7 +129,7 @@ export async function getAdminCategories() {
 	return categories.map(normalizeCategory);
 }
 
-export function createAdminCategory(name: string) {
+export function createAdminCategory(name: string): Promise<{ success?: boolean }> {
 	return forumRequest<{ success?: boolean }>("/api/admin/categories", {
 		method: "POST",
 		requiresAuth: true,
@@ -137,7 +137,7 @@ export function createAdminCategory(name: string) {
 	});
 }
 
-export function updateAdminCategory(id: string, name: string) {
+export function updateAdminCategory(id: string, name: string): Promise<{ success?: boolean }> {
 	return forumRequest<{ success?: boolean }>(`/api/admin/categories/${id}`, {
 		method: "PUT",
 		requiresAuth: true,
@@ -145,7 +145,7 @@ export function updateAdminCategory(id: string, name: string) {
 	});
 }
 
-export function deleteAdminCategory(id: string) {
+export function deleteAdminCategory(id: string): Promise<{ success?: boolean }> {
 	return forumRequest<{ success?: boolean }>(`/api/admin/categories/${id}`, {
 		method: "DELETE",
 		requiresAuth: true,
@@ -177,7 +177,7 @@ function normalizeEmailTestResults(
 	return [];
 }
 
-export async function sendAdminTestEmail(options: AdminEmailTestOptions) {
+export async function sendAdminTestEmail(options: AdminEmailTestOptions): Promise<AdminEmailTestResult[]> {
 	const result = await forumRequest<
 		| { results?: AdminEmailTestResult[] }
 		| AdminEmailTestResult[]
@@ -194,7 +194,7 @@ export async function sendAdminTestEmail(options: AdminEmailTestOptions) {
 	return normalizeEmailTestResults(result);
 }
 
-export function resendAdminUserVerification(userId: string) {
+export function resendAdminUserVerification(userId: string): Promise<AdminUserActionResult> {
 	return forumRequest<AdminUserActionResult>(
 		`/api/admin/users/${userId}/resend-verification`,
 		{
@@ -205,7 +205,7 @@ export function resendAdminUserVerification(userId: string) {
 	);
 }
 
-export function verifyAdminUser(userId: string) {
+export function verifyAdminUser(userId: string): Promise<AdminUserActionResult> {
 	return forumRequest<AdminUserActionResult>(
 		`/api/admin/users/${userId}/verify`,
 		{
@@ -216,14 +216,14 @@ export function verifyAdminUser(userId: string) {
 	);
 }
 
-export function deleteAdminUser(userId: string) {
+export function deleteAdminUser(userId: string): Promise<AdminUserActionResult> {
 	return forumRequest<AdminUserActionResult>(`/api/admin/users/${userId}`, {
 		method: "DELETE",
 		requiresAuth: true,
 	});
 }
 
-export function deleteAdminPost(id: string) {
+export function deleteAdminPost(id: string): Promise<{ success: true }> {
 	return forumRequest<{ success: true }>(`/api/admin/posts/${id}`, {
 		method: "DELETE",
 		requiresAuth: true,
@@ -233,7 +233,7 @@ export function deleteAdminPost(id: string) {
 export function updateAdminUser(
 	userId: string,
 	payload: AdminUserUpdatePayload,
-) {
+): Promise<AdminUserActionResult> {
 	return forumRequest<AdminUserActionResult>(
 		`/api/admin/users/${userId}/update`,
 		{
@@ -249,13 +249,13 @@ export function updateAdminUser(
 	);
 }
 
-export function scanAdminStorageGc() {
+export function scanAdminStorageGc(): Promise<AdminStorageGcScanResult> {
 	return forumRequest<AdminStorageGcScanResult>("/api/admin/cleanup/analyze", {
 		requiresAuth: true,
 	});
 }
 
-export function cleanupAdminStorageGc(orphans?: string[]) {
+export function cleanupAdminStorageGc(orphans?: string[]): Promise<AdminStorageGcCleanupResult> {
 	return forumRequest<AdminStorageGcCleanupResult>(
 		"/api/admin/cleanup/execute",
 		{
@@ -272,7 +272,7 @@ export interface SubscriptionCount {
 	count: number;
 }
 
-export function getArticleNotificationsCount() {
+export function getArticleNotificationsCount(): Promise<SubscriptionCount> {
 	return forumRequest<SubscriptionCount>(
 		"/api/subscriptions/article-notifications",
 	);

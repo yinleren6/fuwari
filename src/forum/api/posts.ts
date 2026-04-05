@@ -109,7 +109,7 @@ export interface ForumPostListQuery {
 	sort?: string;
 }
 
-function normalizePostListQuery(query: ForumPostListQuery) {
+function normalizePostListQuery(query: ForumPostListQuery): Record<string, string | number | boolean | null | undefined> {
 	const sortMap: Record<string, string> = {
 		latest: "time",
 		oldest: "time_asc",
@@ -130,7 +130,7 @@ function normalizePostListQuery(query: ForumPostListQuery) {
 	};
 }
 
-export async function getPosts(query: ForumPostListQuery = {}) {
+export async function getPosts(query: ForumPostListQuery = {}): Promise<ApiListResult<ForumPostSummary> | ForumPostSummary[]> {
 	const result = await forumRequest<RawPostListResult | RawPostRecord[]>(
 		"/api/posts",
 		{
@@ -151,7 +151,7 @@ export async function getPosts(query: ForumPostListQuery = {}) {
 	} satisfies ApiListResult<ForumPostSummary>;
 }
 
-export async function getPost(id: string) {
+export async function getPost(id: string): Promise<ForumPostDetail> {
 	const result = await forumRequest<RawPostRecord | RawPostDetailResult>(
 		`/api/posts/${id}`,
 	);
@@ -162,7 +162,7 @@ export async function getPost(id: string) {
 	return normalizePost(post) as ForumPostDetail;
 }
 
-export async function createPost(payload: ForumPostInput) {
+export async function createPost(payload: ForumPostInput): Promise<ForumPostDetail> {
 	const result = await forumRequest<RawCreatePostResult>("/api/posts", {
 		method: "POST",
 		requiresAuth: true,
@@ -184,7 +184,7 @@ export async function createPost(payload: ForumPostInput) {
 	throw new Error("发帖成功，但未拿到帖子 ID");
 }
 
-export async function updatePost(id: string, payload: ForumPostInput) {
+export async function updatePost(id: string, payload: ForumPostInput): Promise<ForumPostDetail> {
 	const result = await forumRequest<RawUpdatePostResult>(`/api/posts/${id}`, {
 		method: "PUT",
 		requiresAuth: true,
@@ -207,14 +207,14 @@ export async function updatePost(id: string, payload: ForumPostInput) {
 	throw new Error("保存成功，但未拿到帖子 ID");
 }
 
-export function deletePost(id: string) {
+export function deletePost(id: string): Promise<{ success: boolean }> {
 	return forumRequest<{ success: boolean }>(`/api/posts/${id}`, {
 		method: "DELETE",
 		requiresAuth: true,
 	});
 }
 
-export function likePost(id: string) {
+export function likePost(id: string): Promise<{ liked: boolean; likeCount: number }> {
 	return forumRequest<{ liked: boolean; likeCount: number }>(
 		`/api/posts/${id}/like`,
 		{
@@ -229,7 +229,7 @@ export interface NewPostCountResult {
 	last_seen_at: string | null;
 }
 
-export function getNewPostCount() {
+export function getNewPostCount(): Promise<NewPostCountResult> {
 	return forumRequest<NewPostCountResult>("/api/posts/new-count", {
 		requiresAuth: true,
 	});

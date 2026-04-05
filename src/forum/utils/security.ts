@@ -6,7 +6,7 @@ function createRandomString(length: number) {
 	return Array.from(array, (value) => chars[value % chars.length]).join("");
 }
 
-export function createSecurityHeaders() {
+export function createSecurityHeaders(): Record<string, string> {
 	return {
 		"X-Timestamp": Math.floor(Date.now() / 1000).toString(),
 		"X-Nonce": createRandomString(16),

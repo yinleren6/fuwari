@@ -1,5 +1,6 @@
 import type { SessionResult } from "@/forum/types/api";
 import type { ForumUser } from "@/forum/types/user";
+import type { Writable } from "svelte/store";
 import {
 	readLocalStorage,
 	removeLocalStorage,
@@ -16,7 +17,15 @@ interface AuthState {
 	requiresTotp: boolean;
 }
 
-function createAuthStore() {
+interface ForumAuthStore {
+	subscribe: Writable<AuthState>["subscribe"];
+	setLoading(loading: boolean): void;
+	setSession(session: SessionResult): void;
+	clear(): void;
+	getToken(): string | null;
+}
+
+function createAuthStore(): ForumAuthStore {
 	const initialToken = readLocalStorage<string | null>(TOKEN_STORAGE_KEY, null);
 	const { subscribe, update, set } = writable<AuthState>({
 		user: null,
@@ -26,10 +35,10 @@ function createAuthStore() {
 	});
 
 	return {
-		subscribe,
-		setLoading: (loading: boolean) =>
+		subscribe: subscribe,
+		setLoading: (loading: boolean): void =>
 			update((state) => ({ ...state, loading })),
-		setSession: (session: SessionResult) => {
+		setSession: (session: SessionResult): void => {
 			if (session.token) {
 				writeLocalStorage(TOKEN_STORAGE_KEY, session.token);
 			}
@@ -60,12 +69,12 @@ function createAuthStore() {
 				};
 			});
 		},
-		clear: () => {
+		clear: (): void => {
 			removeLocalStorage(TOKEN_STORAGE_KEY);
 			set({ user: null, token: null, loading: false, requiresTotp: false });
 		},
-		getToken: () => readLocalStorage<string | null>(TOKEN_STORAGE_KEY, null),
+		getToken: (): string | null => readLocalStorage<string | null>(TOKEN_STORAGE_KEY, null),
 	};
 }
 
-export const forumAuth = createAuthStore();
+export const forumAuth: ReturnType<typeof createAuthStore> = createAuthStore();
