@@ -190,7 +190,7 @@ export default defineConfig({
 		swup({
 			theme: false,
 			animationClass: "transition-swup-",
-			containers: ["#sort-container", "#swup-container", "#toc"],
+			containers: ["#sort-container", "#swup-container", "#toc", "#swup-footer"],
 			smoothScrolling: true,
 			cache: false,
 			preload: false,
