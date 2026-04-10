@@ -4,6 +4,10 @@
         margin-bottom: 0;
     }
 
+    img {
+        @apply my-2;
+    }
+
     &.forum-comment-md {
         @apply text-sm leading-7;
 
