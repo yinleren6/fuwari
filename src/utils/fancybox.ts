@@ -1,6 +1,9 @@
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
+const FANCYBOX_CLOSING_CLASS = "fancybox-closing-radius";
+const TRANSITION_DURATION = 300;
+
 const fancyboxOptions: any = {
 	hideScrollbar: false,
 	wheel: "zoom",
@@ -15,6 +18,29 @@ const fancyboxOptions: any = {
 		panning: true,
 		zoom: true,
 		protect: false,
+	},
+	on: {
+		ready: (fancybox: any) => {
+			const slide = fancybox.getSlide();
+			if (slide?.triggerEl) {
+				slide.triggerEl.classList.add(FANCYBOX_CLOSING_CLASS);
+			}
+		},
+		closing: (fancybox: any) => {
+			const slide = fancybox.getSlide();
+			if (slide?.triggerEl) {
+				slide.triggerEl.classList.add(FANCYBOX_CLOSING_CLASS);
+			}
+		},
+		destroy: (fancybox: any) => {
+			fancybox.slides?.forEach((slide: any) => {
+				const triggerEl = slide.triggerEl;
+				if (!triggerEl) return;
+				setTimeout(() => {
+					triggerEl.classList.remove(FANCYBOX_CLOSING_CLASS);
+				}, TRANSITION_DURATION);
+			});
+		},
 	},
 };
 
