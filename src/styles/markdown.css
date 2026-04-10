@@ -1,17 +1,9 @@
 .custom-md {
-    p:not(:has(img)) {
-        margin-top: -0.75rem !important;
-    }
-
     &.forum-comment-md {
         @apply text-sm leading-7;
 
-        ul, ol, blockquote, pre, table {
+        p, ul, ol, blockquote, pre, table {
             @apply my-2;
-        }
-
-        p {
-            @apply my-2 -mt-3;
         }
 
         h1, h2, h3, h4, h5, h6 {
