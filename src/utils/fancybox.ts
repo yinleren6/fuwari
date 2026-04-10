@@ -3,7 +3,9 @@ import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
 const fancyboxOptions: any = {
 	hideScrollbar: false,
-	animated: false,
+	zoomEffect: false,
+	showClass: "f-fadeIn",
+	hideClass: "f-fadeOut",
 	wheel: "zoom",
 	clickContent: "close",
 	dblclickContent: "zoom",
