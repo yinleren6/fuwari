@@ -178,6 +178,10 @@ export default defineConfig({
 			status: 302,
 			destination: "https://ikuuu.de/",
 		},
+		"/hnr": {
+			status: 302,
+			destination: "https://subspace.shop/products/lin-pianpian-keychain-the-weeping-swan-ten-days-of-the-citys-fall?_pos=1&_sid=5ba9d94dd&_ss=r",
+		},
 	},
 	integrations: [
 		tailwind({
