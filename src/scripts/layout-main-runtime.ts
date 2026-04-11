@@ -117,6 +117,15 @@ function syncSidebarProfileMode() {
 	const forumProfile = document.getElementById("sidebar-profile-forum");
 	const timetable = document.getElementById("sidebar-timetable");
 	const deepwiki = document.getElementById("sidebar-deepwiki");
+	
+	console.log('[syncSidebarProfileMode] Elements:', {
+		sidebar: !!sidebar,
+		blogProfile: !!blogProfile,
+		forumProfile: !!forumProfile,
+		timetable: !!timetable,
+		deepwiki: !!deepwiki
+	});
+	
 	if (!sidebar || !blogProfile || !forumProfile) return;
 
 	const forumBasePath =
@@ -132,10 +141,24 @@ function syncSidebarProfileMode() {
 		normalizedCurrentPath === normalizedForumBasePath ||
 		normalizedCurrentPath.startsWith(normalizedForumBasePath);
 
+	console.log('[syncSidebarProfileMode] Route check:', {
+		currentPath,
+		normalizedCurrentPath,
+		normalizedForumBasePath,
+		isForumRoute
+	});
+
 	blogProfile.classList.toggle("hidden", isForumRoute);
 	forumProfile.classList.toggle("hidden", !isForumRoute);
 	timetable?.classList.toggle("hidden", isForumRoute);
 	deepwiki?.classList.toggle("hidden", isForumRoute);
+	
+	console.log('[syncSidebarProfileMode] Classes after toggle:', {
+		blogProfileHidden: blogProfile.classList.contains('hidden'),
+		forumProfileHidden: forumProfile.classList.contains('hidden'),
+		timetableHidden: timetable?.classList.contains('hidden'),
+		deepwikiHidden: deepwiki?.classList.contains('hidden')
+	});
 }
 
 function init() {
