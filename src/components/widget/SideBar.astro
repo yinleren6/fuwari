@@ -123,6 +123,9 @@ const sidebarLiveStatusPayload = {
         const sidebar = document.getElementById("sidebar");
         const blogProfile = document.getElementById("sidebar-profile-blog");
         const forumProfile = document.getElementById("sidebar-profile-forum");
+        const timetable = document.getElementById("sidebar-timetable");
+        const deepwiki = document.getElementById("sidebar-deepwiki");
+        
         if (!sidebar || !blogProfile || !forumProfile) return;
 
         const forumBasePath = sidebar.getAttribute("data-forum-base-path") || "/forum/";
@@ -133,6 +136,13 @@ const sidebarLiveStatusPayload = {
 
         blogProfile.classList.toggle("hidden", isForumRoute);
         forumProfile.classList.toggle("hidden", !isForumRoute);
+        
+        if (timetable) {
+            timetable.classList.toggle("hidden", isForumRoute);
+        }
+        if (deepwiki) {
+            deepwiki.classList.toggle("hidden", isForumRoute);
+        }
     }
 
     document.addEventListener("DOMContentLoaded", syncSidebarProfileMode);
