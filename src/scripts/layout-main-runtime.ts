@@ -175,14 +175,13 @@ bindPostInlineDiff();
 setupLinkInterceptor();
 
 const setup = async () => {
-	const SORT_PATHS = [
-		"/",
-		"/date-asc/",
-		"/date-desc/",
-		"/alpha-asc/",
-		"/alpha-desc/",
-	];
+	if (!window.swup) {
+		return;
+	}
 
+	// 定义排序页面路径
+	const SORT_PATHS = ["/", "/date-asc/", "/date-desc/", "/alpha-asc/", "/alpha-desc/"];
+	
 	const isSortPath = (pathname: string): boolean => {
 		const clean = pathname.replace(/\/+$/, "") || "/";
 		return SORT_PATHS.some((p) => {
@@ -191,82 +190,76 @@ const setup = async () => {
 		});
 	};
 
-	if (!window.swup) {
-		return;
-	}
-
+	// link:click hook - 处理点击时的准备工作
 	window.swup.hooks.on("link:click", (visit: { el?: HTMLElement }) => {
 		document.documentElement.style.setProperty("--content-delay", "0ms");
 
-		if (!bannerEnabled) {
-			return;
-		}
+		if (!bannerEnabled) return;
+		
 		const threshold = window.innerHeight * (BANNER_HEIGHT / 100) - 72 - 16;
 		const navbar = document.getElementById("navbar-wrapper");
-		if (!navbar || !document.body.classList.contains("lg:is-home")) {
-			return;
-		}
-		if (
-			document.body.scrollTop >= threshold ||
-			document.documentElement.scrollTop >= threshold
-		) {
+		if (!navbar || !document.body.classList.contains("lg:is-home")) return;
+		
+		if (document.body.scrollTop >= threshold || document.documentElement.scrollTop >= threshold) {
 			navbar.classList.add("navbar-hidden");
 		}
 	});
-	window.swup.hooks.on(
-		"visit:start",
-		(visit: { to: { url: string }; containers?: string[] }) => {
-			const bodyElement = document.querySelector("body");
-			if (pathsEqual(visit.to.url, url("/"))) {
-				bodyElement!.classList.add("lg:is-home");
-			} else {
-				bodyElement!.classList.remove("lg:is-home");
-			}
 
-			const heightExtend = document.getElementById("page-height-extend");
-			if (heightExtend) {
-				heightExtend.classList.remove("hidden");
-			}
+	// visit:start hook - 核心逻辑：动态控制哪些容器参与动画
+	window.swup.hooks.on("visit:start", (visit: { to: { url: string }; containers?: string[] }) => {
+		const bodyElement = document.querySelector("body");
+		const currentPath = window.location.pathname;
+		const targetPath = new URL(visit.to.url, window.location.origin).pathname;
 
-			const toc = document.getElementById("toc-wrapper");
-			if (toc) {
-				toc.classList.add("toc-not-ready");
-			}
+		// 更新 body 的 is-home 类
+		if (pathsEqual(visit.to.url, url("/"))) {
+			bodyElement!.classList.add("lg:is-home");
+		} else {
+			bodyElement!.classList.remove("lg:is-home");
+		}
 
-			// Fragment-like behavior: if navigating between sort pages, only refresh article list
-			const currentPath = window.location.pathname;
-			const targetPath = new URL(visit.to.url, window.location.origin).pathname;
+		// 显示高度扩展元素
+		const heightExtend = document.getElementById("page-height-extend");
+		if (heightExtend) {
+			heightExtend.classList.remove("hidden");
+		}
+
+		// TOC 准备状态
+		const toc = document.getElementById("toc-wrapper");
+		if (toc) {
+			toc.classList.add("toc-not-ready");
+		}
+
+		// 场景1：排序页面之间的切换 - 只刷新文章列表
+		if (isSortPath(currentPath) && isSortPath(targetPath)) {
+			visit.containers = ["#swup-container"];
 			const sortContainer = document.getElementById("sort-container");
-
-			if (isSortPath(currentPath) && isSortPath(targetPath)) {
-				// Navigating between sort pages: only refresh article list
-				visit.containers = ["#swup-container"];
-				// Prevent sort container from animating out
-				if (sortContainer) {
-					sortContainer.classList.add("sort-keep");
-				}
-				return;
-			} else if (sortContainer) {
-				// Navigating away or to sort page: let sort container animate normally
-				sortContainer.classList.remove("sort-keep");
+			if (sortContainer) {
+				sortContainer.classList.add("sort-keep");
 			}
+			return;
+		}
 
-			// Forum transition detection
-			const isCurrentForum = isForumPath(currentPath);
-			const isTargetForum = isForumPath(targetPath);
+		// 清理 sort-keep 类
+		const sortContainer = document.getElementById("sort-container");
+		if (sortContainer) {
+			sortContainer.classList.remove("sort-keep");
+		}
 
-			// 涉及论坛的切换：sidebar 和主容器都参与动画
-			const shouldAnimateSidebar = isCurrentForum || isTargetForum;
+		// 场景2和3：判断是否涉及论坛
+		const isCurrentForum = isForumPath(currentPath);
+		const isTargetForum = isForumPath(targetPath);
 
-			if (shouldAnimateSidebar) {
-				// 论坛相关切换：sidebar + 主容器 + footer + toc 都参与
-				visit.containers = ["#swup-sidebar", "#sort-container", "#swup-container", "#swup-footer", "#toc"];
-			} else {
-				// 非论坛切换（首页 ↔ 其他页面）：只有主容器参与，sidebar 不动
-				visit.containers = ["#sort-container", "#swup-container", "#swup-footer", "#toc"];
-			}
-		},
-	);
+		if (isCurrentForum || isTargetForum) {
+			// 场景2：涉及论坛的切换 - sidebar 和主容器同步动画
+			visit.containers = ["#swup-sidebar", "#sort-container", "#swup-container", "#swup-footer", "#toc"];
+		} else {
+			// 场景3：非论坛页面之间的切换 - 只有主容器动画，sidebar 不动
+			visit.containers = ["#sort-container", "#swup-container", "#swup-footer", "#toc"];
+		}
+	});
+
+	// page:view hook - 页面视图更新后的处理
 	window.swup.hooks.on("page:view", () => {
 		const heightExtend = document.getElementById("page-height-extend");
 		if (heightExtend) {
@@ -276,7 +269,9 @@ const setup = async () => {
 		loadGiscus();
 		syncSidebarProfileMode();
 	});
-	window.swup.hooks.on("visit:end", (_visit: { to: { url: string } }) => {
+
+	// visit:end hook - 访问结束后的清理工作
+	window.swup.hooks.on("visit:end", () => {
 		setTimeout(() => {
 			const heightExtend = document.getElementById("page-height-extend");
 			if (heightExtend) {
@@ -288,7 +283,6 @@ const setup = async () => {
 				toc.classList.remove("toc-not-ready");
 			}
 
-			// Clean up sort-keep class
 			const sortContainer = document.getElementById("sort-container");
 			if (sortContainer) {
 				sortContainer.classList.remove("sort-keep");
