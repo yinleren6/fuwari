@@ -154,19 +154,6 @@ function init() {
 	showBanner();
 	loadGiscus();
 	syncSidebarProfileMode();
-	
-	// 初始化 sidebar 动画状态
-	const sidebar = document.getElementById("swup-sidebar");
-	const currentPath = window.location.pathname;
-	const isCurrentForum = isForumPath(currentPath);
-	
-	if (sidebar) {
-		if (isCurrentForum) {
-			sidebar.classList.remove("sidebar-static");
-		} else {
-			sidebar.classList.add("sidebar-static");
-		}
-	}
 
 	new MutationObserver(() => {
 		const frame = document.querySelector<HTMLIFrameElement>(
@@ -258,6 +245,7 @@ const setup = async () => {
 				if (sortContainer) {
 					sortContainer.classList.add("sort-keep");
 				}
+				return;
 			} else if (sortContainer) {
 				// Navigating away or to sort page: let sort container animate normally
 				sortContainer.classList.remove("sort-keep");
@@ -266,21 +254,16 @@ const setup = async () => {
 			// Forum transition detection
 			const isCurrentForum = isForumPath(currentPath);
 			const isTargetForum = isForumPath(targetPath);
-			const sidebar = document.getElementById("swup-sidebar");
 
-			// 涉及论坛的切换：sidebar 需要动画
+			// 涉及论坛的切换：sidebar 和主容器都参与动画
 			const shouldAnimateSidebar = isCurrentForum || isTargetForum;
 
 			if (shouldAnimateSidebar) {
-				// sidebar 参与动画：移除 sidebar-static 类
-				if (sidebar) {
-					sidebar.classList.remove("sidebar-static");
-				}
+				// 论坛相关切换：sidebar + 主容器 + footer + toc 都参与
+				visit.containers = ["#swup-sidebar", "#sort-container", "#swup-container", "#swup-footer", "#toc"];
 			} else {
-				// sidebar 不参与动画：添加 sidebar-static 类
-				if (sidebar) {
-					sidebar.classList.add("sidebar-static");
-				}
+				// 非论坛切换（首页 ↔ 其他页面）：只有主容器参与，sidebar 不动
+				visit.containers = ["#sort-container", "#swup-container", "#swup-footer", "#toc"];
 			}
 		},
 	);

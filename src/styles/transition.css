@@ -13,13 +13,6 @@ html.is-animating .transition-swup-fade {
     transform: none !important;
 }
 
-/* Keep sidebar static when not involved in forum transitions */
-.sidebar-static {
-    transition: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-}
-
 /* Fade-in animations for components */
 @keyframes fade-in-up {
     0% {
