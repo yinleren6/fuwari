@@ -71,7 +71,7 @@ function goToUser(userId?: string, event?: MouseEvent | KeyboardEvent) {
 		{#each safePosts as post, i}
 			<div 
 				class="group card-base card-hover block w-full cursor-pointer p-5 text-white/90 no-underline transition-opacity duration-200" 
-				style="animation: fade-in 200ms {i * 50}ms forwards; opacity: 0;"
+				style="animation: fade-in 200ms {i * 50}ms forwards;"
 				role="link" 
 				tabindex="0" 
 				on:click={() => goToPost(post.id)} 
