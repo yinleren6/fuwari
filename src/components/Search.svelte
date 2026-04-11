@@ -223,7 +223,7 @@ top-20 left-4 md:left-[unset] right-4 shadow-none rounded-2xl p-2">
         {#if showLoading}
             <div class="flex items-center justify-center py-6">
                 <span class="text-sm text-white/50">搜索中</span>
-                <span class="loading-dots ml-1">
+                <span class="loading-dots">
                     <span class="dot">.</span>
                     <span class="dot">.</span>
                     <span class="dot">.</span>
@@ -294,13 +294,16 @@ top-20 left-4 md:left-[unset] right-4 shadow-none rounded-2xl p-2">
   }
 
   .loading-dots {
-    display: inline-flex;
-    gap: 2px;
+    display: inline-block;
+    margin-left: 0;
   }
 
   .loading-dots .dot {
+    color: var(--primary);
+    font-size: 1.2em;
+    line-height: 1;
     animation: dot-blink 1.4s infinite;
-    opacity: 0.2;
+    opacity: 0;
   }
 
   .loading-dots .dot:nth-child(1) {
@@ -316,14 +319,17 @@ top-20 left-4 md:left-[unset] right-4 shadow-none rounded-2xl p-2">
   }
 
   @keyframes dot-blink {
-    0%, 20% {
-      opacity: 0.2;
+    0% {
+      opacity: 0;
     }
-    40% {
+    20% {
       opacity: 1;
     }
-    60%, 100% {
-      opacity: 0.2;
+    40% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
     }
   }
 </style>
