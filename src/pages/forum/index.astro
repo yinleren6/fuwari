@@ -20,7 +20,7 @@ const breadcrumbSchema = {
 
 <MainGridLayout title="论坛" description="站内论坛首页，支持独立的环境切换、帖子浏览与互动。">
 	<script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
-	<div class="card-base p-6 md:p-8">
+	<div class="p-6 md:p-8 border-b border-white/10">
 		<PageCardHeader title="论坛广场" icon="material-symbols:forum-outline-rounded" pathname="/forum/" />
 		<ForumHomePage client:only="svelte" />
 	</div>
