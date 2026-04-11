@@ -126,13 +126,18 @@ const sidebarLiveStatusPayload = {
         const timetable = document.getElementById("sidebar-timetable");
         const deepwiki = document.getElementById("sidebar-deepwiki");
         
-        if (!sidebar || !blogProfile || !forumProfile) return;
+        if (!sidebar || !blogProfile || !forumProfile) {
+            console.log('syncSidebarProfileMode: missing elements', { sidebar: !!sidebar, blogProfile: !!blogProfile, forumProfile: !!forumProfile });
+            return;
+        }
 
         const forumBasePath = sidebar.getAttribute("data-forum-base-path") || "/forum/";
         const currentPath = window.location.pathname;
         const normalizedCurrentPath = currentPath.endsWith("/") ? currentPath : `${currentPath}/`;
         const normalizedForumBasePath = forumBasePath.endsWith("/") ? forumBasePath : `${forumBasePath}/`;
         const isForumRoute = normalizedCurrentPath === normalizedForumBasePath || normalizedCurrentPath.startsWith(normalizedForumBasePath);
+
+        console.log('syncSidebarProfileMode:', { currentPath, isForumRoute });
 
         blogProfile.classList.toggle("hidden", isForumRoute);
         forumProfile.classList.toggle("hidden", !isForumRoute);
