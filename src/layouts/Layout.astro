@@ -180,9 +180,8 @@ const bannerOffset =
 			document.documentElement.classList.add('dark');
 			localStorage.setItem('theme', DARK_MODE);
 
-			// Load the hue from local storage
-			const hue = localStorage.getItem('hue') || configHue;
-			document.documentElement.style.setProperty('--hue', hue);
+			// Always use config hue (ignore localStorage)
+			document.documentElement.style.setProperty('--hue', configHue);
 
 			// calculate the --banner-height-extend, which needs to be a multiple of 4 to avoid blurry text
 			let offset = Math.floor(window.innerHeight * (BANNER_HEIGHT_EXTEND / 100));
