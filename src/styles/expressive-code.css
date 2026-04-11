@@ -29,7 +29,7 @@
 
 /* 确保代码块本身有背景 */
 pre {
-  background: var(--codeblock-bg) !important;
+  background: var(--primary) !important;
 }
 
 pre code {
