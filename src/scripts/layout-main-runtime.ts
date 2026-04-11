@@ -118,14 +118,6 @@ function syncSidebarProfileMode() {
 	const timetable = document.getElementById("sidebar-timetable");
 	const deepwiki = document.getElementById("sidebar-deepwiki");
 	
-	console.log('[syncSidebarProfileMode] Elements:', {
-		sidebar: !!sidebar,
-		blogProfile: !!blogProfile,
-		forumProfile: !!forumProfile,
-		timetable: !!timetable,
-		deepwiki: !!deepwiki
-	});
-	
 	if (!sidebar || !blogProfile || !forumProfile) return;
 
 	const forumBasePath =
@@ -141,24 +133,18 @@ function syncSidebarProfileMode() {
 		normalizedCurrentPath === normalizedForumBasePath ||
 		normalizedCurrentPath.startsWith(normalizedForumBasePath);
 
-	console.log('[syncSidebarProfileMode] Route check:', {
-		currentPath,
-		normalizedCurrentPath,
-		normalizedForumBasePath,
-		isForumRoute
-	});
-
 	blogProfile.classList.toggle("hidden", isForumRoute);
 	forumProfile.classList.toggle("hidden", !isForumRoute);
 	timetable?.classList.toggle("hidden", isForumRoute);
 	deepwiki?.classList.toggle("hidden", isForumRoute);
-	
-	console.log('[syncSidebarProfileMode] Classes after toggle:', {
-		blogProfileHidden: blogProfile.classList.contains('hidden'),
-		forumProfileHidden: forumProfile.classList.contains('hidden'),
-		timetableHidden: timetable?.classList.contains('hidden'),
-		deepwikiHidden: deepwiki?.classList.contains('hidden')
-	});
+}
+
+function isForumPath(pathname: string): boolean {
+	const sidebar = document.getElementById("sidebar");
+	const forumBasePath = sidebar?.getAttribute("data-forum-base-path") || "/forum/";
+	const normalized = pathname.endsWith("/") ? pathname : `${pathname}/`;
+	const normalizedForum = forumBasePath.endsWith("/") ? forumBasePath : `${forumBasePath}/`;
+	return normalized === normalizedForum || normalized.startsWith(normalizedForum);
 }
 
 function init() {
@@ -189,7 +175,6 @@ bindPostInlineDiff();
 setupLinkInterceptor();
 
 const setup = async () => {
-	console.log('[setup] Starting Swup hooks registration...');
 	const SORT_PATHS = [
 		"/",
 		"/date-asc/",
@@ -207,11 +192,8 @@ const setup = async () => {
 	};
 
 	if (!window.swup) {
-		console.log('[setup] window.swup not found, aborting');
 		return;
 	}
-
-	console.log('[setup] Swup found, registering hooks...');
 
 	window.swup.hooks.on("link:click", (visit: { el?: HTMLElement }) => {
 		document.documentElement.style.setProperty("--content-delay", "0ms");
@@ -267,10 +249,23 @@ const setup = async () => {
 				// Navigating away or to sort page: let sort container animate normally
 				sortContainer.classList.remove("sort-keep");
 			}
+
+			// Forum transition detection: add sidebar to containers if switching between forum and non-forum
+			const isCurrentForum = isForumPath(currentPath);
+			const isTargetForum = isForumPath(targetPath);
+			const isForumTransition = isCurrentForum !== isTargetForum;
+
+			if (isForumTransition) {
+				// Add sidebar to Swup containers for animation
+				const sidebar = document.getElementById("sidebar");
+				if (sidebar && !visit.containers?.includes("#sidebar")) {
+					visit.containers = visit.containers || ["#swup-container", "#swup-footer", "#toc"];
+					visit.containers.push("#sidebar");
+				}
+			}
 		},
 	);
 	window.swup.hooks.on("page:view", () => {
-		console.log('[page:view] Event triggered, pathname:', window.location.pathname);
 		const heightExtend = document.getElementById("page-height-extend");
 		if (heightExtend) {
 			heightExtend.classList.remove("hidden");
@@ -298,19 +293,16 @@ const setup = async () => {
 			}
 		}, 200);
 	});
-	console.log('[setup] All hooks registered successfully');
 };
 
 // Try to setup immediately if Swup is already ready
 if (window?.swup?.hooks) {
-	console.log('[layout-main-runtime] Swup already initialized, calling setup immediately');
-	setup().catch(err => console.error('[layout-main-runtime] Setup failed:', err));
+	setup();
 }
 
 // Also listen for swup:enable event in case Swup initializes later
 document.addEventListener("swup:enable", () => {
-	console.log('[layout-main-runtime] swup:enable event received, calling setup');
-	setup().catch(err => console.error('[layout-main-runtime] Setup failed:', err));
+	setup();
 });
 
 let backToTopBtn = document.getElementById("back-to-top-btn");
