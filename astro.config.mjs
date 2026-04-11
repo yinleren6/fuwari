@@ -193,6 +193,7 @@ export default defineConfig({
 		}),
 	],
 	markdown: {
+		syntaxHighlight: false,
 		remarkPlugins: [
 			remarkSpoiler,
 			remarkMath,

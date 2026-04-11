@@ -2,9 +2,27 @@
   @apply !shadow-none;
 }
 
-/* 移除代码行的背景色 */
-pre code .line,
-pre code span.line {
+/* 强制移除所有代码行的背景色 - 使用更高优先级 */
+* pre code .line,
+* pre code span.line,
+* .markdown-content pre code .line,
+* .markdown-content pre code span.line,
+* .custom-md pre code .line,
+* .custom-md pre code span.line,
+* pre .line,
+* pre span.line,
+* pre > code > .line,
+* pre > code > span.line {
+  background: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* 移除可能的伪元素背景 */
+* pre code .line::before,
+* pre code .line::after,
+* pre code span.line::before,
+* pre code span.line::after {
   background: none !important;
   background-color: transparent !important;
 }
