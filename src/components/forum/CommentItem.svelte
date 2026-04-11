@@ -158,7 +158,7 @@ async function toggleLike() {
 			{/if}
 		</div>
 
-		<ForumMarkdownContent content={comment.content} compact={true} className="text-sm" />
+		<ForumMarkdownContent content={comment.content} className="text-sm" />
 
 		<div class="mt-4 flex flex-wrap items-center gap-2 text-xs text-white/35">
 			<button class="inline-flex items-center gap-1 rounded-lg border border-white/10 px-3 py-1.5 text-white/55 transition hover:border-white/20 hover:text-[var(--primary)] disabled:opacity-60" disabled={likeBusy} on:click={toggleLike}>
