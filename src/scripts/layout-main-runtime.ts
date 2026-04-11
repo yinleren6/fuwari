@@ -274,6 +274,20 @@ const setup = async () => {
 		if (heightExtend) {
 			heightExtend.classList.remove("hidden");
 		}
+		
+		// 确保新页面的 sidebar 也有正确的动画类
+		const currentPath = window.location.pathname;
+		const isCurrentForum = isForumPath(currentPath);
+		const sidebarElement = document.getElementById("swup-sidebar");
+		
+		if (isCurrentForum && sidebarElement) {
+			// 论坛页面：确保 sidebar 有动画类
+			sidebarElement.classList.add("transition-swup-fade");
+		} else if (sidebarElement) {
+			// 非论坛页面：移除动画类
+			sidebarElement.classList.remove("transition-swup-fade");
+		}
+		
 		scrollFunction();
 		loadGiscus();
 		syncSidebarProfileMode();
