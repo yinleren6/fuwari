@@ -1,9 +1,6 @@
 import { fileURLToPath } from "node:url";
 import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
-import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
-import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
-import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
 import { defineConfig, passthroughImageService } from "astro/config";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -16,9 +13,6 @@ import remarkMath from "remark-math";
 import remarkSectionize from "remark-sectionize";
 import { SKIP, visit } from "unist-util-visit";
 import { imageFallbackConfig, siteConfig } from "./src/config.ts";
-import { expressiveCodeConfig } from "./src/config.ts";
-// import { pluginLanguageBadge } from "./src/plugins/expressive-code/language-badge.ts";
-import { pluginCustomCopyButton } from "./src/plugins/expressive-code/custom-copy-button.js";
 import { rehypeAIAdmonition } from "./src/plugins/rehype-ai-admonition.mjs";
 import { AdmonitionComponent } from "./src/plugins/rehype-component-admonition.mjs";
 import { GithubCardComponent } from "./src/plugins/rehype-component-github-card.mjs";
@@ -195,51 +189,6 @@ export default defineConfig({
 				compatibility: {
 					componentApi: 4,
 				},
-			},
-		}),
-		expressiveCode({
-			themes: [expressiveCodeConfig.theme, expressiveCodeConfig.theme],
-			plugins: [
-				pluginCollapsibleSections(),
-				pluginLineNumbers(),
-				// pluginLanguageBadge(),
-				pluginCustomCopyButton(),
-			],
-			defaultProps: {
-				wrap: true,
-				overridesByLang: {
-					shellsession: {
-						showLineNumbers: false,
-					},
-				},
-			},
-			styleOverrides: {
-				codeBackground: "var(--codeblock-bg)",
-				borderRadius: "0.25rem",
-				borderColor: "none",
-				codeFontSize: "0.875rem",
-				codeFontFamily:
-					"'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-				codeLineHeight: "1.5rem",
-				frames: {
-					editorBackground: "var(--codeblock-bg)",
-					terminalBackground: "var(--codeblock-bg)",
-					terminalTitlebarBackground: "var(--codeblock-topbar-bg)",
-					editorTabBarBackground: "var(--codeblock-topbar-bg)",
-					editorActiveTabBackground: "none",
-					editorActiveTabIndicatorBottomColor: "var(--primary)",
-					editorActiveTabIndicatorTopColor: "none",
-					editorTabBarBorderBottomColor: "var(--codeblock-topbar-bg)",
-					terminalTitlebarBorderBottomColor: "none",
-				},
-				textMarkers: {
-					delHue: 0,
-					insHue: 180,
-					markHue: 250,
-				},
-			},
-			frames: {
-				showCopyToClipboardButton: false,
 			},
 		}),
 	],

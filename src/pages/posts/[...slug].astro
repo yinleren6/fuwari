@@ -310,18 +310,16 @@ const jsonLd = [
     }
 
     function setupCodeFolding() {
-        const codeBlocks = document.querySelectorAll('.expressive-code .frame');
+        const codeBlocks = document.querySelectorAll('pre code');
 
-        codeBlocks.forEach((block) => {
-            if (block.querySelector('.code-expand-btn')) return;
-
-            const pre = block.querySelector('pre');
-            if (!pre) return;
+        codeBlocks.forEach((code) => {
+            const pre = code.parentElement;
+            if (!pre || pre.querySelector('.code-expand-btn')) return;
 
             const threshold = window.innerHeight * 0.3;
             if (pre.scrollHeight <= threshold) return;
 
-            block.classList.add('is-collapsed');
+            pre.classList.add('is-collapsed');
 
             const btn = document.createElement('button');
             btn.type = 'button';

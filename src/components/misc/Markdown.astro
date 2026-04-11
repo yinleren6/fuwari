@@ -74,13 +74,6 @@ const transformMermaidBlocks = () => {
         container.className = "mermaid";
         container.textContent = source;
         pre.dataset.mermaidProcessed = "true";
-
-        const codeBlockRoot = pre.closest(".expressive-code");
-        if (codeBlockRoot) {
-            codeBlockRoot.replaceWith(container);
-            return;
-        }
-
         pre.replaceWith(container);
     });
 };

@@ -1,4 +1,3 @@
-import { expressiveCodeConfig } from "@/config";
 import { DARK_MODE } from "@constants/constants.ts";
 
 export function getDefaultHue(): number {
@@ -109,10 +108,7 @@ export function setDevServer(server: string): void {
 
 export function applyThemeToDocument(): void {
 	document.documentElement.classList.add("dark");
-	document.documentElement.setAttribute(
-		"data-theme",
-		expressiveCodeConfig.theme,
-	);
+	document.documentElement.setAttribute("data-theme", "github-dark");
 }
 
 export function setTheme(): void {

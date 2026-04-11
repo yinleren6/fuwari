@@ -111,9 +111,7 @@ export type BlogPostData = {
 	nextSlug?: string;
 };
 
-export type ExpressiveCodeConfig = {
-	theme: string;
-};
+
 
 export type GitHubEditConfig = {
 	enable: boolean;

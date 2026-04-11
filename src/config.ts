@@ -1,5 +1,4 @@
 import type {
-	ExpressiveCodeConfig,
 	GitHubEditConfig,
 	ImageFallbackConfig,
 	LicenseConfig,
@@ -170,9 +169,7 @@ export const umamiConfig: UmamiConfig = {
 	timezone: "Asia/Shanghai",
 };
 
-export const expressiveCodeConfig: ExpressiveCodeConfig = {
-	theme: "github-dark",
-};
+
 
 export const gitHubEditConfig: GitHubEditConfig = {
 	enable: true,

@@ -1,3 +1,19 @@
 .expressive-code .frame {
   @apply !shadow-none;
 }
+
+/* 移除代码行的背景色 */
+pre code .line,
+pre code span.line {
+  background: none !important;
+  background-color: transparent !important;
+}
+
+/* 确保代码块本身有背景 */
+pre {
+  background: var(--codeblock-bg) !important;
+}
+
+pre code {
+  background: transparent !important;
+}
