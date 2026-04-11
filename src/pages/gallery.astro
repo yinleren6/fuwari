@@ -386,9 +386,5 @@ import MainGridLayout from "@layouts/MainGridLayout.astro";
 
 		if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initIfPresent);
 		else initIfPresent();
-
-		document.addEventListener("astro:after-swap", initIfPresent);
-		document.addEventListener("content:replace", initIfPresent);
-		document.addEventListener("astro:page-load", initIfPresent);
 	</script>
 </MainGridLayout>

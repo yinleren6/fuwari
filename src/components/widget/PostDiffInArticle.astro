@@ -631,7 +631,6 @@
 
 	if (!(window).__fuwariPostInlineDiffBound) {
 		document.addEventListener("DOMContentLoaded", initPostInlineDiff);
-		document.addEventListener("astro:page-load", initPostInlineDiff);
 		window.addEventListener("fuwari:diff-debug-updated", initPostInlineDiff);
 	}
 </script>

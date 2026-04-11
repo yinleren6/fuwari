@@ -111,8 +111,6 @@ for (const day of dayIndexes) {
 	}
 	window[handlerKey] = runSetupTimetableGridScale;
 	window.addEventListener("resize", runSetupTimetableGridScale);
-	document.addEventListener("astro:after-swap", runSetupTimetableGridScale);
-	document.addEventListener("astro:page-load", runSetupTimetableGridScale);
 </script>
 
 <style>

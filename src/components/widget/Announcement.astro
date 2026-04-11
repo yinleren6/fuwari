@@ -146,8 +146,6 @@ const currentColor = colorMap[level] || colorMap.info;
     // However, if the component persists (e.g. in a persistent layout), the script might re-run or not depending on Swup config.
     // The issue described suggests DOM elements are being duplicated.
     // The fix above (removing existing wrappers) handles the re-execution safely.
-    
-    document.addEventListener('astro:after-swap', initAnnouncement);
 </script>
 
 <style>

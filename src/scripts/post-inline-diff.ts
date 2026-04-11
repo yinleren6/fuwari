@@ -739,7 +739,6 @@ export function bindPostInlineDiff(): void {
 	if (w.__fuwariPostInlineDiffBound) return;
 	w.__fuwariPostInlineDiffBound = true;
 	document.addEventListener("DOMContentLoaded", initPostInlineDiff);
-	document.addEventListener("astro:page-load", initPostInlineDiff);
 	window.addEventListener("fuwari:diff-debug-updated", initPostInlineDiff);
 	if (document.readyState !== "loading") initPostInlineDiff();
 }

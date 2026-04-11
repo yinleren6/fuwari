@@ -166,8 +166,6 @@ const payloadText = encodeURIComponent(
 
 		if (!window.__liveStatusWidgetsBound) {
 			window.__liveStatusWidgetsBound = true;
-			document.addEventListener("astro:after-swap", refreshLiveStatusWidgets);
-			document.addEventListener("astro:page-load", refreshLiveStatusWidgets);
 			window.addEventListener("focus", refreshLiveStatusWidgets);
 		}
 

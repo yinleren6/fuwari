@@ -39,7 +39,4 @@ const id =
 	if (document.readyState === "loading")
 		document.addEventListener("DOMContentLoaded", loadViews);
 	else loadViews();
-	document.addEventListener("astro:after-swap", loadViews);
-	document.addEventListener("content:replace", loadViews);
-	document.addEventListener("astro:page-load", loadViews);
 </script>

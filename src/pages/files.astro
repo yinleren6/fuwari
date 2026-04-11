@@ -151,9 +151,7 @@ const breadcrumbSchema = {
                 });
             }
 
-            // 处理 Astro 页面切换后的重新绑定
             setupTabs();
-            document.addEventListener('astro:page-load', setupTabs);
         </script>
     </div>
 </MainGridLayout>
