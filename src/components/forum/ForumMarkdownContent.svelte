@@ -1,7 +1,7 @@
 <script lang="ts">
 import { renderForumMarkdown } from "@/forum/utils/markdown";
 import hljs from "highlight.js";
-import { onMount } from "svelte";
+import { afterUpdate } from "svelte";
 
 export let content = "";
 export let className = "";
@@ -20,7 +20,7 @@ $: classes = [
 	.filter(Boolean)
 	.join(" ");
 
-onMount(() => {
+afterUpdate(() => {
 	hljs.highlightAll();
 });
 </script>
