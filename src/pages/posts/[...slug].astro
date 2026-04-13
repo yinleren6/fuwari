@@ -5,7 +5,6 @@ import Markdown from "@components/misc/Markdown.astro";
 
 import AIInvolvementCard from "@components/widget/AIInvolvementCard.astro";
 import DiffDebugEditor from "@components/widget/DiffDebugEditor.astro";
-import PostDiffInArticle from "@components/widget/PostDiffInArticle.astro";
 import PostUpdateNotice from "@components/widget/PostUpdateNotice.astro";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { getSortedPosts } from "@utils/content-utils";
@@ -160,7 +159,6 @@ const jsonLd = [
             }
 
 
-			<PostDiffInArticle />
 			<DiffDebugEditor />
 
 			<PostUpdateNotice publishedAt={entry.data.published} lastUpdated={lastUpdateTime} />

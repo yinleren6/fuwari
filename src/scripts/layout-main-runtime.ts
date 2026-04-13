@@ -15,7 +15,6 @@ import {
 	setHue,
 	setTheme,
 } from "../utils/setting-utils";
-import { url, pathsEqual } from "../utils/url-utils";
 
 const bannerEnabled = !!document.getElementById("banner-wrapper");
 
@@ -116,19 +115,6 @@ function loadProfileStats() {
 		.catch((error) => {
 			console.error("获取全站统计失败:", error);
 		});
-}
-
-function isForumPath(pathname: string): boolean {
-	const sidebar = document.getElementById("sidebar");
-	const forumBasePath =
-		sidebar?.getAttribute("data-forum-base-path") || "/forum/";
-	const normalized = pathname.endsWith("/") ? pathname : `${pathname}/`;
-	const normalizedForum = forumBasePath.endsWith("/")
-		? forumBasePath
-		: `${forumBasePath}/`;
-	return (
-		normalized === normalizedForum || normalized.startsWith(normalizedForum)
-	);
 }
 
 function init() {
