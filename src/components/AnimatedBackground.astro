@@ -4,20 +4,21 @@
 
 <div class="animated-bg-container">
 	<div class="stars">
-		{Array.from({ length: 50 }).map((_, index) => (
-			<div
-				class="star"
-				style={`
-					--top-offset: ${Math.random() * 130}vh;
-					--fall-duration: ${Math.random() * 10 + 5}s;
-					--fall-delay: ${Math.random() * 10}s;
-				`}
-			/>
-		))}
+		{Array.from({ length: 50 }).map((_, index) => {
+			const topOffset = Math.random() * 130;
+			const fallDuration = Math.random() * 10 + 5;
+			const fallDelay = Math.random() * 10;
+			return (
+				<div
+					class="star"
+					style={`--top-offset: ${topOffset}vh; --fall-duration: ${fallDuration}s; --fall-delay: ${fallDelay}s;`}
+				/>
+			);
+		})}
 	</div>
 </div>
 
-<style>
+<style is:global>
 	.animated-bg-container {
 		position: fixed;
 		top: 0;
@@ -54,14 +55,14 @@
 		background: linear-gradient(45deg, currentColor, transparent);
 		border-radius: 50%;
 		filter: drop-shadow(0 0 6px currentColor);
-		transform: translate3d(104em, 0, 0);
-		animation: fall var(--fall-duration) var(--fall-delay) linear infinite,
-			tail-fade var(--tail-fade-duration) var(--fall-delay) ease-out infinite;
+		animation: star-fall var(--fall-duration) var(--fall-delay) linear infinite,
+			star-tail-fade var(--tail-fade-duration) var(--fall-delay) ease-out infinite;
+		will-change: transform, width, opacity;
 	}
 
 	@media screen and (max-width: 750px) {
 		.star {
-			animation: fall var(--fall-duration) var(--fall-delay) linear infinite;
+			animation: star-fall var(--fall-duration) var(--fall-delay) linear infinite;
 		}
 	}
 
@@ -75,7 +76,7 @@
 		height: 100%;
 		background: linear-gradient(45deg, transparent, currentColor, transparent);
 		border-radius: inherit;
-		animation: blink 2s linear infinite;
+		animation: star-blink 2s linear infinite;
 	}
 
 	.star::before {
@@ -86,16 +87,16 @@
 		transform: rotate(-45deg);
 	}
 
-	@keyframes fall {
-		from {
+	@keyframes star-fall {
+		0% {
 			transform: translate3d(104em, 0, 0);
 		}
-		to {
+		100% {
 			transform: translate3d(-50em, 0, 0);
 		}
 	}
 
-	@keyframes tail-fade {
+	@keyframes star-tail-fade {
 		0%,
 		50% {
 			width: var(--star-tail-length);
@@ -112,7 +113,7 @@
 		}
 	}
 
-	@keyframes blink {
+	@keyframes star-blink {
 		50% {
 			opacity: 0.6;
 		}
@@ -121,7 +122,7 @@
 	/* 性能优化 */
 	@media (prefers-reduced-motion: reduce) {
 		.star {
-			animation: none;
+			animation: none !important;
 			opacity: 0.3;
 		}
 	}
