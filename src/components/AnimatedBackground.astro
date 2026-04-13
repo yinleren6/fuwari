@@ -1,37 +1,42 @@
 ---
-// 流星背景组件 - 全站动画背景
+// 流星背景组件 - 使用原始CSS实现
+const stars = Array.from({ length: 50 }).map(() => ({
+	topOffset: `${Math.random() * 130}vh`,
+	fallDuration: `${Math.random() * 10 + 5}s`,
+	fallDelay: `${Math.random() * 10}s`,
+}));
 ---
 
-<div id="animated-bg-container">
-	<div id="stars-container">
-		{Array.from({ length: 50 }).map((_, i) => {
-			const topOffset = Math.random() * 130;
-			const fallDuration = Math.random() * 10 + 5;
-			const fallDelay = Math.random() * 10;
-			return (
-				<div
-					class="shooting-star"
-					style={`--top-offset: ${topOffset}vh; --fall-duration: ${fallDuration}s; --fall-delay: ${fallDelay}s;`}
-				/>
-			);
-		})}
+<div class="bg-container">
+	<div class="bg-stars">
+		{stars.map((star) => (
+			<div
+				class="bg-star"
+				style={`--top-offset: ${star.topOffset}; --fall-duration: ${star.fallDuration}; --fall-delay: ${star.fallDelay};`}
+			/>
+		))}
 	</div>
 </div>
 
 <style is:global>
-	#animated-bg-container {
+	.bg-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: 100vh;
+		background: radial-gradient(ellipse at bottom, #0d1d31 0%, #0c0d13 100%);
+		overflow: hidden;
+		flex-direction: column;
 		position: fixed;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background: radial-gradient(ellipse at bottom, #0d1d31 0%, #0c0d13 100%);
-		overflow: hidden;
 		pointer-events: none;
 		z-index: -2;
 	}
 
-	#stars-container {
+	.bg-stars {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -40,13 +45,15 @@
 		transform: rotate(-45deg);
 	}
 
-	.shooting-star {
-		--star-color: var(--primary, #70a0ff);
+	.bg-star {
+		--star-color: var(--primary);
 		--star-tail-length: 6em;
 		--star-tail-height: 2px;
 		--star-width: calc(var(--star-tail-length) / 6);
+		--fall-duration: 9s;
+		--tail-fade-duration: var(--fall-duration);
 		position: absolute;
-		top: var(--top-offset, 50vh);
+		top: var(--top-offset);
 		left: 0;
 		width: var(--star-tail-length);
 		height: var(--star-tail-height);
@@ -54,14 +61,19 @@
 		background: linear-gradient(45deg, currentColor, transparent);
 		border-radius: 50% !important;
 		filter: drop-shadow(0 0 6px currentColor);
-		animation: 
-			shooting-star-fall var(--fall-duration, 9s) var(--fall-delay, 0s) linear infinite,
-			shooting-star-tail-fade var(--fall-duration, 9s) var(--fall-delay, 0s) ease-out infinite;
-		will-change: transform, width, opacity;
+		transform: translate3d(104em, 0, 0);
+		animation: bg-fall var(--fall-duration) var(--fall-delay) linear infinite,
+			bg-tail-fade var(--tail-fade-duration) var(--fall-delay) ease-out infinite;
 	}
 
-	.shooting-star::before,
-	.shooting-star::after {
+	@media screen and (max-width: 750px) {
+		.bg-star {
+			animation: bg-fall var(--fall-duration) var(--fall-delay) linear infinite;
+		}
+	}
+
+	.bg-star::before,
+	.bg-star::after {
 		position: absolute;
 		content: "";
 		top: 0;
@@ -69,33 +81,32 @@
 		width: var(--star-width);
 		height: 100%;
 		background: linear-gradient(45deg, transparent, currentColor, transparent);
-		border-radius: 50% !important;
-		animation: shooting-star-blink 2s linear infinite;
+		border-radius: inherit;
+		animation: bg-blink 2s linear infinite;
 	}
 
-	.shooting-star::before {
+	.bg-star::before {
 		transform: rotate(45deg);
 	}
 
-	.shooting-star::after {
+	.bg-star::after {
 		transform: rotate(-45deg);
 	}
 
-	@keyframes shooting-star-fall {
-		0% {
-			transform: translate3d(104em, 0, 0);
-		}
-		100% {
+	@keyframes bg-fall {
+		to {
 			transform: translate3d(-50em, 0, 0);
 		}
 	}
 
-	@keyframes shooting-star-tail-fade {
-		0%, 50% {
+	@keyframes bg-tail-fade {
+		0%,
+		50% {
 			width: var(--star-tail-length);
 			opacity: 1;
 		}
-		70%, 80% {
+		70%,
+		80% {
 			width: 0;
 			opacity: 0.4;
 		}
@@ -105,27 +116,9 @@
 		}
 	}
 
-	@keyframes shooting-star-blink {
-		0%, 100% {
-			opacity: 1;
-		}
+	@keyframes bg-blink {
 		50% {
 			opacity: 0.6;
-		}
-	}
-
-	/* 性能优化 */
-	@media (prefers-reduced-motion: reduce) {
-		.shooting-star {
-			animation: none !important;
-			opacity: 0.3;
-		}
-	}
-
-	/* 移动端优化 */
-	@media screen and (max-width: 750px) {
-		.shooting-star {
-			animation: shooting-star-fall var(--fall-duration, 9s) var(--fall-delay, 0s) linear infinite;
 		}
 	}
 </style>
