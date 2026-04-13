@@ -2,15 +2,15 @@
 // 流星背景组件 - 全站动画背景
 ---
 
-<div class="animated-bg-container">
-	<div class="stars">
-		{Array.from({ length: 50 }).map((_, index) => {
+<div id="animated-bg-container">
+	<div id="stars-container">
+		{Array.from({ length: 50 }).map((_, i) => {
 			const topOffset = Math.random() * 130;
 			const fallDuration = Math.random() * 10 + 5;
 			const fallDelay = Math.random() * 10;
 			return (
 				<div
-					class="star"
+					class="shooting-star"
 					style={`--top-offset: ${topOffset}vh; --fall-duration: ${fallDuration}s; --fall-delay: ${fallDelay}s;`}
 				/>
 			);
@@ -19,7 +19,7 @@
 </div>
 
 <style is:global>
-	.animated-bg-container {
+	#animated-bg-container {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -31,7 +31,7 @@
 		z-index: -2;
 	}
 
-	.stars {
+	#stars-container {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -40,34 +40,28 @@
 		transform: rotate(-45deg);
 	}
 
-	.star {
-		--star-color: var(--primary);
+	.shooting-star {
+		--star-color: var(--primary, #70a0ff);
 		--star-tail-length: 6em;
 		--star-tail-height: 2px;
 		--star-width: calc(var(--star-tail-length) / 6);
-		--tail-fade-duration: var(--fall-duration);
 		position: absolute;
-		top: var(--top-offset);
+		top: var(--top-offset, 50vh);
 		left: 0;
 		width: var(--star-tail-length);
 		height: var(--star-tail-height);
 		color: var(--star-color);
 		background: linear-gradient(45deg, currentColor, transparent);
-		border-radius: 50%;
+		border-radius: 50% !important;
 		filter: drop-shadow(0 0 6px currentColor);
-		animation: star-fall var(--fall-duration) var(--fall-delay) linear infinite,
-			star-tail-fade var(--tail-fade-duration) var(--fall-delay) ease-out infinite;
+		animation: 
+			shooting-star-fall var(--fall-duration, 9s) var(--fall-delay, 0s) linear infinite,
+			shooting-star-tail-fade var(--fall-duration, 9s) var(--fall-delay, 0s) ease-out infinite;
 		will-change: transform, width, opacity;
 	}
 
-	@media screen and (max-width: 750px) {
-		.star {
-			animation: star-fall var(--fall-duration) var(--fall-delay) linear infinite;
-		}
-	}
-
-	.star::before,
-	.star::after {
+	.shooting-star::before,
+	.shooting-star::after {
 		position: absolute;
 		content: "";
 		top: 0;
@@ -75,19 +69,19 @@
 		width: var(--star-width);
 		height: 100%;
 		background: linear-gradient(45deg, transparent, currentColor, transparent);
-		border-radius: inherit;
-		animation: star-blink 2s linear infinite;
+		border-radius: 50% !important;
+		animation: shooting-star-blink 2s linear infinite;
 	}
 
-	.star::before {
+	.shooting-star::before {
 		transform: rotate(45deg);
 	}
 
-	.star::after {
+	.shooting-star::after {
 		transform: rotate(-45deg);
 	}
 
-	@keyframes star-fall {
+	@keyframes shooting-star-fall {
 		0% {
 			transform: translate3d(104em, 0, 0);
 		}
@@ -96,14 +90,12 @@
 		}
 	}
 
-	@keyframes star-tail-fade {
-		0%,
-		50% {
+	@keyframes shooting-star-tail-fade {
+		0%, 50% {
 			width: var(--star-tail-length);
 			opacity: 1;
 		}
-		70%,
-		80% {
+		70%, 80% {
 			width: 0;
 			opacity: 0.4;
 		}
@@ -113,7 +105,10 @@
 		}
 	}
 
-	@keyframes star-blink {
+	@keyframes shooting-star-blink {
+		0%, 100% {
+			opacity: 1;
+		}
 		50% {
 			opacity: 0.6;
 		}
@@ -121,9 +116,16 @@
 
 	/* 性能优化 */
 	@media (prefers-reduced-motion: reduce) {
-		.star {
+		.shooting-star {
 			animation: none !important;
 			opacity: 0.3;
+		}
+	}
+
+	/* 移动端优化 */
+	@media screen and (max-width: 750px) {
+		.shooting-star {
+			animation: shooting-star-fall var(--fall-duration, 9s) var(--fall-delay, 0s) linear infinite;
 		}
 	}
 </style>
