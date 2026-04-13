@@ -34,6 +34,8 @@
 		website_privacy_policy_url: "https://acofork.com/posts/privacy-policy/",
 	};
 
+	const PERSISTENT_ATTR = "data-cookie-consent-persistent";
+
 	const markCookieConsentHeadAssetsPersistent = () => {
 		const candidates = document.head?.querySelectorAll?.("link[rel='stylesheet'][href], style, script[src]") ?? [];
 		candidates.forEach(el => {
@@ -42,12 +44,12 @@
 			const tag = el.tagName.toLowerCase();
 			if (tag === "link") {
 				const href = el.getAttribute("href") || "";
-				if (/termsfeed|cookie-consent|cookieconsent/i.test(href)) el.setAttribute(attr, "");
+				if (/termsfeed|cookie-consent|cookieconsent/i.test(href)) el.setAttribute(PERSISTENT_ATTR, "");
 				return;
 			}
 			if (tag === "script") {
 				const src = el.getAttribute("src") || "";
-				if (/termsfeed|cookie-consent|cookieconsent/i.test(src)) el.setAttribute(attr, "");
+				if (/termsfeed|cookie-consent|cookieconsent/i.test(src)) el.setAttribute(PERSISTENT_ATTR, "");
 				return;
 			}
 			if (tag === "style") {
@@ -58,7 +60,7 @@
 					/\bcc_(dialog|preferences|cp|nb|overlay|banner|modal)\b/.test(css) ||
 					/cookie\s*consent|cookieconsent/i.test(css)
 				) {
-					el.setAttribute(attr, "");
+					el.setAttribute(PERSISTENT_ATTR, "");
 				}
 			}
 		});
