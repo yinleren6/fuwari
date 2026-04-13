@@ -197,7 +197,7 @@ const bannerOffset =
 		<style define:vars={{
 			configHue,
 			'page-width': `${PAGE_WIDTH}rem`,
-			'bg-enable': '1',
+			'bg-enable': '0',
 			'bg-position': 'center',
 			'bg-size': 'cover',
 			'bg-repeat': 'no-repeat',
@@ -276,15 +276,7 @@ const bannerOffset =
 			(function() {
 				const bgBox = document.getElementById("bg-box");
 				if (!bgBox) return;
-				const counts = { h: 1176, v: 4711 };
-				const w = window.innerWidth;
-				const h = window.innerHeight;
-				const aspectRatio = w / h;
-				const type = aspectRatio > 1 ? "h" : "v";
-				const max = counts[type];
-				const n = Math.floor(Math.random() * max) + 1;
-				console.log(`[BgImage] viewport: ${w}x${h}, ratio: ${aspectRatio.toFixed(2)}, type: ${type}, index: ${n}`);
-				bgBox.style.backgroundImage = `url(https://p.2x.nz/ri/${type}/${n}.webp)`;
+				bgBox.style.backgroundImage = "url(https://p.2x.nz/ri/h/1.webp)";
 			})();
 		</script>
 		<ConfigCarrier></ConfigCarrier>

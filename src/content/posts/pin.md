@@ -1,6 +1,6 @@
 ---
 title: 加群向导
-image: random
+image: https://p.2x.nz/ri/h/32.webp
 published: 2025-05-23T16:00:00
 pinned: true
 description: 关于如何联系二叉树树~
