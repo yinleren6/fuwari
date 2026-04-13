@@ -121,6 +121,18 @@ const { remarkPluginFrontmatter } = await entry.render();
 </style>
 
 <script>
+	(function() {
+		const covers = document.querySelectorAll('.post-cover-random');
+		if (!covers.length) return;
+		const counts = { h: 1176, v: 4711 };
+		for (const img of covers) {
+			const type = Math.random() > 0.3 ? "h" : "v";
+			const max = counts[type];
+			const n = Math.floor(Math.random() * max) + 1;
+			img.src = `https://p.2x.nz/ri/${type}/${n}.webp`;
+		}
+	})();
+
     async function loadCardStats() {
         const elements = document.querySelectorAll('.post-pageviews');
         
