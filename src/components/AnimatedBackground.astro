@@ -62,6 +62,7 @@ const stars = Array.from({ length: 50 }).map(() => ({
 		border-radius: 50% !important;
 		filter: drop-shadow(0 0 6px currentColor);
 		transform: translate3d(104em, 0, 0);
+		opacity: 0;
 		animation: bg-fall var(--fall-duration) var(--fall-delay) linear infinite,
 			bg-tail-fade var(--tail-fade-duration) var(--fall-delay) ease-out infinite;
 	}
@@ -100,7 +101,10 @@ const stars = Array.from({ length: 50 }).map(() => ({
 	}
 
 	@keyframes bg-tail-fade {
-		0%,
+		0% {
+			width: var(--star-tail-length);
+			opacity: 1;
+		}
 		50% {
 			width: var(--star-tail-length);
 			opacity: 1;
