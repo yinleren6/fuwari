@@ -1,0 +1,29 @@
+/* 覆盖 @fontsource 字体的 font-display 属性，减少 FOUT */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-display: optional;
+	src: local('Roboto'), local('Roboto-Regular');
+}
+
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 500;
+	font-display: optional;
+	src: local('Roboto Medium'), local('Roboto-Medium');
+}
+
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 700;
+	font-display: optional;
+	src: local('Roboto Bold'), local('Roboto-Bold');
+}
+
+/* 为 body 设置后备字体 */
+body {
+	font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
