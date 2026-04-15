@@ -1,7 +1,7 @@
 export function emitSuccessToast(
 	title: string,
 	description: string,
-	silent = false,
+	silent = true,
 ): void {
 	if (!silent) {
 		alert(`${title}\n\n${description}`);
@@ -15,7 +15,7 @@ export function emitErrorToast(title: string, description: string): void {
 export function emitInfoToast(
 	title: string,
 	description: string,
-	silent = false,
+	silent = true,
 ): void {
 	if (!silent) {
 		alert(`${title}\n\n${description}`);

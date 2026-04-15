@@ -154,6 +154,7 @@ async function loadSession() {
 				emitSuccessToast(
 					"邮箱变更",
 					verifyResult.message || "邮箱变更已确认。",
+					false,
 				);
 			} catch (error) {
 				emitErrorToast("邮箱变更", getErrorMessage(error, "邮箱确认失败。"));
@@ -266,6 +267,7 @@ async function startTotpSetup() {
 		emitSuccessToast(
 			"双重验证（2FA）",
 			"请使用验证器录入密钥后输入验证码完成启用。",
+			false,
 		);
 	} catch (error) {
 		emitErrorToast(

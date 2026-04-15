@@ -210,7 +210,7 @@ async function saveSettingsAction() {
 	try {
 		await saveAdminSettings(settings);
 		status = "";
-		emitSuccessToast("站点设置", "站点设置已保存。");
+		emitSuccessToast("站点设置", "站点设置已保存。", false);
 	} catch (error) {
 		status = error instanceof Error ? error.message : "站点设置保存失败。";
 		emitErrorToast("站点设置", status);
@@ -225,7 +225,7 @@ async function createCategoryAction() {
 		newCategoryName = "";
 		await refreshData();
 		status = "";
-		emitSuccessToast("分类管理", "分类已添加。");
+		emitSuccessToast("分类管理", "分类已添加。", false);
 	} catch (error) {
 		status = "";
 		emitErrorToast(
@@ -244,7 +244,7 @@ async function saveCategoryAction(id: string) {
 		editingCategoryName = "";
 		await refreshData();
 		status = "";
-		emitSuccessToast("分类管理", "分类已更新。");
+		emitSuccessToast("分类管理", "分类已更新。", false);
 	} catch (error) {
 		status = "";
 		emitErrorToast(
@@ -261,7 +261,7 @@ async function deleteCategoryAction(id: string) {
 		await deleteAdminCategory(id);
 		await refreshData();
 		status = "";
-		emitSuccessToast("分类管理", "分类已删除。");
+		emitSuccessToast("分类管理", "分类已删除。", false);
 	} catch (error) {
 		status = "";
 		emitErrorToast(
@@ -450,7 +450,7 @@ async function saveUserAction(userId: string) {
 		cancelEditUser(true);
 		await refreshData();
 		status = "";
-		emitSuccessToast("用户管理", result.message || "用户资料已更新。");
+		emitSuccessToast("用户管理", result.message || "用户资料已更新。", false);
 	} catch (error) {
 		status = "";
 		emitErrorToast(
@@ -501,6 +501,7 @@ async function runUserAction(
 					: action === "resend"
 						? "验证邮件已重新发送。"
 						: "用户已删除。"),
+			false,
 		);
 	} catch (error) {
 		status = "";
@@ -533,9 +534,10 @@ async function scanStorageGcAction() {
 			emitSuccessToast(
 				"存储清理",
 				`分析完成，发现 ${resolveGcCount()} 个孤儿文件。`,
+				false,
 			);
 		} else {
-			emitSuccessToast("存储清理", "分析完成，未发现可清理的孤儿文件。");
+			emitSuccessToast("存储清理", "分析完成，未发现可清理的孤儿文件。", false);
 		}
 	} catch (error) {
 		storageGcResult = null;
@@ -567,6 +569,7 @@ async function cleanupStorageGcAction() {
 		emitSuccessToast(
 			"存储清理",
 			result.message || `已提交 ${count} 个孤儿文件的删除任务。`,
+			false,
 		);
 	} catch (error) {
 		status = "";
