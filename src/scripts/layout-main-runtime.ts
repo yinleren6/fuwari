@@ -18,6 +18,7 @@ const bannerEnabled = !!document.getElementById("banner-wrapper");
 function setClickOutsideToClose(panel: string, ignores: string[]) {
 	document.addEventListener("click", (event) => {
 		const panelDom = document.getElementById(panel);
+		if (!panelDom) return;
 		const tDom = event.target;
 		if (!(tDom instanceof Node)) return;
 		for (const ig of ignores) {
@@ -26,7 +27,7 @@ function setClickOutsideToClose(panel: string, ignores: string[]) {
 				return;
 			}
 		}
-		panelDom!.classList.add("float-panel-closed");
+		panelDom.classList.add("float-panel-closed");
 	});
 }
 setClickOutsideToClose("display-setting", [
