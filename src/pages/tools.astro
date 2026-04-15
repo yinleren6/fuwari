@@ -3,15 +3,15 @@ import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { Icon } from "astro-icon/components";
 
 // 自动发现所有工具页面
-const toolPages = await Astro.glob('./tools/**/*.astro');
+const toolPagesModules = import.meta.glob('./tools/**/*.astro', { eager: true });
 
 // 过滤并提取工具页面信息
-const tools = toolPages
-	.filter(page => page.toolMeta)
-	.map(page => {
-		const meta = page.toolMeta;
+const tools = Object.entries(toolPagesModules)
+	.map(([path, module]: [string, any]) => {
+		if (!module.toolMeta) return null;
+		const meta = module.toolMeta;
 		// 从文件路径提取路由路径
-		const filePath = page.file?.split('/pages/')[1]?.replace('.astro', '') || '';
+		const filePath = path.split('/pages/')[1]?.replace('.astro', '') || '';
 		const routePath = filePath.replace(/\/index$/, '');
 		return {
 			title: meta.title,
@@ -22,6 +22,7 @@ const tools = toolPages
 			order: meta.order || 999,
 		};
 	})
+	.filter((tool): tool is NonNullable<typeof tool> => tool !== null)
 	.sort((a, b) => a.order - b.order);
 ---
 
