@@ -159,44 +159,63 @@ for (const post of posts) {
             console.error('Avatar wrapper or container not found');
             return;
         }
-        
+
+        const normalizeLiveDom = () => {
+            const liveLinks = avatarContainer.querySelectorAll(':scope > .live-link-wrapper');
+            if (liveLinks.length === 0) return null;
+
+            const primaryLink = liveLinks[0];
+            for (let i = 1; i < liveLinks.length; i += 1) {
+                const extraLink = liveLinks[i];
+                while (extraLink.firstChild) {
+                    primaryLink.appendChild(extraLink.firstChild);
+                }
+                extraLink.remove();
+            }
+
+            const badges = primaryLink.querySelectorAll(':scope > .live-badge');
+            for (let i = 1; i < badges.length; i += 1) {
+                badges[i].remove();
+            }
+            return primaryLink;
+        };
+
         try {
             const response = await fetch('https://b-live.2x.nz');
             if (!response.ok) {
                 console.error('Live status request failed:', response.status);
                 return;
             }
-            
+
             const status = await response.text();
-            console.log('Live status:', status);
-            
-            if (status.trim() === '1') {
-                console.log('Adding live effects');
-                // 直播中：添加红色外框扩散效果
-                avatarWrapper.classList.add('live-avatar-ring');
-                
-                // 创建包裹整个容器的链接
-                const liveLink = document.createElement('a');
+            const isLive = status.trim() === '1';
+
+            if (!isLive) return;
+
+            // 先清理潜在重复节点，保证逻辑幂等
+            let liveLink = normalizeLiveDom();
+
+            avatarWrapper.classList.add('live-avatar-ring');
+            avatarContainer.classList.add('has-live-badge');
+
+            if (!liveLink) {
+                liveLink = document.createElement('a');
                 liveLink.href = 'https://live.bilibili.com/12005649';
                 liveLink.target = '_blank';
                 liveLink.rel = 'noopener noreferrer';
                 liveLink.className = 'live-link-wrapper';
-                
-                // 将头像容器的所有子元素移到链接中
+
                 while (avatarContainer.firstChild) {
                     liveLink.appendChild(avatarContainer.firstChild);
                 }
-                
-                // 添加"直播中"文字
+                avatarContainer.appendChild(liveLink);
+            }
+
+            if (!liveLink.querySelector(':scope > .live-badge')) {
                 const liveBadge = document.createElement('div');
                 liveBadge.className = 'live-badge';
                 liveBadge.textContent = '直播中';
                 liveLink.appendChild(liveBadge);
-                
-                // 将链接添加回容器
-                avatarContainer.classList.add('has-live-badge');
-                avatarContainer.appendChild(liveLink);
-                console.log('Live badge added');
             }
         } catch (error) {
             // 请求失败，保持默认状态
@@ -204,10 +223,20 @@ for (const post of posts) {
         }
     }
 
-    // 页面加载完成后获取统计数据和直播状态
-    document.addEventListener('DOMContentLoaded', () => {
+
+    function initProfile() {
         console.log('Profile script loaded');
         loadSiteStats();
         checkLiveStatus();
-    });
+    }
+
+    // 初次加载
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initProfile, { once: true });
+    } else {
+        initProfile();
+    }
+
+    // Astro View Transitions 页面切换后重新执行
+    document.addEventListener('astro:page-load', initProfile);
 </script>

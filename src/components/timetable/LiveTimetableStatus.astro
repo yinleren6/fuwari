@@ -180,6 +180,18 @@ const payloadText = encodeURIComponent(
 	} else {
 		setupLiveStatusWidgets();
 	}
+
+	// Astro View Transitions 页面切换后重新初始化
+	document.addEventListener("astro:page-load", () => {
+		// 重置所有 widget 的 bound 标记，让它们重新绑定
+		const roots = document.querySelectorAll("[data-live-status-root]");
+		for (const root of roots) {
+			if (root instanceof HTMLElement) {
+				root.dataset.bound = "";
+			}
+		}
+		setupLiveStatusWidgets();
+	});
 </script>
 
 <style>
