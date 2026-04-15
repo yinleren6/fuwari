@@ -10,7 +10,6 @@ import "../styles/display-settings.css";
 import { profileConfig, siteConfig } from "@/config";
 import AnimatedBackground from "@components/AnimatedBackground.astro";
 import ConfigCarrier from "@components/ConfigCarrier.astro";
-import GlobalToaster from "@components/GlobalToaster.svelte";
 import BodyThirdPartyScripts from "@components/layout/BodyThirdPartyScripts.astro";
 import DashLoaderScript from "@components/layout/DashLoaderScript.astro";
 import LiquidGlassFilter from "@components/layout/LiquidGlassFilter.astro";
@@ -211,7 +210,6 @@ const bannerOffset =
 
 		<AnimatedBackground />
 		<ConfigCarrier></ConfigCarrier>
-		<GlobalToaster client:only="svelte" />
         {showNewPostNotification && <NewPostNotification></NewPostNotification>}
 		<slot />
 
