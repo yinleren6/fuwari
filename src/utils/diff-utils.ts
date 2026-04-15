@@ -67,19 +67,6 @@ export function withBasePath(pathname: string): string {
 }
 
 /**
- * HTML 转义
- */
-export function escapeHtml(text: string): string {
-	if (!text) return text;
-	return text
-		.replace(/&/g, "&amp;")
-		.replace(/</g, "&lt;")
-		.replace(/>/g, "&gt;")
-		.replace(/"/g, "&quot;")
-		.replace(/'/g, "&#039;");
-}
-
-/**
  * 解码 HTML 实体
  */
 export function decodeHtmlEntities(value: string): string {
