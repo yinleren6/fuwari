@@ -57,12 +57,13 @@ const { remarkPluginFrontmatter } = await entry.render();
         before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
         before:absolute before:top-1 md:before:top-2 before:-left-[1.125rem] before:block
         "
+            style="color: rgba(255, 255, 255, 0.9);"
         >
             {title}
         </h2>
 
         <!-- description -->
-        <div class:list={["transition text-75 mb-3.5 pr-4 line-clamp-1 md:line-clamp-2"]}>
+        <div class:list={["transition text-75 mb-3.5 pr-4 line-clamp-1 md:line-clamp-2"]} style="color: rgba(255, 255, 255, 0.75);">
             { description || remarkPluginFrontmatter.excerpt }
         </div>
 
