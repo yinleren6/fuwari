@@ -315,7 +315,6 @@ function patchComment(commentId: string, patch: Partial<ForumComment>) {
 
 async function handleCommentDeleted() {
 	void loadComments();
-	emitSuccessToast("评论", "评论已删除。", false);
 }
 
 function resolvePostId() {
