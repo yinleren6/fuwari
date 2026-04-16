@@ -45,7 +45,7 @@ const loadMermaid = async () => {
 
 const transformMermaidBlocks = () => {
     document.querySelectorAll(".custom-md pre").forEach((pre) => {
-        if (pre.dataset.mermaidProcessed === "true") return;
+        if ((pre as HTMLElement).dataset.mermaidProcessed === "true") return;
         const code = pre.querySelector("code");
         const langSources = [
             code?.getAttribute("data-language"),
@@ -57,20 +57,21 @@ const transformMermaidBlocks = () => {
         const isMermaid = className.includes("language-mermaid") || lang === "mermaid";
         if (!isMermaid) return;
 
+        // 使用 innerText 而不是 textContent 来正确处理 HTML 实体
         const sourceByLines = code
             ? Array.from(code.querySelectorAll(".code:not(summary *)"))
-                .map((el) => el.textContent)
+                .map((el) => (el as HTMLElement).innerText || el.textContent)
                 .map((text) => (text === "\n" ? "" : text))
                 .join("\n")
                 .trim()
             : "";
-        const source = sourceByLines || code?.textContent?.trim();
+        const source = sourceByLines || (code as HTMLElement)?.innerText?.trim() || code?.textContent?.trim();
         if (!source) return;
 
         const container = document.createElement("div");
         container.className = "mermaid";
         container.textContent = source;
-        pre.dataset.mermaidProcessed = "true";
+        (pre as HTMLElement).dataset.mermaidProcessed = "true";
         pre.replaceWith(container);
     });
 };
