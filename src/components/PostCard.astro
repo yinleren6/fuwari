@@ -132,44 +132,4 @@ const { remarkPluginFrontmatter } = await render(entry);
 		}
 	})();
 
-    async function loadCardStats() {
-        const elements = document.querySelectorAll('.post-pageviews');
-        
-        elements.forEach(async (el) => {
-            // 如果元素已经处理过，且已有内容（非0），则不再处理
-            if (el.classList.contains('processed') && el.textContent !== '0') return;
-            
-            el.classList.add('processed');
-            const url = el.dataset.url;
-            const baseUrl = el.dataset.umamiBaseUrl;
-            const shareId = el.dataset.umamiShareId;
-            const timezone = el.dataset.umamiTimezone;
-            
-            if (!baseUrl || !shareId) return;
-            
-            try {
-                // Check if fetchUmamiStats exists
-                if (typeof window.fetchUmamiStats !== 'function') return;
-
-                const statsData = await window.fetchUmamiStats(baseUrl, shareId, {
-                    url: url,
-                    timezone: timezone
-                });
-                
-                const pageviews = (statsData.pageviews && statsData.pageviews.value) || statsData.pageviews || 0;
-                
-                // 如果数据来自缓存，直接显示结果，跳过动画
-                if (statsData._fromCache) {
-                    el.innerHTML = pageviews;
-                    return;
-                }
-                
-                el.innerHTML = pageviews;
-            } catch (e) {
-                console.error('Failed to load stats for', url, e);
-            }
-        });
-    }
-    
-    document.addEventListener('DOMContentLoaded', loadCardStats);
 </script>
