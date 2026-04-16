@@ -1511,6 +1511,7 @@ function downloadLink(url: string, filename: string) {
         height: 16px;
         min-width: 16px;
         min-height: 16px;
+        margin-right: 8px;
         border: 2px solid rgba(255, 255, 255, 0.3);
         border-radius: 0;
         background-color: transparent;
