@@ -279,8 +279,8 @@ const jsonLd = [
                     container.appendChild(script);
                 }
                 
-                // 页面加载和每次导航后重新加载 Giscus
-                document.addEventListener('astro:page-load', loadGiscus);
+                // 页面加载时加载 Giscus
+                loadGiscus();
             </script>
     <br>
 
@@ -335,11 +335,16 @@ const jsonLd = [
         }
     }
 
-    // 在页面加载和每次导航后执行
-    document.addEventListener('astro:page-load', () => {
+    // 在页面加载时执行
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            setupPostPageEnhancements();
+            setupRandomCovers();
+        });
+    } else {
         setupPostPageEnhancements();
         setupRandomCovers();
-    });
+    }
 </script>
 
 <style is:global>

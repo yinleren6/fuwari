@@ -10,6 +10,3 @@ if (document.readyState === "loading") {
 } else {
 	setupCodeHighlight();
 }
-
-// SPA 导航后重新高亮
-document.addEventListener("astro:page-load", setupCodeHighlight);

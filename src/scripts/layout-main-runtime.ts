@@ -177,8 +177,8 @@ function init() {
 	});
 }
 
-// 初始加载和每次页面切换后都执行
-document.addEventListener("astro:page-load", () => {
+// 初始加载时执行
+document.addEventListener("DOMContentLoaded", () => {
 	init();
 	bindPostInlineDiff();
 	scrollFunction();
