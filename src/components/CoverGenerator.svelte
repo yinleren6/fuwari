@@ -1406,8 +1406,8 @@ function downloadLink(url: string, filename: string) {
     :global(.square-range::-webkit-slider-thumb) {
         -webkit-appearance: none;
         appearance: none;
-        width: 14px;
-        height: 14px;
+        width: 12px;
+        height: 12px;
         background: var(--primary);
         cursor: pointer;
         border-radius: 0;
@@ -1416,8 +1416,8 @@ function downloadLink(url: string, filename: string) {
     }
 
     :global(.square-range::-moz-range-thumb) {
-        width: 14px;
-        height: 14px;
+        width: 12px;
+        height: 12px;
         background: var(--primary);
         cursor: pointer;
         border-radius: 0;
@@ -1426,23 +1426,19 @@ function downloadLink(url: string, filename: string) {
     }
 
     :global(.square-range:hover::-webkit-slider-thumb) {
-        background: var(--btn-regular-bg-hover);
-        box-shadow: 0 0 8px var(--primary);
+        /* 移除悬停效果 */
     }
 
     :global(.square-range:hover::-moz-range-thumb) {
-        background: var(--btn-regular-bg-hover);
-        box-shadow: 0 0 8px var(--primary);
+        /* 移除悬停效果 */
     }
 
     :global(.square-range:active::-webkit-slider-thumb) {
-        background: var(--btn-regular-bg-active);
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
 
     :global(.square-range:active::-moz-range-thumb) {
-        background: var(--btn-regular-bg-active);
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
 
     /* 方形开关样式 */
@@ -1499,11 +1495,11 @@ function downloadLink(url: string, filename: string) {
     }
 
     :global(.square-toggle:hover .square-toggle-slider) {
-        background-color: rgba(255, 255, 255, 0.15);
+        /* 移除悬停效果 */
     }
 
     :global(.square-toggle input:checked:hover + .square-toggle-slider) {
-        background-color: var(--btn-regular-bg-hover);
+        /* 移除悬停效果 */
     }
 
     .input-field {
