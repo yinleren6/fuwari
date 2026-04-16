@@ -104,10 +104,14 @@ const transformMermaidBlocks = () => {
         container.textContent = source;
         console.log(`[Mermaid Debug] 第 ${index + 1} 个 pre 创建的 mermaid 容器:`, container);
         console.log(`[Mermaid Debug] 第 ${index + 1} 个 pre 的 mermaid 容器内容:`, container.textContent);
+        console.log(`[Mermaid Debug] 第 ${index + 1} 个 pre 的父元素:`, pre.parentElement);
+        console.log(`[Mermaid Debug] 第 ${index + 1} 个 pre 的父元素 className:`, pre.parentElement?.className);
         
         (pre as HTMLElement).dataset.mermaidProcessed = "true";
         pre.replaceWith(container);
         console.log(`[Mermaid Debug] 第 ${index + 1} 个 pre 已替换为 mermaid 容器`);
+        console.log(`[Mermaid Debug] 第 ${index + 1} 个 mermaid 容器的新父元素:`, container.parentElement);
+        console.log(`[Mermaid Debug] 第 ${index + 1} 个 mermaid 容器的新父元素 className:`, container.parentElement?.className);
     });
     
     console.log("[Mermaid Debug] mermaid 代码块转换完成");
@@ -117,11 +121,20 @@ const renderMermaidBlocks = async () => {
     console.log("[Mermaid Debug] 开始渲染 mermaid 图表");
     transformMermaidBlocks();
     
+    console.log("[Mermaid Debug] 转换完成，开始查找 .mermaid 元素");
+    console.log("[Mermaid Debug] 查找选择器: .custom-md .mermaid");
+    
     const mermaidNodes = document.querySelectorAll(".custom-md .mermaid");
     console.log("[Mermaid Debug] 找到的 .mermaid 元素数量:", mermaidNodes.length);
+    console.log("[Mermaid Debug] 找到的 .mermaid 元素:", mermaidNodes);
+    
+    // 尝试更宽泛的选择器
+    const allMermaidNodes = document.querySelectorAll(".mermaid");
+    console.log("[Mermaid Debug] 所有 .mermaid 元素数量:", allMermaidNodes.length);
+    console.log("[Mermaid Debug] 所有 .mermaid 元素:", allMermaidNodes);
     
     if (!mermaidNodes.length) {
-        console.log("[Mermaid Debug] 没有找到 mermaid 元素，结束渲染");
+        console.log("[Mermaid Debug] 没有找到 .custom-md .mermaid 元素，结束渲染");
         return;
     }
     
