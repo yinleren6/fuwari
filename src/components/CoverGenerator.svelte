@@ -1294,7 +1294,7 @@ function downloadLink(url: string, filename: string) {
                         </div>
                         <div class="grid grid-cols-4 gap-1">
                             {#each [1, 2, 3, 4] as scale}
-                                <label class="flex items-center justify-center gap-1 p-2 border rounded cursor-pointer transition-all text-xs {exportConfig.scales.includes(scale) ? 'border-[var(--primary)] bg-[var(--primary)]/5 text-[var(--primary)]' : 'border-[var(--line-color)] bg-transparent text-gray-300'}">
+                                <label class="flex items-center justify-center px-3 py-2 border rounded cursor-pointer transition-all text-xs {exportConfig.scales.includes(scale) ? 'border-[var(--primary)] bg-[var(--primary)]/5 text-[var(--primary)]' : 'border-[var(--line-color)] bg-transparent text-gray-300'}">
                                     <input 
                                         type="checkbox" 
                                         class="hidden" 
