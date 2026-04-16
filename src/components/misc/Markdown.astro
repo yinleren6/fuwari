@@ -45,8 +45,19 @@ const loadMermaid = async () => {
 
 const transformMermaidBlocks = () => {
     console.log("[Mermaid Debug] 开始转换 mermaid 代码块");
+    console.log("[Mermaid Debug] 当前页面 URL:", window.location.href);
+    
     const allPres = document.querySelectorAll(".custom-md pre");
     console.log("[Mermaid Debug] 找到的 pre 元素数量:", allPres.length);
+    
+    // 检查是否有已处理的 mermaid 元素
+    const processedPres = document.querySelectorAll(".custom-md pre[data-mermaid-processed='true']");
+    console.log("[Mermaid Debug] 已处理的 pre 元素数量:", processedPres.length);
+    
+    // 检查是否已经有 mermaid 容器
+    const existingMermaid = document.querySelectorAll(".mermaid");
+    console.log("[Mermaid Debug] 已存在的 .mermaid 元素数量:", existingMermaid.length);
+    console.log("[Mermaid Debug] 已存在的 .mermaid 元素:", existingMermaid);
     
     const createdContainers: HTMLElement[] = [];
     
@@ -118,6 +129,14 @@ const transformMermaidBlocks = () => {
     });
     
     console.log("[Mermaid Debug] mermaid 代码块转换完成");
+    console.log("[Mermaid Debug] 本次创建的容器数量:", createdContainers.length);
+    
+    // 如果没有创建新容器，尝试查找已存在的 mermaid 容器
+    if (createdContainers.length === 0 && existingMermaid.length > 0) {
+        console.log("[Mermaid Debug] 没有创建新容器，但发现已存在的 mermaid 容器，返回它们");
+        return Array.from(existingMermaid) as HTMLElement[];
+    }
+    
     return createdContainers;
 };
 
