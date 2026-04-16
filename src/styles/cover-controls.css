@@ -34,7 +34,7 @@
 	appearance: none;
 	width: 18px;
 	height: 18px;
-	background: oklch(0.70 0.15 255);
+	background: #59A0F9;
 	cursor: pointer;
 	border-radius: 3px;
 	border: 2px solid rgba(255, 255, 255, 0.2);
@@ -45,7 +45,7 @@
 .square-range::-moz-range-thumb {
 	width: 18px;
 	height: 18px;
-	background: oklch(0.70 0.15 255);
+	background: #59A0F9;
 	cursor: pointer;
 	border-radius: 3px;
 	border: 2px solid rgba(255, 255, 255, 0.2);
@@ -54,23 +54,23 @@
 
 /* 滑块悬停效果 */
 .square-range:hover::-webkit-slider-thumb {
-	background: oklch(0.75 0.18 255);
-	box-shadow: 0 0 8px oklch(0.70 0.15 255 / 0.5);
+	background: #6FB0FF;
+	box-shadow: 0 0 8px rgba(89, 160, 249, 0.5);
 }
 
 .square-range:hover::-moz-range-thumb {
-	background: oklch(0.75 0.18 255);
-	box-shadow: 0 0 8px oklch(0.70 0.15 255 / 0.5);
+	background: #6FB0FF;
+	box-shadow: 0 0 8px rgba(89, 160, 249, 0.5);
 }
 
 /* 滑块激活效果 */
 .square-range:active::-webkit-slider-thumb {
-	background: oklch(0.78 0.20 255);
+	background: #85C0FF;
 	transform: scale(1.1);
 }
 
 .square-range:active::-moz-range-thumb {
-	background: oklch(0.78 0.20 255);
+	background: #85C0FF;
 	transform: scale(1.1);
 }
 
@@ -115,12 +115,12 @@
 }
 
 .square-toggle input:checked + .square-toggle-slider {
-	background-color: oklch(0.70 0.15 255);
-	border-color: oklch(0.70 0.15 255);
+	background-color: #59A0F9;
+	border-color: #59A0F9;
 }
 
 .square-toggle input:focus + .square-toggle-slider {
-	box-shadow: 0 0 0 2px oklch(0.70 0.15 255 / 0.3);
+	box-shadow: 0 0 0 2px rgba(89, 160, 249, 0.3);
 }
 
 .square-toggle input:checked + .square-toggle-slider:before {
@@ -132,5 +132,5 @@
 }
 
 .square-toggle input:checked:hover + .square-toggle-slider {
-	background-color: oklch(0.75 0.18 255);
+	background-color: #6FB0FF;
 }
