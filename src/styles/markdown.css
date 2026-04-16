@@ -51,50 +51,6 @@
         }
     }
 
-    /* 移除 Highlight.js 的语法高亮颜色，只保留背景色 */
-    pre code {
-        @apply text-[var(--text-main)];
-        
-        /* 覆盖所有 hljs 类的颜色 */
-        .hljs-keyword,
-        .hljs-selector-tag,
-        .hljs-literal,
-        .hljs-section,
-        .hljs-link,
-        .hljs-subst,
-        .hljs-string,
-        .hljs-title,
-        .hljs-name,
-        .hljs-type,
-        .hljs-attribute,
-        .hljs-symbol,
-        .hljs-bullet,
-        .hljs-built_in,
-        .hljs-addition,
-        .hljs-variable,
-        .hljs-template-tag,
-        .hljs-template-variable,
-        .hljs-comment,
-        .hljs-quote,
-        .hljs-deletion,
-        .hljs-meta,
-        .hljs-doctag,
-        .hljs-strong,
-        .hljs-emphasis,
-        .hljs-number,
-        .hljs-regexp,
-        .hljs-tag,
-        .hljs-selector-id,
-        .hljs-selector-class,
-        .hljs-selector-attr,
-        .hljs-selector-pseudo,
-        .hljs-params,
-        .hljs-class,
-        .hljs-function {
-            color: inherit !important;
-        }
-    }
-
     .copy-btn {
         all: initial;
         @apply flex items-center justify-center
