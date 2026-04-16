@@ -1,6 +1,6 @@
 <script lang="ts">
 import { renderForumMarkdown } from "@/forum/utils/markdown";
-import hljs from "highlight.js";
+import { highlightAllCodeBlocks } from "@/utils/code-highlight";
 import { afterUpdate } from "svelte";
 
 export let content = "";
@@ -21,7 +21,7 @@ $: classes = [
 	.join(" ");
 
 afterUpdate(() => {
-	hljs.highlightAll();
+	highlightAllCodeBlocks();
 });
 </script>
 
