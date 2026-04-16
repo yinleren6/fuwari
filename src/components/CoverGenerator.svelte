@@ -1406,8 +1406,8 @@ function downloadLink(url: string, filename: string) {
     :global(.square-range::-webkit-slider-thumb) {
         -webkit-appearance: none;
         appearance: none;
-        width: 18px;
-        height: 18px;
+        width: 14px;
+        height: 14px;
         background: var(--primary);
         cursor: pointer;
         border-radius: 0;
@@ -1416,8 +1416,8 @@ function downloadLink(url: string, filename: string) {
     }
 
     :global(.square-range::-moz-range-thumb) {
-        width: 18px;
-        height: 18px;
+        width: 14px;
+        height: 14px;
         background: var(--primary);
         cursor: pointer;
         border-radius: 0;
