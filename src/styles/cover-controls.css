@@ -1,0 +1,136 @@
+/* 封面生成工具的方形控件样式 */
+
+/* 方形滑块样式 */
+.square-range {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 100%;
+	height: 6px;
+	background: rgba(255, 255, 255, 0.1);
+	outline: none;
+	cursor: pointer;
+	border-radius: 2px;
+}
+
+/* 滑块轨道 - Webkit */
+.square-range::-webkit-slider-track {
+	width: 100%;
+	height: 6px;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 2px;
+}
+
+/* 滑块轨道 - Firefox */
+.square-range::-moz-range-track {
+	width: 100%;
+	height: 6px;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 2px;
+}
+
+/* 滑块滑块 - Webkit */
+.square-range::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 18px;
+	height: 18px;
+	background: oklch(0.70 0.15 var(--hue));
+	cursor: pointer;
+	border-radius: 3px;
+	border: 2px solid rgba(255, 255, 255, 0.2);
+	transition: all 0.2s ease;
+}
+
+/* 滑块滑块 - Firefox */
+.square-range::-moz-range-thumb {
+	width: 18px;
+	height: 18px;
+	background: oklch(0.70 0.15 var(--hue));
+	cursor: pointer;
+	border-radius: 3px;
+	border: 2px solid rgba(255, 255, 255, 0.2);
+	transition: all 0.2s ease;
+}
+
+/* 滑块悬停效果 */
+.square-range:hover::-webkit-slider-thumb {
+	background: oklch(0.75 0.18 var(--hue));
+	box-shadow: 0 0 8px oklch(0.70 0.15 var(--hue) / 0.5);
+}
+
+.square-range:hover::-moz-range-thumb {
+	background: oklch(0.75 0.18 var(--hue));
+	box-shadow: 0 0 8px oklch(0.70 0.15 var(--hue) / 0.5);
+}
+
+/* 滑块激活效果 */
+.square-range:active::-webkit-slider-thumb {
+	background: oklch(0.78 0.20 var(--hue));
+	transform: scale(1.1);
+}
+
+.square-range:active::-moz-range-thumb {
+	background: oklch(0.78 0.20 var(--hue));
+	transform: scale(1.1);
+}
+
+/* 方形开关样式 */
+.square-toggle {
+	position: relative;
+	display: inline-block;
+	width: 44px;
+	height: 24px;
+}
+
+.square-toggle input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.square-toggle-slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(255, 255, 255, 0.1);
+	transition: 0.3s;
+	border-radius: 3px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.square-toggle-slider:before {
+	position: absolute;
+	content: "";
+	height: 18px;
+	width: 18px;
+	left: 2px;
+	bottom: 2px;
+	background-color: white;
+	transition: 0.3s;
+	border-radius: 2px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.square-toggle input:checked + .square-toggle-slider {
+	background-color: oklch(0.70 0.15 var(--hue));
+	border-color: oklch(0.70 0.15 var(--hue));
+}
+
+.square-toggle input:focus + .square-toggle-slider {
+	box-shadow: 0 0 0 2px oklch(0.70 0.15 var(--hue) / 0.3);
+}
+
+.square-toggle input:checked + .square-toggle-slider:before {
+	transform: translateX(20px);
+}
+
+.square-toggle:hover .square-toggle-slider {
+	background-color: rgba(255, 255, 255, 0.15);
+}
+
+.square-toggle input:checked:hover + .square-toggle-slider {
+	background-color: oklch(0.75 0.18 var(--hue));
+}

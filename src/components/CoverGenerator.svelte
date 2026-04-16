@@ -881,14 +881,14 @@ function downloadLink(url: string, filename: string) {
                               <label>模糊程度</label>
                               <span>{bgBlur}px</span>
                           </div>
-                          <input type="range" bind:value={bgBlur} min="0" max="20" class="range-slider h-1" />
+                          <input type="range" bind:value={bgBlur} min="0" max="20" class="square-range" />
                       </div>
                       <div class="mt-2 space-y-1" on:click|stopPropagation>
                           <div class="flex justify-between text-xs text-gray-400">
                               <label>不透明度</label>
                               <span>{Math.round(bgOpacity * 100)}%</span>
                           </div>
-                          <input type="range" bind:value={bgOpacity} min="0" max="1" step="0.01" class="range-slider h-1" />
+                          <input type="range" bind:value={bgOpacity} min="0" max="1" step="0.01" class="square-range" />
                       </div>
                       <p class="text-[10px] text-gray-400 mt-1 text-center">
                           提示: 拖拽移动位置，滚轮缩放大小
@@ -976,7 +976,7 @@ function downloadLink(url: string, filename: string) {
 
             <div class="flex flex-col gap-2">
                 <div class="flex justify-between text-sm"><label class="text-gray-300 font-bold">字体粗细</label> <span class="text-gray-400 font-mono">{fontWeight}</span></div>
-                <input type="range" bind:value={fontWeight} min="100" max="900" step="100" class="range-slider" />
+                <input type="range" bind:value={fontWeight} min="100" max="900" step="100" class="square-range" />
             </div>
 
             <div class="flex flex-col gap-2">
@@ -1062,19 +1062,19 @@ function downloadLink(url: string, filename: string) {
         <div class="space-y-6">
             <div class="flex flex-col gap-2">
                 <div class="flex justify-between text-sm"><label class="text-gray-300 font-bold">字体大小</label> <span class="text-gray-400 font-mono">{fontSize}px</span></div>
-                <input type="range" value={fontSize} on:input={handleFontSizeChange} min="20" max="700" class="range-slider" />
+                <input type="range" value={fontSize} on:input={handleFontSizeChange} min="20" max="700" class="square-range" />
             </div>
             <div class="flex flex-col gap-2">
                 <div class="flex justify-between text-sm"><label class="text-gray-300 font-bold">图标大小</label> <span class="text-gray-400 font-mono">{iconSize}px</span></div>
-                <input type="range" value={iconSize} on:input={handleIconSizeChange} min="20" max="700" class="range-slider" />
+                <input type="range" value={iconSize} on:input={handleIconSizeChange} min="20" max="700" class="square-range" />
             </div>
             <div class="flex flex-col gap-2">
                 <div class="flex justify-between text-sm"><label class="text-gray-300 font-bold">图标圆角</label> <span class="text-gray-400 font-mono">{iconRadius}%</span></div>
-                <input type="range" bind:value={iconRadius} min="0" max="50" class="range-slider" />
+                <input type="range" bind:value={iconRadius} min="0" max="50" class="square-range" />
             </div>
             <div class="flex flex-col gap-2">
                 <div class="flex justify-between text-sm"><label class="text-gray-300 font-bold">间距</label> <span class="text-gray-400 font-mono">{gap}px</span></div>
-                <input type="range" bind:value={gap} min="0" max="200" class="range-slider" />
+                <input type="range" bind:value={gap} min="0" max="200" class="square-range" />
             </div>
         </div>
 
@@ -1125,7 +1125,7 @@ function downloadLink(url: string, filename: string) {
                         </div>
                         <div class="flex items-center gap-2 w-full justify-end">
                             <span class="text-[10px] text-gray-500">不透明度 {Math.round(bgColorOpacity * 100)}%</span>
-                            <input type="range" bind:value={bgColorOpacity} min="0" max="1" step="0.01" class="range-slider w-16 h-1" />
+                            <input type="range" bind:value={bgColorOpacity} min="0" max="1" step="0.01" class="square-range w-16" />
                         </div>
                     </div>
                 </div>
@@ -1144,9 +1144,9 @@ function downloadLink(url: string, filename: string) {
         <div class="bg-transparent rounded-lg p-4 space-y-4 border border-[var(--line-color)]">
             <div class="flex items-center justify-between">
                 <h4 class="text-sm font-bold text-gray-300">图标背景</h4>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" bind:checked={iconBgEnabled} class="sr-only peer">
-                    <div class="w-9 h-5 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-600 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[var(--primary)]"></div>
+                <label class="square-toggle">
+                    <input type="checkbox" bind:checked={iconBgEnabled}>
+                    <span class="square-toggle-slider"></span>
                 </label>
             </div>
 
@@ -1168,28 +1168,28 @@ function downloadLink(url: string, filename: string) {
                                 <label>内边距</label>
                                 <span>{iconBgPadding}px</span>
                             </div>
-                            <input type="range" bind:value={iconBgPadding} min="0" max="100" class="range-slider h-1" />
+                            <input type="range" bind:value={iconBgPadding} min="0" max="100" class="square-range" />
                         </div>
                         <div class="flex flex-col gap-1">
                             <div class="flex justify-between text-[10px] text-gray-400">
                                 <label>圆角半径</label>
                                 <span>{iconBgRadius}%</span>
                             </div>
-                            <input type="range" bind:value={iconBgRadius} min="0" max="50" class="range-slider h-1" />
+                            <input type="range" bind:value={iconBgRadius} min="0" max="50" class="square-range" />
                         </div>
                         <div class="flex flex-col gap-1">
                             <div class="flex justify-between text-[10px] text-gray-400">
                                 <label>模糊</label>
                                 <span>{iconBgBlur}px</span>
                             </div>
-                            <input type="range" bind:value={iconBgBlur} min="0" max="20" class="range-slider h-1" />
+                            <input type="range" bind:value={iconBgBlur} min="0" max="20" class="square-range" />
                         </div>
                         <div class="flex flex-col gap-1">
                             <div class="flex justify-between text-[10px] text-gray-400">
                                 <label>不透明度</label>
                                 <span>{Math.round(iconBgOpacity * 100)}%</span>
                             </div>
-                            <input type="range" bind:value={iconBgOpacity} min="0" max="1" step="0.01" class="range-slider h-1" />
+                            <input type="range" bind:value={iconBgOpacity} min="0" max="1" step="0.01" class="square-range" />
                         </div>
                     </div>
                 </div>
@@ -1245,7 +1245,7 @@ function downloadLink(url: string, filename: string) {
                         <label>不透明度</label>
                         <span>{Math.round((shadowTarget === 'icon' ? iconShadow.alpha : textShadow.alpha) * 100)}%</span>
                     </div>
-                    <input type="range" value={shadowTarget === 'icon' ? iconShadow.alpha : textShadow.alpha} on:input={handleShadowAlphaInput} min="0" max="1" step="0.01" class="range-slider h-1" />
+                    <input type="range" value={shadowTarget === 'icon' ? iconShadow.alpha : textShadow.alpha} on:input={handleShadowAlphaInput} min="0" max="1" step="0.01" class="square-range" />
                 </div>
             </div>
         </div>
@@ -1377,11 +1377,10 @@ function downloadLink(url: string, filename: string) {
 </div>
 
 <style>
+    @import '../styles/cover-controls.css';
+
     .input-field {
         @apply px-3 py-2 rounded-lg bg-transparent border border-gray-600 focus:ring-2 focus:ring-[var(--primary)] outline-none transition-colors text-gray-100;
-    }
-    .range-slider {
-        @apply w-full accent-[var(--primary)] cursor-pointer;
     }
     .color-picker {
         @apply w-10 h-10 rounded cursor-pointer border-0 p-0 overflow-hidden;
