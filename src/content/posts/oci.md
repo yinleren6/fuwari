@@ -237,6 +237,8 @@ systemctl restart sshd
 
 # 自动脚本抢arm机
 
+> 我们制作了一个 **基于Cloudflare Worker** 的自动抢机脚本 https://github.com/afoim/oci_auto_cfworker
+
 如果你在创建实例的时候选择arm，并且最后创建的时候提示
 
 **可用性域 VM.Standard.A1.Flex 中配置 AD-1 的容量不足。请在其他可用性域中创建实例，或稍后重试。如果指定了容错域，请尝试在不指定容错域的情况下创建实例。如果这样不起作用，请稍后重试。[了解有关主机容量的更多信息。](https://www.oracle.com/cloud/free/faq.html)**

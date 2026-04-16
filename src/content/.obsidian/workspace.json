@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "posts/pin.md",
+                "file": "posts/oci.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "pin"
+              "title": "oci"
             }
           }
         ]
@@ -171,6 +171,7 @@
   },
   "active": "f6b5e7abc96521b9",
   "lastOpenFiles": [
+    "posts/pin.md",
     "assets/images/cute.webp",
     "spec/announcement.md",
     "posts/cf-fastip.md",
@@ -188,7 +189,6 @@
     "posts/what-the-fuck-claw-replit.md",
     "assets/images/what-the-fuck-claw-replit-9.png",
     "assets/images/what-the-fuck-claw-replit-8.png",
-    "assets/images/what-the-fuck-claw-replit-7.png",
     "posts/check-nat-webrtc.md",
     "posts/onedrive-index.md",
     "posts/ms-e3.md",
