@@ -136,17 +136,18 @@ for (const post of posts) {
         const viewsElement = document.getElementById('site-views');
         if (!wrapper || !viewsElement) return;
         
-        // 直接从批量请求的全局变量读取，如果还没准备好就等待
-        const checkAndDisplay = () => {
-            if (window.__SITE_VIEWS__ !== undefined) {
-                viewsElement.textContent = window.__SITE_VIEWS__.toString();
-                wrapper.style.display = 'grid';
-            } else {
-                // 如果数据还没准备好，等待一下再检查
-                setTimeout(checkAndDisplay, 100);
-            }
-        };
-        checkAndDisplay();
+        // 监听自定义事件
+        window.addEventListener('site-views-loaded', (e) => {
+            const siteViews = e.detail.views;
+            viewsElement.textContent = siteViews.toString();
+            wrapper.style.display = 'grid';
+        }, { once: true });
+        
+        // 如果已经有数据，直接使用
+        if (window.__SITE_VIEWS__ !== undefined) {
+            viewsElement.textContent = window.__SITE_VIEWS__.toString();
+            wrapper.style.display = 'grid';
+        }
     }
 
     // 检测直播状态

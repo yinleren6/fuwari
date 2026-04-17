@@ -40,10 +40,8 @@ class PostListManager {
 
 	private async loadViewsData() {
 		// 批量获取所有文章的访问量（包含全站访问量）
-		console.log('[PostListManager] 开始批量获取访问量');
 		try {
 			const pathnames = ["/", ...this.posts.map((post) => `/posts/${post.id}/`)];
-			console.log('[PostListManager] 请求路径:', pathnames);
 			
 			const res = await fetch("https://t.2x.nz/batch", {
 				method: "POST",
@@ -54,21 +52,26 @@ class PostListManager {
 			});
 
 			if (res.ok) {
-				const views: number[] = await res.json();
-				console.log('[PostListManager] 获取到的访问量:', views);
+				const text = await res.text();
+				
+				if (!text || text.trim() === '') {
+					throw new Error('Empty response');
+				}
+				
+				const views: number[] = JSON.parse(text);
 				
 				// 第一个是全站访问量，存储到全局变量
 				const siteViews = views[0] || 0;
 				(window as any).__SITE_VIEWS__ = siteViews;
-				console.log('[PostListManager] 设置全站访问量:', siteViews);
+				
+				// 触发自定义事件通知其他组件
+				window.dispatchEvent(new CustomEvent('site-views-loaded', { detail: { views: siteViews } }));
 				
 				const viewsElement = document.getElementById("site-views");
 				const wrapper = document.getElementById("site-views-wrapper");
-				console.log('[PostListManager] 全站访问量元素:', viewsElement, wrapper);
 				if (viewsElement && wrapper) {
 					viewsElement.textContent = siteViews.toString();
 					wrapper.style.display = "grid";
-					console.log('[PostListManager] 已更新全站访问量显示');
 				}
 				
 				// 后续是文章访问量
@@ -84,16 +87,13 @@ class PostListManager {
 						postWrapper.style.display = 'flex';
 					}
 				});
-				console.log('[PostListManager] 已更新所有文章访问量');
 			} else {
-				console.error('[PostListManager] 请求失败:', res.status);
 				// 请求失败，所有文章默认为 0
 				this.posts.forEach((post) => {
 					this.viewsData.set(post.id, 0);
 				});
 			}
 		} catch (e) {
-			console.error('[PostListManager] 请求异常:', e);
 			// 请求失败，所有文章默认为 0
 			this.posts.forEach((post) => {
 				this.viewsData.set(post.id, 0);
@@ -101,10 +101,9 @@ class PostListManager {
 		}
 
 		this.viewsLoaded = true;
-		// 标记访问量已加载，防止 PostMeta 和 loadProfileStats 重复请求
+		// 标记访问量已加载，防止 PostMeta 重复请求
 		(window as any).__VIEWS_FETCHED__ = true;
 		(window as any).__SITE_VIEWS_LOADED__ = true;
-		console.log('[PostListManager] 访问量加载完成');
 	}
 
 	private bindEvents() {
