@@ -7,7 +7,7 @@ interface PostData {
 	pinned?: boolean;
 }
 
-type SortType = "date" | "alpha";
+type SortType = "date" | "views";
 type SortOrder = "asc" | "desc";
 
 class PostListManager {
@@ -15,6 +15,8 @@ class PostListManager {
 	private currentSort: SortType = "date";
 	private currentOrder: SortOrder = "desc";
 	private articles: HTMLElement[] = [];
+	private viewsData: Map<string, number> = new Map();
+	private viewsLoaded = false;
 
 	constructor() {
 		this.init();
@@ -27,7 +29,9 @@ class PostListManager {
 		this.cacheArticles();
 		this.loadState();
 		this.bindEvents();
-		this.render();
+		this.loadViewsData().then(() => {
+			this.render();
+		});
 	}
 
 	private cacheArticles() {
@@ -35,6 +39,29 @@ class PostListManager {
 		if (!container) return;
 
 		this.articles = Array.from(container.querySelectorAll("article"));
+	}
+
+	private async loadViewsData() {
+		// 批量获取所有文章的访问量
+		const promises = this.posts.map(async (post) => {
+			try {
+				const pathname = `/posts/${post.id}/`;
+				const res = await fetch(
+					`https://t.2x.nz/share?pathname=${encodeURIComponent(pathname)}`,
+				);
+				if (res.ok) {
+					const data = await res.json();
+					const views = data?.views || 0;
+					this.viewsData.set(post.id, views);
+				}
+			} catch (e) {
+				// 请求失败，默认为 0
+				this.viewsData.set(post.id, 0);
+			}
+		});
+
+		await Promise.all(promises);
+		this.viewsLoaded = true;
 	}
 
 	private loadState() {
@@ -83,7 +110,13 @@ class PostListManager {
 		if (this.currentSort !== type) {
 			this.currentSort = type;
 			this.saveState();
-			this.render();
+			
+			// 如果切换到访问量排序但数据还未加载完成，显示加载提示
+			if (type === "views" && !this.viewsLoaded) {
+				this.showLoadingHint();
+			} else {
+				this.render();
+			}
 		}
 	}
 
@@ -91,6 +124,20 @@ class PostListManager {
 		this.currentOrder = this.currentOrder === "asc" ? "desc" : "asc";
 		this.saveState();
 		this.render();
+	}
+
+	private showLoadingHint() {
+		const container = document.getElementById("post-list-container");
+		if (!container) return;
+		
+		container.style.opacity = "0.5";
+		// 等待数据加载完成后再渲染
+		const checkInterval = setInterval(() => {
+			if (this.viewsLoaded) {
+				clearInterval(checkInterval);
+				this.render();
+			}
+		}, 100);
 	}
 
 	private getSortedIndices(): number[] {
@@ -108,10 +155,13 @@ class PostListManager {
 				const dateA = new Date(a.published).getTime();
 				const dateB = new Date(b.published).getTime();
 				return this.currentOrder === "desc" ? dateB - dateA : dateA - dateB;
-			} else {
-				const cmp = a.title.localeCompare(b.title, "zh-CN");
-				return this.currentOrder === "desc" ? -cmp : cmp;
+			} else if (this.currentSort === "views") {
+				const viewsA = this.viewsData.get(a.id) || 0;
+				const viewsB = this.viewsData.get(b.id) || 0;
+				return this.currentOrder === "desc" ? viewsB - viewsA : viewsA - viewsB;
 			}
+
+			return 0;
 		});
 
 		return indices;
@@ -143,12 +193,12 @@ class PostListManager {
 
 	private updateSortControls() {
 		const dateBtn = document.querySelector('[data-sort-type="date"]');
-		const alphaBtn = document.querySelector('[data-sort-type="alpha"]');
+		const viewsBtn = document.querySelector('[data-sort-type="views"]');
 		const orderBtn = document.querySelector("[data-sort-order]");
 
-		if (dateBtn && alphaBtn) {
+		if (dateBtn && viewsBtn) {
 			dateBtn.classList.toggle("active", this.currentSort === "date");
-			alphaBtn.classList.toggle("active", this.currentSort === "alpha");
+			viewsBtn.classList.toggle("active", this.currentSort === "views");
 		}
 
 		if (orderBtn) {
