@@ -173,20 +173,12 @@ class PostListManager {
 
 		const sortedIndices = this.getSortedIndices();
 
-		// 添加过渡效果
-		container.style.opacity = "0.6";
-		container.style.transition = "opacity 0.2s";
-
-		setTimeout(() => {
-			// 按新顺序重新插入 DOM
-			sortedIndices.forEach((index) => {
-				if (this.articles[index]) {
-					container.appendChild(this.articles[index]);
-				}
-			});
-
-			container.style.opacity = "1";
-		}, 100);
+		// 按新顺序重新插入 DOM
+		sortedIndices.forEach((index) => {
+			if (this.articles[index]) {
+				container.appendChild(this.articles[index]);
+			}
+		});
 
 		this.updateSortControls();
 	}
