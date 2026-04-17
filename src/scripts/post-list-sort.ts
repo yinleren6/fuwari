@@ -53,7 +53,16 @@ class PostListManager {
 			if (res.ok) {
 				const views: number[] = await res.json();
 				this.posts.forEach((post, index) => {
-					this.viewsData.set(post.id, views[index] || 0);
+					const viewCount = views[index] || 0;
+					this.viewsData.set(post.id, viewCount);
+					
+					// 同时更新 PostMeta 组件的显示
+					const wrapper = document.getElementById(`page-views-wrapper-${post.id}`);
+					const viewsElement = document.getElementById(`page-views-${post.id}`);
+					if (wrapper && viewsElement) {
+						viewsElement.textContent = `${viewCount} 次`;
+						wrapper.style.display = 'flex';
+					}
 				});
 			} else {
 				// 请求失败，所有文章默认为 0
@@ -69,6 +78,8 @@ class PostListManager {
 		}
 
 		this.viewsLoaded = true;
+		// 标记访问量已加载，防止 PostMeta 重复请求
+		(window as any).__VIEWS_FETCHED__ = true;
 	}
 
 	private bindEvents() {
