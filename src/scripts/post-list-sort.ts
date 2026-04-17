@@ -40,24 +40,34 @@ class PostListManager {
 
 	private async loadViewsData() {
 		// 批量获取所有文章的访问量
-		const promises = this.posts.map(async (post) => {
-			try {
-				const pathname = `/posts/${post.id}/`;
-				const res = await fetch(
-					`https://t.2x.nz/share?pathname=${encodeURIComponent(pathname)}`,
-				);
-				if (res.ok) {
-					const data = await res.json();
-					const views = data?.views || 0;
-					this.viewsData.set(post.id, views);
-				}
-			} catch (e) {
-				// 请求失败，默认为 0
-				this.viewsData.set(post.id, 0);
-			}
-		});
+		try {
+			const pathnames = this.posts.map((post) => `/posts/${post.id}/`);
+			const res = await fetch("https://t.2x.nz/batch", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(pathnames),
+			});
 
-		await Promise.all(promises);
+			if (res.ok) {
+				const views: number[] = await res.json();
+				this.posts.forEach((post, index) => {
+					this.viewsData.set(post.id, views[index] || 0);
+				});
+			} else {
+				// 请求失败，所有文章默认为 0
+				this.posts.forEach((post) => {
+					this.viewsData.set(post.id, 0);
+				});
+			}
+		} catch (e) {
+			// 请求失败，所有文章默认为 0
+			this.posts.forEach((post) => {
+				this.viewsData.set(post.id, 0);
+			});
+		}
+
 		this.viewsLoaded = true;
 	}
 
