@@ -69,21 +69,46 @@ const className = Astro.props.class;
 </div>
 
 {slug && (
-    <script define:vars={{ slug }}>
-    async function fetchPageViews() {
-        const wrapper = document.getElementById(`page-views-wrapper-${slug}`);
-        const viewsElement = document.getElementById(`page-views-${slug}`);
-        if (!wrapper || !viewsElement) return;
-        
+    <script is:inline define:vars={{ slug }}>
+    // 注册需要获取访问量的文章
+    if (!window.__VIEWS_QUEUE__) {
+        window.__VIEWS_QUEUE__ = [];
+        window.__VIEWS_FETCHED__ = false;
+    }
+    window.__VIEWS_QUEUE__.push(slug);
+
+    // 批量获取访问量
+    async function batchFetchPageViews() {
+        if (window.__VIEWS_FETCHED__) return;
+        window.__VIEWS_FETCHED__ = true;
+
+        const slugs = window.__VIEWS_QUEUE__;
+        if (!slugs.length) return;
+
         try {
-            const response = await fetch(`https://t.2x.nz/share?pathname=/posts/${slug}/`);
+            const pathnames = slugs.map(s => `/posts/${s}/`);
+            const response = await fetch('https://t.2x.nz/batch', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(pathnames),
+            });
+
             if (!response.ok) return;
-            
-            const data = await response.json();
-            const pageViews = data.views || 0;
-            
-            viewsElement.textContent = `${pageViews} 次`;
-            wrapper.style.display = 'flex';
+
+            const views = await response.json();
+
+            // 更新所有文章的访问量
+            slugs.forEach((slug, index) => {
+                const wrapper = document.getElementById(`page-views-wrapper-${slug}`);
+                const viewsElement = document.getElementById(`page-views-${slug}`);
+                if (wrapper && viewsElement) {
+                    const pageViews = views[index] || 0;
+                    viewsElement.textContent = `${pageViews} 次`;
+                    wrapper.style.display = 'flex';
+                }
+            });
         } catch (error) {
             // 请求失败，保持隐藏
         }
@@ -91,9 +116,10 @@ const className = Astro.props.class;
 
     // 页面加载完成后获取统计数据
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fetchPageViews);
+        document.addEventListener('DOMContentLoaded', batchFetchPageViews);
     } else {
-        fetchPageViews();
+        // 使用 setTimeout 确保所有组件都注册完成
+        setTimeout(batchFetchPageViews, 0);
     }
 </script>
 )}
