@@ -132,22 +132,30 @@ function syncSidebarProfileMode() {
 function loadProfileStats() {
 	const viewsElement = document.getElementById("site-views");
 	const wrapper = document.getElementById("site-views-wrapper");
+	console.log('[loadProfileStats] 开始加载, 元素:', viewsElement, wrapper);
 	if (!viewsElement) return;
 
 	// 如果已经有数据（transition:persist 保留的），直接显示 wrapper
 	if (viewsElement.textContent && viewsElement.textContent.trim() !== "") {
+		console.log('[loadProfileStats] 已有数据，直接显示');
 		if (wrapper) wrapper.style.display = "grid";
 		return;
 	}
 
 	// 直接从批量请求的全局变量读取，如果还没准备好就等待
+	let attempts = 0;
 	const checkAndDisplay = () => {
+		attempts++;
+		console.log(`[loadProfileStats] 尝试 ${attempts} 次, __SITE_VIEWS__:`, (window as any).__SITE_VIEWS__);
 		if ((window as any).__SITE_VIEWS__ !== undefined) {
 			viewsElement.textContent = (window as any).__SITE_VIEWS__.toString();
 			if (wrapper) wrapper.style.display = "grid";
-		} else {
-			// 如果数据还没准备好，等待一下再检查
+			console.log('[loadProfileStats] 显示成功');
+		} else if (attempts < 50) {
+			// 如果数据还没准备好，等待一下再检查（最多等待 5 秒）
 			setTimeout(checkAndDisplay, 100);
+		} else {
+			console.error('[loadProfileStats] 超时，未能获取数据');
 		}
 	};
 	checkAndDisplay();
