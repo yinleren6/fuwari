@@ -2,12 +2,11 @@ import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
 
-function getGitUnstagedFiles() {
-	const output = execSync("git status --porcelain", { encoding: "utf-8" });
+function getGitStagedFiles() {
+	const output = execSync("git diff --cached --name-only", { encoding: "utf-8" });
 	return output
 		.trim()
 		.split("\n")
-		.map((line) => line.slice(3))
 		.filter(Boolean);
 }
 
@@ -57,17 +56,17 @@ function isNewFile(file) {
 }
 
 function main() {
-	const files = getGitUnstagedFiles();
+	const files = getGitStagedFiles();
 
 	if (files.length === 0) {
-		console.error("Error: No unstaged changes found");
+		console.error("Error: No staged changes found");
 		process.exit(1);
 	}
 
 	const postFile = findPostFile(files);
 
 	if (!postFile) {
-		console.error("Error: No post file found in unstaged changes");
+		console.error("Error: No post file found in staged changes");
 		process.exit(1);
 	}
 
@@ -86,7 +85,7 @@ function main() {
 
 	const commitMsg = `posts: ${action}文章：《${title}》，${description}`;
 
-	execSync(`git add .`, { encoding: "utf-8" });
+	// 只提交暂存区的文件，不要 git add .
 	execSync(`git commit -m "${commitMsg}"`, { encoding: "utf-8" });
 
 	console.log(`Committed: ${commitMsg}`);
