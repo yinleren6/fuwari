@@ -2,7 +2,7 @@
 title: 让我们自建一个自己的CDN！
 published: 2026-04-11T16:21:41
 description: 你有没有想过从0通过各种开源项目自己搭建一个CDN？今天就来教你！
-image: /assets/images/scdn.png
+image: /public/assets/images/scdn.png
 draft: false
 lang: ""
 ---
@@ -12,7 +12,7 @@ lang: ""
 
 然后最近偶然发现甲骨文上托管HTML很绿
 
-![](/assets/images/self-host-cdn.png)
+![](/public/assets/images/self-host-cdn.png)
 
 于是就想着是否能在我的俩甲骨文上托管我的静态博客？
 
@@ -56,7 +56,7 @@ flowchart TD
 
 *这样我们就可以输入一次命令，让多台机子同时执行！*
 
-![](/assets/images/self-host-cdn-1.png)
+![](/public/assets/images/self-host-cdn-1.png)
 
 接着，我们首先下载 [static-web-server/static-web-server: A cross-platform, high-performance and asynchronous web server for static files-serving. ⚡](https://github.com/static-web-server/static-web-server) 
 
@@ -275,7 +275,7 @@ curl https://get.acme.sh | sh -s email=my@example.com
 ./acme.sh --issue --dns dns_cf -d 2x.nz -d '*.2x.nz'
 ```
 
-![](/assets/images/self-host-cdn-2.png)
+![](/public/assets/images/self-host-cdn-2.png)
 
 签发完毕后需要安装证书，指定一个目录。和刚才我们启动的SWS的SSL目录要一致
 
@@ -317,11 +317,11 @@ crontab -e
 
 将两个甲骨文IP写入 `oraclecdn.2x.nz` 中
 
-![](/assets/images/self-host-cdn-3.png)
+![](/public/assets/images/self-host-cdn-3.png)
 
 接着将 `2x.nz` CNAME `oracle.2x.nz` 
 
-![](/assets/images/self-host-cdn-4.png)
+![](/public/assets/images/self-host-cdn-4.png)
 
 # 高级
 

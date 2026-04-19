@@ -2,7 +2,7 @@
 title: 网站加友链的最佳姿势是什么？当然是自动化啦！
 published: 2026-02-17T22:41:17
 description: 如果你经常一觉醒来就看到一堆友链 PR，还得逐个检查格式、顺手帮对方修语法错误，那把这件事自动化确实会轻松很多。
-image: /assets/images/auto-pr-link-12.png
+image: /public/assets/images/auto-pr-link-12.png
 draft: false
 lang: ""
 ai_level: 2
@@ -12,17 +12,17 @@ ai_level: 2
 
 正如很多站长都会遇到的那样，如果你通过 PR 来处理友链申请，尤其是在完全没有自动化的情况下，大概率会遇到下面这种场面：
 
-![](/assets/images/auto-pr-link-1.png)
+![](/public/assets/images/auto-pr-link-1.png)
 
 数量多其实还不是最麻烦的，真正麻烦的是：
 
-![](/assets/images/auto-pr-link-2.png)
+![](/public/assets/images/auto-pr-link-2.png)
 
 以及各种格式问题。
 
 是的，我甚至都没有设计什么复杂格式，但很多人提交友链时，连 JSON 都写不明白。上图是忘了引号，下图则连 `.json` 后缀都没写对。
 
-![](/assets/images/auto-pr-link-3.png)
+![](/public/assets/images/auto-pr-link-3.png)
 
 很长一段时间里，这些小问题我都是手动帮忙修的，毕竟看起来都不算大事。
 
@@ -36,7 +36,7 @@ ai_level: 2
 
 思路是这样的：让用户在提交友链时额外填写一个回链字段，然后由 GitHub Action 实际检测是否存在回链。这样不仅能确认对方确实添加了你的友链，也能顺便完成一次所有权验证。
 
-![](/assets/images/auto-pr-link-11.png)
+![](/public/assets/images/auto-pr-link-11.png)
 
 # 正式开始（旧的）
 
@@ -46,25 +46,25 @@ GitHub Action 本来就是用来处理这类自动化任务的，这不正好符
 
 于是，整体流程草图很快就出来了。
 
-![](/assets/images/auto-pr-link-4.png)
+![](/public/assets/images/auto-pr-link-4.png)
 
 接下来再把这份思路交给 AI 帮忙整理实现。
 
-![](/assets/images/auto-pr-link-5.png)
+![](/public/assets/images/auto-pr-link-5.png)
 
 最终你就得到了
 
-![](/assets/images/auto-pr-link-6.png)
+![](/public/assets/images/auto-pr-link-6.png)
 
 没关系，前期看起来乱一点很正常，毕竟 GitHub Action 这类流程很多时候只能在真实环境里慢慢调试。
 
 最终我们就会得到...
 
-![](/assets/images/auto-pr-link-7.png)
+![](/public/assets/images/auto-pr-link-7.png)
 
 看起来是不是很简单？其实并没有。现在看到的这套流程虽然表面上还算清晰，但也是反复梳理和修改之后，才勉强打磨到“基本能用”的状态。
 
-![](/assets/images/auto-pr-link-8.png)
+![](/public/assets/images/auto-pr-link-8.png)
 
 下面再说一些非常容易踩坑的地方。
 
@@ -76,11 +76,11 @@ GitHub Action 本来就是用来处理这类自动化任务的，这不正好符
 
 每一步都给 PR 打上明确的标签，就像这样：
 
-![](/assets/images/auto-pr-link-9.png)
+![](/public/assets/images/auto-pr-link-9.png)
 
 这样做的好处是，不仅在外部一眼就能看出某个 PR 卡在哪一步，也能让你在不额外写复杂日志的情况下，大致判断问题出在哪里。
 
-![](/assets/images/auto-pr-link-10.png)
+![](/public/assets/images/auto-pr-link-10.png)
 
 接下来是所有权验证。这个环节其实必须做好错误处理，因为它往往无法一次性顺利跑到底。借助 GitHub 标签，我们可以控制某些步骤是否跳过，从而避免验证文件被重复要求，或者每次都随机生成一个新的文件。
 

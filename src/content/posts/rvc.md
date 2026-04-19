@@ -2,7 +2,7 @@
 title: 手把手教你AI翻唱！
 published: 2025-10-13T06:23:12
 description: 利用RVC训练音色模型然后使用Replay直出AI翻唱！
-image: /assets/images/rvc-19.webp
+image: /public/assets/images/rvc-19.webp
 tags:
   - AI
   - RVC
@@ -31,39 +31,39 @@ UVR&MSST：进行人声伴奏分离
 
 进入 [RVC-Project/Retrieval-based-Voice-Conversion-WebUI: Easily train a good VC model with voice data <= 10 mins!](https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI) 根据你的系统和显卡来进行下载，或者使用该链接下载（国内高速） [语音克隆&变声器 整合包下载](https://www.yuque.com/flowercry/hxf0ds) 注意不要下错了
 
-![](/assets/images/rvc-1.webp)
+![](/public/assets/images/rvc-1.webp)
 
 直接运行 `go-web.bat`
 
-![](/assets/images/rvc-2.webp)
+![](/public/assets/images/rvc-2.webp)
 
 进入 WebUI 并切换到训练一栏
 
-![](/assets/images/rvc-3.webp)
+![](/public/assets/images/rvc-3.webp)
 
 首先写模型名称
 
-![](/assets/images/rvc-4.webp)
+![](/public/assets/images/rvc-4.webp)
 
 然后将你的音源放到一个空文件夹
 
-![](/assets/images/rvc-5.webp)
+![](/public/assets/images/rvc-5.webp)
 
 然后填进去
 
-![](/assets/images/rvc-6.webp)
+![](/public/assets/images/rvc-6.webp)
 
 总训练轮数推荐50 ~ 200
 
-![](/assets/images/rvc-7.webp)
+![](/public/assets/images/rvc-7.webp)
 
 然后点击一键训练（需要很久，建议晚上睡觉前训练）
 
-![](/assets/images/rvc-8.webp)
+![](/public/assets/images/rvc-8.webp)
 
 训练结束后可以在 `assets/weights` 找到模型文件， `.pth` 结尾的
 
-![](/assets/images/rvc-9.webp)
+![](/public/assets/images/rvc-9.webp)
 
 # 利用Replay做AI翻唱
 
@@ -75,11 +75,11 @@ UVR&MSST：进行人声伴奏分离
 
 然后点击 **Convert Audio** 
 
-![](/assets/images/rvc-10.webp)
+![](/public/assets/images/rvc-10.webp)
 
 在输出的文件的 **View in Folder** 可以找到 **干净的AI人声** 
 
-![](/assets/images/rvc-11.webp)
+![](/public/assets/images/rvc-11.webp)
 
 # 伴奏和人声分离
 
@@ -91,9 +91,9 @@ UVR&MSST：进行人声伴奏分离
 
 首先下载模型，选择设置
 
-![](/assets/images/rvc-12.webp)
+![](/public/assets/images/rvc-12.webp)
 选择 **Download Center** 下载 **VR  Arch** 的 **5_HP-Karaoke-UVR** 模型。然后回到首页
-![](/assets/images/rvc-13.webp)
+![](/public/assets/images/rvc-13.webp)
 
 首先通过 **Select Input** 选择原音频
 
@@ -107,11 +107,11 @@ UVR&MSST：进行人声伴奏分离
 
 然后点击 **Start Processing** 
 
-![](/assets/images/rvc-14.webp)
+![](/public/assets/images/rvc-14.webp)
 
 输出文件夹中 **Instrumental** 为伴奏， **Vocals** 为人声
 
-![](/assets/images/rvc-15.webp)
+![](/public/assets/images/rvc-15.webp)
 
 ### MSST
 
@@ -119,12 +119,12 @@ UVR&MSST：进行人声伴奏分离
 
 双击 `go-webui.bat` 运行
 
-![](/assets/images/rvc-16.webp)
+![](/public/assets/images/rvc-16.webp)
 
 首先去安装模型。每个模型的最终输出文件可能不一样
 
-![](/assets/images/rvc-17.webp)
+![](/public/assets/images/rvc-17.webp)
 
 然后都是字面意思了，随后点击 **输入音频分离** 开始转换
 
-![](/assets/images/rvc-18.webp)
+![](/public/assets/images/rvc-18.webp)

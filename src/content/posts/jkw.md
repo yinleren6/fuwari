@@ -2,7 +2,7 @@
 title: 极客湾手机大横评补档
 published: 2026-02-25T17:20:03
 description: 大手来了，我说大手来了你尔朵隆吗
-image: /assets/images/jkw.png
+image: /public/assets/images/jkw.png
 draft: false
 lang: ""
 ---

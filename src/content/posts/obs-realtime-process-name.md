@@ -2,7 +2,7 @@
 title: 如何在直播中让你的观众实时了解你在用什么软件？
 published: 2026-03-07T19:19:43
 description: 通过持续监测当前前台进程和指定程序的窗口标题，并将结果写入 TXT 文件，就可以让 OBS 实时向观众展示你正在使用的软件或当前播放的内容。
-image: /assets/images/OBS-RT-PC.png
+image: /public/assets/images/OBS-RT-PC.png
 draft: false
 lang: ""
 ai_level: 1
@@ -35,11 +35,11 @@ ai_level: 1
 
 只要让 OBS 持续读取一个 TXT 文件，再写一个小程序不断更新这个 TXT，不就可以了吗？
 
-![](/assets/images/obs-realtime-process-name.png)
+![](/public/assets/images/obs-realtime-process-name.png)
 
 这个思路完全可行。实测下来，OBS 会每隔几秒重新读取一次 TXT 内容。虽然它不是即时 Hook，而是简单轮询，但对于“当前正在使用什么软件”这类信息来说，已经完全够用了。
 
-![](/assets/images/obs64_ZV5MPVYEXj.gif)
+![](/public/assets/images/obs64_ZV5MPVYEXj.gif)
 
 不过，只做实时进程显示，其实只解决了 **“我当前正在用什么软件”** 这个问题。
 
@@ -47,7 +47,7 @@ ai_level: 1
 
 所以我又补了一个功能：支持监测指定的 **EXE**，并实时读取这个进程的窗口标题变化。一般来说，不少音乐播放器都会把当前播放曲目写进窗口标题里。
 
-![](/assets/images/obs-realtime-process-name-2.png)
+![](/public/assets/images/obs-realtime-process-name-2.png)
 
 那如果中途我把音乐软件关掉了怎么办？
 
@@ -59,6 +59,6 @@ ai_level: 1
 
 ::github{repo="afoim/process_watch2txt"}
 
-![](/assets/images/WindowsTerminal_wV1C4TbD15.gif)
+![](/public/assets/images/WindowsTerminal_wV1C4TbD15.gif)
 
-![](/assets/images/livehime_vtq9relmFS.gif)
+![](/public/assets/images/livehime_vtq9relmFS.gif)

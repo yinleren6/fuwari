@@ -2,7 +2,7 @@
 category: 教程
 description: 想要一个域名邮箱？这里提供两种免费方案：网易免费企业邮和腾讯企业邮箱，各有优劣，按需选择！
 draft: false
-image: /assets/images/2025-05-02-21-04-48-image.webp
+image: /public/assets/images/2025-05-02-21-04-48-image.webp
 lang: ''
 published: 2025-03-11T16:00:00
 tags:
@@ -47,37 +47,37 @@ title: 自建邮局太麻烦？两种免费域名邮箱方案任你选！
 
 注意，这里点击 `其他方式登录`
 
-![](/assets/images/2025-05-02-20-57-24-image.webp)
+![](/public/assets/images/2025-05-02-20-57-24-image.webp)
 
 然后选择账号密码登录
 
-![](/assets/images/2025-05-02-20-57-44-image.webp)
+![](/public/assets/images/2025-05-02-20-57-44-image.webp)
 
 接着选择成员登录（如果直接进去了就跳过这一步）
 
-![](/assets/images/2025-05-02-20-59-22-image.webp)
+![](/public/assets/images/2025-05-02-20-59-22-image.webp)
 
 接下来左上角点击设置
 
-![](/assets/images/2025-05-02-21-00-08-image.webp)
+![](/public/assets/images/2025-05-02-21-00-08-image.webp)
 
 收发信设置
 
-![](/assets/images/2025-05-02-21-00-31-image.webp)
+![](/public/assets/images/2025-05-02-21-00-31-image.webp)
 
 这里就能查看到SMTP和IMAP的地址和端口（实测TLS也是支持的，只是它没写）
 
-![](/assets/images/2025-05-02-21-01-07-image.webp)
+![](/public/assets/images/2025-05-02-21-01-07-image.webp)
 
 ## 生成客户端密码
 
 接下来前往邮箱绑定
 
-![](/assets/images/2025-05-02-21-01-36-image.webp)
+![](/public/assets/images/2025-05-02-21-01-36-image.webp)
 
 生成新密码
 
-![](/assets/images/2025-05-02-21-01-57-image.webp)
+![](/public/assets/images/2025-05-02-21-01-57-image.webp)
 
 # 方案二：网易免费企业邮
 
@@ -93,21 +93,21 @@ title: 自建邮局太麻烦？两种免费域名邮箱方案任你选！
 
 登陆进去后大概是这样
 
-![](/assets/images/65e5b400-96d7-44c6-b16e-a7a409104c3c.webp)
+![](/public/assets/images/65e5b400-96d7-44c6-b16e-a7a409104c3c.webp)
 
 如果你不喜欢你的账户名，比如我的就是 **erchashush** @acofork.freeqiye.com，这个erchashush其实是可以更改的
 
 在组织机构管理中点击账号管理，选择新建账号
 
-![](/assets/images/a20e7931-c460-4134-b1b0-0fee82f8a7fc.webp)
+![](/public/assets/images/a20e7931-c460-4134-b1b0-0fee82f8a7fc.webp)
 
 然后写一个你想要的别名。绑定手机填你的，因为第一次登录需要验证码验证，如果填错了直接删除即可
 
-![](/assets/images/b9ac287d-ff90-4f8c-88ba-0d7bb1588f1c.webp)
+![](/public/assets/images/b9ac287d-ff90-4f8c-88ba-0d7bb1588f1c.webp)
 
 然后我们需要给这个新账号提权，如果你想用superadmin登录后台的话
 
-![](/assets/images/6f21feca-984d-444e-b80f-bf1a28e4cf79.webp)
+![](/public/assets/images/6f21feca-984d-444e-b80f-bf1a28e4cf79.webp)
 
 接着右上角退出登录，然后使用新创建的管理员账户登录
 
@@ -115,7 +115,7 @@ title: 自建邮局太麻烦？两种免费域名邮箱方案任你选！
 
 前往组织机构管理 - 域名管理 - 添加域名
 
-![](/assets/images/2fa04b72-f0e7-43c0-9c2a-1daab62e67cb.webp)
+![](/public/assets/images/2fa04b72-f0e7-43c0-9c2a-1daab62e67cb.webp)
 
 根据提示在你的域名提供商（比如Cloudflare）配置TXT记录和MX记录即可
 
@@ -127,8 +127,8 @@ title: 自建邮局太麻烦？两种免费域名邮箱方案任你选！
 
 ## 效果展示
 
-![](/assets/images/614794bd-d84d-4b66-b816-1d6d6ce73727.webp)
+![](/public/assets/images/614794bd-d84d-4b66-b816-1d6d6ce73727.webp)
 
 签名和发件人头像可以通过手机的网易邮箱大师设置
 
-![](/assets/images/57f759bc-46fb-4f99-b6bb-751464661240.webp)
+![](/public/assets/images/57f759bc-46fb-4f99-b6bb-751464661240.webp)

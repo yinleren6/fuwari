@@ -2,7 +2,7 @@
 title: 连着被打了4个月，来做一个彻头彻尾的复盘吧！
 published: 2026-02-10T03:18:55
 description: 自25年11月至今，该网站被连续不断攻击了总计高达几百TiB，攻击峰值高达6.8Gbps，且攻击者从最开始的纯印度IP攻击到如今的纯中国大陆IP攻击。今天，就跟大家谈谈攻击者为什么要攻击，他们想得到什么，以及如何防范DDOS
-image: /assets/images/review-ddos-5.png
+image: /public/assets/images/review-ddos-5.png
 draft: false
 lang: ""
 ---
@@ -21,7 +21,7 @@ lang: ""
 
 但是，该网站情况非常不同，它是一个 **由CDN直接应答的静态网站**
 
-![](/assets/images/review-ddos.png)
+![](/public/assets/images/review-ddos.png)
 
 也就是说，**攻击该网站 = 攻击CDN**
 
@@ -51,23 +51,23 @@ lang: ""
 
 我立即使用 https://itdog.cn 测试了我的博客网站 https://acofork.com 发现大部分节点都为 **570** 状态码
 
-![](/assets/images/4f3b8517527460574d03479cc64655be.webp)
+![](/public/assets/images/4f3b8517527460574d03479cc64655be.webp)
 
 因为当时我的网站部署在 **EdgeOne**
 
 随后，我向腾讯客服求证，了解到该状态码是一个 **单节点限频访问** 的状态码
 
-![](/assets/images/5082a73ffa31ee435c9c7894263ae4cd.webp)
+![](/public/assets/images/5082a73ffa31ee435c9c7894263ae4cd.webp)
 
 我的朋友甚至还在调侃说：**你网站🔥了**
 
-![](/assets/images/ddos-6t-1.webp)
+![](/public/assets/images/ddos-6t-1.webp)
 
 但是事情貌似还有一些诡异，为什么海外都是 **200 OK**？
 
 我开始怀疑被打了
 
-![](/assets/images/ddos-6t-2.webp)
+![](/public/assets/images/ddos-6t-2.webp)
 
 可能玩静态久了，没有第一时间上到 **EdgeOne** 查看请求数和流量，想着都是静态，谁没事打呢
 
@@ -82,47 +82,47 @@ lang: ""
 
 睡醒后我越想越奇怪，于是就登上了 **EdgeOne Pages** 控制台，然后一看，我嘞个大雷
 
-![](/assets/images/2f4df8e383a1b41625ad02eb70375465.webp)
+![](/public/assets/images/2f4df8e383a1b41625ad02eb70375465.webp)
 
-![](/assets/images/50480865cd7f11d7cc4b495bcbc48038.webp)
+![](/public/assets/images/50480865cd7f11d7cc4b495bcbc48038.webp)
 
-![](/assets/images/30bb8ddb905b6de8181d60ddf1b69dbe.webp)
+![](/public/assets/images/30bb8ddb905b6de8181d60ddf1b69dbe.webp)
 
-![](/assets/images/01f15a24f395a3731010c8046cb2008c.webp)
+![](/public/assets/images/01f15a24f395a3731010c8046cb2008c.webp)
 
 随后我抱着好奇的心态想看看ESA防御咋样，没想到刚切过去阿里云就给我发消息了
 
-![](/assets/images/9318872dc53b38334312619b2373c81e.webp)
+![](/public/assets/images/9318872dc53b38334312619b2373c81e.webp)
 
 于是...
 
-![](/assets/images/5b3bcf42d0e4f73fbe031699a291a5c2.webp)
+![](/public/assets/images/5b3bcf42d0e4f73fbe031699a291a5c2.webp)
 
-![](/assets/images/c4b6bdd2c39ae7585b9d3ecc5dbe9c6d.webp)
+![](/public/assets/images/c4b6bdd2c39ae7585b9d3ecc5dbe9c6d.webp)
 
 依旧是熟悉的印度尼西亚
 
-![](/assets/images/5a86eb051d48615259e8dcecb0fe8185.webp)
+![](/public/assets/images/5a86eb051d48615259e8dcecb0fe8185.webp)
 
 那没招了，随后我于10分钟内极速 **完全切到Cloudflare Pages**
 
-![](/assets/images/ddos-6t-3.webp)
+![](/public/assets/images/ddos-6t-3.webp)
 
 目前来看 **Cloudflare Pages** 也挺绿的
 
-![](/assets/images/image_2025-12-16_08-24-54.webp)
+![](/public/assets/images/image_2025-12-16_08-24-54.webp)
 
 最后发了一个被打的B站视频，然后得知
 
 **我去！大手子来了！**
 
-![](/assets/images/Screenshot_2025-12-16-08-08-33-65_149003a2d400f6a.webp)
+![](/public/assets/images/Screenshot_2025-12-16-08-08-33-65_149003a2d400f6a.webp)
 
 ## 本次攻击总结
 
-![](/assets/images/d16b7b134dec1224dcfc16e59a21942f.webp)
+![](/public/assets/images/d16b7b134dec1224dcfc16e59a21942f.webp)
 
-![](/assets/images/3c33b054a3180932ae87bea8bd06c3ed.webp)
+![](/public/assets/images/3c33b054a3180932ae87bea8bd06c3ed.webp)
 
 **本站遭受了建站以来规模最大的一次DDoS攻击，总流量6.65TB，峰值瞬发1.95GB/s**
 
@@ -142,7 +142,7 @@ lang: ""
 
 不过这次我学聪明了，配置了分流：国内访客使用国内IP访问会由ESA应答，而海外访问由CF应答。同时，我在ESA上配置了L7层的海外屏蔽——如果强制通过海外IP访问ESA，请求会被拦截
 
-![](/assets/images/review-ddos-2.png)
+![](/public/assets/images/review-ddos-2.png)
 
 当时以为这样就能兼顾速度和防护了，但事情远没有这么简单
 
@@ -156,13 +156,13 @@ lang: ""
 
 由于我们没有也根本不可能对国内访客访问国内CDN一刀切死，这种攻击几乎无法在L7层面进行有效防护
 
-![](/assets/images/review-ddos-3.png)
+![](/public/assets/images/review-ddos-3.png)
 
 我们可以顺便想想为什么攻击者有这么多的国内IP？真的是自己烧的钱吗？我们不妨看看大部分流量的UA（尽管它可以伪造）
 
 可以看到大部分都为BT下载器，这可能和最近的 [React/NextJS - NVD - CVE-2025-55182](https://nvd.nist.gov/vuln/detail/CVE-2025-55182) 以及 [FnOS - 重要安全更新通知](https://mp.weixin.qq.com/s/LzkLcy92m5O24up_9c4NUA) 有关。攻击者可能从公网扫描了大批未及时修复漏洞的肉鸡发起的攻击
 
-![](/assets/images/review-ddos-12.png)
+![](/public/assets/images/review-ddos-12.png)
 
 不过就算大概知道了攻击手法，也不知道防范方案，所以在这几天，我们几乎处于无计可施的状态，虽然上了速率限制，但是由于攻击源IP非常多，速率限制几乎是被触发后就切IP，最终依然可以做到一天拉流几十T
 
@@ -176,7 +176,7 @@ lang: ""
 
 不久后，EdgeOne就封掉了随机图的域名，我不得不去另寻他法来解决
 
-![](/assets/images/review-ddos-4.png)
+![](/public/assets/images/review-ddos-4.png)
 
 当时我暂时通过换一个子域名去规避针对于域名的封禁，但是一旦改了API域名，所有用这个API的业务都需要同步更改，这耗费了我不少的精力
 
@@ -184,7 +184,7 @@ lang: ""
 
 群u粉丝也是说到
 
-![](/assets/images/Screenshot_2026-02-10-12-01-36-17_9d26c6446fd7bb8.jpg)
+![](/public/assets/images/Screenshot_2026-02-10-12-01-36-17_9d26c6446fd7bb8.jpg)
 
 确实也是这样，尽管国内用户直连国内CDN能得到及其优异的访问，但是一旦被打，就连访问都访问不上，更别说速度了
 
@@ -192,7 +192,7 @@ lang: ""
 
 最终，又花了小半天时间将该网站本体以及其他API全部迁移到了Cloudflare，尽管攻击者仍在持续不断的攻击，但是还不至于打死Cloudflare
 
-![](/assets/images/review-ddos-5.png)
+![](/public/assets/images/review-ddos-5.png)
 
 ---
 
@@ -228,19 +228,19 @@ Cloudflare曾抵御过高达 22.2Tbps 的攻击，对于攻击我们的流量来
 
 ### Cloudflare
 
-![](/assets/images/review-ddos-6.png)
+![](/public/assets/images/review-ddos-6.png)
 
-![](/assets/images/review-ddos-7.png)
+![](/public/assets/images/review-ddos-7.png)
 
-![](/assets/images/review-ddos-8.png)
+![](/public/assets/images/review-ddos-8.png)
 
-![](/assets/images/review-ddos-9.png)
+![](/public/assets/images/review-ddos-9.png)
 
 ### ESA
 
-![](/assets/images/review-ddos-10.png)
+![](/public/assets/images/review-ddos-10.png)
 
-![](/assets/images/review-ddos-11.png)
+![](/public/assets/images/review-ddos-11.png)
 
 ---
 

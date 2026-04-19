@@ -35,8 +35,8 @@ let finalSrc = src;
 if (isRandom) {
 	finalSrc = "https://p.2x.nz/ri/h/1.webp";
 } else if (isLocal) {
-	// 本地相对路径：'/assets/images/xxx.webp'
-	// 转换为绝对路径：'/assets/images/xxx.webp'
+	// 本地相对路径：'/public/assets/images/xxx.webp'
+	// 转换为绝对路径：'/public/assets/images/xxx.webp'
 	// public 目录下的文件在构建后直接映射到根路径
 	finalSrc = src.replace(/^\.\.\//, "/");
 } else if (isPublic) {

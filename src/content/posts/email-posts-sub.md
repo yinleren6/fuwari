@@ -2,7 +2,7 @@
 title: 手搓一个电子邮件订阅器！
 published: 2026-04-03T11:19:05
 description: 你可曾想过手搓一个基于邮件形式的文章订阅器？读者只需告诉系统邮箱，之后的文章更新都会发一封邮件来通知他们！
-image: /assets/images/email.png
+image: /public/assets/images/email.png
 draft: false
 lang: ""
 ---
@@ -15,11 +15,11 @@ https://www.bilibili.com/video/BV1hpDKBbES9/
 众所周知，目前如果你想订阅本博客，可以采用以下几种方式
 - **瞪眼法** 在多次浏览中通过大脑的逻辑中枢来判断有哪些新文章，或有哪些文章更新了
 - **简易瞪眼法** 在多次浏览中，若文章状态变化，右下角的小铃铛则会显示相应通知，点击后甚至可以看到高级的DIFF
-	![](/assets/images/email-posts-sub.png)
+	![](/public/assets/images/email-posts-sub.png)
 - **RSS** 通过RSS订阅器订阅本博客的RSS XML文件，由第三方告知文章更新状态
-	![](/assets/images/email-posts-sub-1.png)
+	![](/public/assets/images/email-posts-sub-1.png)
 - **加入群组** 通过置顶文章加入群组，群内会有Bot在文章更新时广播一条消息
-	![](/assets/images/email-posts-sub-2.png)
+	![](/public/assets/images/email-posts-sub-2.png)
 - **催更法** 想办法要到我的联系方式，催更，大概率我会在你要求的新文章发布后踹你一脚
 
 emm，看似很多，的确很多，但是由于多多益善，可得还不够多，所以我们准备再添加一个古法订阅
@@ -69,8 +69,8 @@ ok！思路清晰了，实践就简单了
 
 测试！
 
-![](/assets/images/c9bb51ef1f6e3c994f76c55ae7854fb5.png)
+![](/public/assets/images/c9bb51ef1f6e3c994f76c55ae7854fb5.png)
 
-![](/assets/images/email-posts-sub-3.png)
+![](/public/assets/images/email-posts-sub-3.png)
 
-![](/assets/images/a570d8792d2823cabbe41834d0a64405.png)
+![](/public/assets/images/a570d8792d2823cabbe41834d0a64405.png)

@@ -46,7 +46,7 @@ export async function GET(context: APIContext): Promise<Response> {
 					const prefixRemoved = src.slice(2);
 					importPath = `/src/content/posts/${prefixRemoved}`;
 				} else {
-					// Path like /assets/images/xxx -> relative to /src/content/
+					// Path like /public/assets/images/xxx -> relative to /src/content/
 					const cleaned = src.replace(/^\.\.\//, "");
 					importPath = `/src/content/${cleaned}`;
 				}

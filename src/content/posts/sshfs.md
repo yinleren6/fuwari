@@ -2,7 +2,7 @@
 title: 将你的Linux硬盘映射到Windows？
 published: 2026-04-18
 description: 如何像Windows一样管理Linux文件和开发？SSHFS来帮你！
-image: /assets/images/Linux-win.png
+image: /public/assets/images/Linux-win.png
 tags:
   - SSHFS
 category: 教程
@@ -38,13 +38,13 @@ SET PATH=C:\Program Files\SSHFS-Win\bin
 
 最后，我们就可以在Windows文件资源管理器中看到被挂载的Linux盘符了
 
-![](/assets/images/sshfs.png)
+![](/public/assets/images/sshfs.png)
 
-![](/assets/images/sshfs-1.png)
+![](/public/assets/images/sshfs-1.png)
 
 同时，我们也可以使用任何软件来直接打开Linux上的文件来远程开发
 
-![](/assets/images/sshfs-2.png)
+![](/public/assets/images/sshfs-2.png)
 
 需要注意的是，和其他IDE直接通过SSH连接服务器进行远程开发不同。SSHFS仅是通过SFTP协议将Linux上的 **文件系统** 映射到Windows上来。并不包含整个Linux环境
 
@@ -52,4 +52,4 @@ SET PATH=C:\Program Files\SSHFS-Win\bin
 
 如果需要调用Linux上的原生命令，则需要另开SSH
 
-![](/assets/images/sshfs-4.png)
+![](/public/assets/images/sshfs-4.png)

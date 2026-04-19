@@ -2,7 +2,7 @@
 title: 解决困扰我多时的JS重复请求问题
 published: 2025-11-18T00:46:02
 description: 这篇文章记录了博客在接入动态访问量统计后，因 Swup 处理不当而产生重复请求的问题，以及最终的排查与修复过程
-image: /assets/images/swup-js.webp
+image: /public/assets/images/swup-js.webp
 tags:
   - Swup
   - JS
@@ -25,12 +25,12 @@ ai_level: 1
 但这个全局分享 Token 在很长一段时间内其实都不会变化，这就导致出现了不少冗余请求。为了解决这个问题，我当时写了一个中间层：首次请求后把 Token 缓存在用户浏览器里，后续直接复用，不再重复请求。
 
 不过后来还是有读者发现，某些页面依旧会多次请求 Umami，如图所示：
-![](/assets/images/swup-js-1.webp)
+![](/public/assets/images/swup-js-1.webp)
 
 于是他提交了一个 issue：[Bug: 站内转跳时由于swup处理不当导致的多umami实例 · Issue #79 · afoim/fuwari](https://github.com/afoim/fuwari/issues/79)。问题的核心是 Swup 不应该接管这类脚本资源，把相关 JS 排除后，问题确实得到了解决。
 
 按 issue 中的方法调整后，我们随便打开一个页面，再来分析一次请求情况：
-![](/assets/images/swup-js-2.webp)
+![](/public/assets/images/swup-js-2.webp)
 我们只看Umami请求：
 - https://cloud.umami.is/script.js ：Umami官方的全局JS，注入在所有页面中，用于后续将访客行为告知给Umami
 - http://localhost:4321/js/umami-share.js ：之前写的中间件，用于避免多次请求Umami拿全局Token

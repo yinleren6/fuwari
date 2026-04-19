@@ -2,7 +2,7 @@
 title: 教你在Cloudflare上原生托管视频！自建YouTube！
 published: 2026-02-26T22:01:46
 description: 你知道吗？Cloudflare上也是可以“原生”托管视频的！
-image: /assets/images/cfvideo.png
+image: /public/assets/images/cfvideo.png
 draft: false
 lang: ""
 ---
@@ -36,9 +36,9 @@ lang: ""
 
 接下来，我就以刚才提到的文章中的视频的源文件举例，可以看到，它是一个AV1编码的MP4，并且有1GB之大
 
-![](/assets/images/cfvideo-1.png)
+![](/public/assets/images/cfvideo-1.png)
 
-![](/assets/images/cfvideo-5.png)
+![](/public/assets/images/cfvideo-5.png)
 
 接下来，我们使用 **FFmpeg** 将其转为流式MP4
 
@@ -48,13 +48,13 @@ ffmpeg -i 0.mp4 -map 0 -c copy -f dash -seg_duration 4 -use_template 1 -use_time
 
 接下来，我们就能得到产物： **一个 `.mpd` 和一堆 `.m4s`** 
 
-![](/assets/images/cfvideo-3.png)
+![](/public/assets/images/cfvideo-3.png)
 
 其中 `.mpd` 为索引文件，而 `.m4s` 文件才是真正的被切片后的视频流
 
 改为按大小排序，可以看到其中最大一个切片也才 ≈ 18MB，完全符合Cloudflare所规定的单文件最大25MB的规定
 
-![](/assets/images/cfvideo-4.png)
+![](/public/assets/images/cfvideo-4.png)
 
 好了，接下来我们只需要将其上传到Cloudflare Page了，然后绑定一个域名，这样，我们就成功在Cloudflare上托管一条视频了
 

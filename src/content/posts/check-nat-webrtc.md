@@ -2,7 +2,7 @@
 title: 握草，用浏览器检测你的NAT类型？！
 published: 2026-04-04T13:46:01
 description: 众所周知，NAT类型的检测并不是什么门槛，但是，如果我说纯浏览器也可以实现检测呢...
-image: /assets/images/nat.png
+image: /public/assets/images/nat.png
 draft: false
 lang: ""
 ---
@@ -44,7 +44,7 @@ https://www.bilibili.com/video/BV1H4DuBWEes/
 
 最终，我们只需要写好后端，再创建一个HTTP端点，即可实现 **完整的、全状态、纯浏览器的** NAT类型检测
 
-![](/assets/images/check-nat-webrtc.png)
+![](/public/assets/images/check-nat-webrtc.png)
 
 ::github{repo=afoim/webrtc_check_nat}
 

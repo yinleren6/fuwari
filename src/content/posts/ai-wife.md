@@ -2,7 +2,7 @@
 title: 手把手教你跑一个二次元AI老婆！
 published: 2026-02-12T10:20:25
 description: 极！其！简！单！傻！子！都！会！本期将手把手教你从软件安装，到模型配置再到出图，百分百画出惊艳的图片！
-image: /assets/images/ai-wife-15.png
+image: /public/assets/images/ai-wife-15.png
 tags: [AI绘图, NoobAI]
 category: '教程'
 draft: false
@@ -16,9 +16,9 @@ lang: ""
 
 在纯小白的情况下，你可以跑出类似下面的图！（跑不出来你打死我！）
 
-![2025-05-13-11-59-50-ComfyUI_00016_.webp](/assets/images/2025-05-13-11-59-50-ComfyUI_00016_.webp)
+![2025-05-13-11-59-50-ComfyUI_00016_.webp](/public/assets/images/2025-05-13-11-59-50-ComfyUI_00016_.webp)
 
-![2025-05-13-12-00-37-ComfyUI_00011_.webp](/assets/images/2025-05-13-12-00-37-ComfyUI_00011_.webp)
+![2025-05-13-12-00-37-ComfyUI_00011_.webp](/public/assets/images/2025-05-13-12-00-37-ComfyUI_00011_.webp)
 
 # 简单的思维风暴
 
@@ -37,7 +37,7 @@ lang: ""
 
 > [!tip]
 > 更推荐使用 [Stable Diffusion Forge](https://www.bilibili.com/video/BV1rc6nYNEYo/)，如果不需要复杂的节点配布，sdf可以更方便的去写提示词
-> ![](/assets/images/ai-wife-17.png)
+> ![](/public/assets/images/ai-wife-17.png)
 > 
 > 尽管ComfyUI支持AMD显卡以及纯CPU绘图，但还是建议使用 **NVIDIA Cuda** 进行绘图，更快，兼容性也更好！ 
 
@@ -45,7 +45,7 @@ lang: ""
 
 前往 [ComfyUI | 用AI生成视频、图像、音频](https://www.comfy.org/zh-cn/) 下载并安装，记得打开魔法或在设置中更改镜像源
 
-![](/assets/images/ai-wife.png)
+![](/public/assets/images/ai-wife.png)
 
 ### 方式二：秋叶整合包
 
@@ -53,11 +53,11 @@ lang: ""
 
 解压完后打开文件夹，打开 `A绘世启动器`
 
-![2025-05-13-12-05-17-image.webp](/assets/images/2025-05-13-12-05-17-image.webp)
+![2025-05-13-12-05-17-image.webp](/public/assets/images/2025-05-13-12-05-17-image.webp)
 
 点击右下角的开始运行，先让他进行初始化，直到它自动打开你的浏览器并且可以正常进入ComfyUI的界面
 
-![2025-05-13-12-06-57-image.webp](/assets/images/2025-05-13-12-06-57-image.webp)
+![2025-05-13-12-06-57-image.webp](/public/assets/images/2025-05-13-12-06-57-image.webp)
 
 ## 下载基底模型
 
@@ -69,7 +69,7 @@ lang: ""
 
 点击下载即可
 
-![2025-05-13-12-08-17-image.webp](/assets/images/2025-05-13-12-08-17-image.webp)
+![2025-05-13-12-08-17-image.webp](/public/assets/images/2025-05-13-12-08-17-image.webp)
 
 > [!warning]
 > 由于V预测模型（NoobAI-VPred）较新，只能在SDForge和ComfyUI上运行，原版SD无法运行，会崩图！
@@ -80,13 +80,13 @@ lang: ""
 
 然后前往 https://civitai.com/ 进行搜索，选择你喜欢的LoRA
 
-![](/assets/images/ai-wife-1.png)
+![](/public/assets/images/ai-wife-1.png)
 
 在详情页你可以看到该LoRA所需要的基底模型。有些时候模型的简介也会写
 
 下面的 **Trigger Words** 是推荐的 **正向提示词** 一般来说仅导入LoRA不写专有提示词也会有一定的效果
 
-![](/assets/images/ai-wife-2.png)
+![](/public/assets/images/ai-wife-2.png)
 
 ## 放置模型
 
@@ -97,7 +97,7 @@ lang: ""
 - 将基底模型（类似 `noobaiXLNAIXL_vPred10Version.safetensors`）放入 `checkpoints` 文件夹
 - 将LoRA模型放入 `loras` 文件夹
 
-![2025-05-13-12-10-06-image.webp](/assets/images/2025-05-13-12-10-06-image.webp)
+![2025-05-13-12-10-06-image.webp](/public/assets/images/2025-05-13-12-10-06-image.webp)
 
 ## 启动！开始画！
 
@@ -111,29 +111,29 @@ lang: ""
 
 下载之后，点击左上角的ComfyUI图标，打开这个工作流
 
-![](/assets/images/ai-wife-3.png)
+![](/public/assets/images/ai-wife-3.png)
 
 接下来，你应该已经有了这些节点
 
-![](/assets/images/ai-wife-4.png)
+![](/public/assets/images/ai-wife-4.png)
 
 ### 加载模型
 
 这里加载基底模型，刷新ComfyUI后你应该可以在 `Checkpoint加载器(简易)` 处看到你放置的所有模型，选择带有 `vPred...` 的就是V预测模型
 
-![2025-05-13-12-11-55-image.webp](/assets/images/2025-05-13-12-11-55-image.webp)
+![2025-05-13-12-11-55-image.webp](/public/assets/images/2025-05-13-12-11-55-image.webp)
 
-![](/assets/images/ai-wife-5.png)
+![](/public/assets/images/ai-wife-5.png)
 
 这里加载LoRA（如果有）
 
-![](/assets/images/ai-wife-6.png)
+![](/public/assets/images/ai-wife-6.png)
 
 ### 填写提示词
 
 这里填写正/反向提示词，均为 **英文** ，如果不会写就去找其他AI描述你要画什么，然后让它返回给你用以AI绘图的prompt
 
-![](/assets/images/ai-wife-7.png)
+![](/public/assets/images/ai-wife-7.png)
 
 #### 如何找到角色的提示词？
 
@@ -145,11 +145,11 @@ NoobAI模型的一大特色就是支持直接通过Danbooru里已有的角色直
 
 搜索流萤的英文名 `firefly` 或者搜索 `star rail` 找到所有关于崩铁的角色
 
-![2025-05-13-12-15-16-image.webp](/assets/images/2025-05-13-12-15-16-image.webp)
+![2025-05-13-12-15-16-image.webp](/public/assets/images/2025-05-13-12-15-16-image.webp)
 
 复制 `Prompt tags`，然后将其粘贴进链接了正面条件的CLIP文本编码器
 
-![2025-05-13-12-16-35-image.webp](/assets/images/2025-05-13-12-16-35-image.webp)
+![2025-05-13-12-16-35-image.webp](/public/assets/images/2025-05-13-12-16-35-image.webp)
 
 这样角色预设就写好了！
 
@@ -173,7 +173,7 @@ NoobAI模型的一大特色就是支持直接通过Danbooru里已有的角色直
 
 我们将其添加到ComfyUI，如下图：
 
-![2025-05-13-12-19-32-image.webp](/assets/images/2025-05-13-12-19-32-image.webp)
+![2025-05-13-12-19-32-image.webp](/public/assets/images/2025-05-13-12-19-32-image.webp)
 
 > [!tip]
 > 如果你想要图片是不同的样子请在正面提示词和反面提示词添加（**必须为英文！不知道的用翻译或者问AI！**）。比如想要让足部放到焦点上并且裸足就添加**正面提示词**：`barefoot, feet in foreground`
@@ -186,9 +186,9 @@ NoobAI模型的一大特色就是支持直接通过Danbooru里已有的角色直
 - **最推荐：832x1216**
 - 其余：768x1344、896x1152、1024x1024、1152x896、1216x832、1344x768、1024x1536、1536x1024
 
-![2025-05-13-12-22-06-image.webp](/assets/images/2025-05-13-12-22-06-image.webp)
+![2025-05-13-12-22-06-image.webp](/public/assets/images/2025-05-13-12-22-06-image.webp)
 
-![](/assets/images/ai-wife-8.png)
+![](/public/assets/images/ai-wife-8.png)
 
 > 建议前往模型发布页查看相关推荐分辨率信息
 
@@ -196,7 +196,7 @@ NoobAI模型的一大特色就是支持直接通过Danbooru里已有的角色直
 
 这里控制生成参数（默认给你的就是一个不错的选择，如果不懂就不要动）
 
-![](/assets/images/ai-wife-9.png)
+![](/public/assets/images/ai-wife-9.png)
 
 - **种子**：每次都是一个随机值，如果固定下来且其他内容无变化则会始终出相同的图
 - **步数**：即AI需要重绘多少次，过低会导致鬼图、崩图，过高可能会导致元素冗杂、饱和度过高
@@ -213,31 +213,31 @@ NoobAI模型的一大特色就是支持直接通过Danbooru里已有的角色直
 
 为了确保在生图的时候我们不无聊，可以前往设置开启实时预览功能，将 **实时预览** 改为 **自动** 即可
 
-![](/assets/images/ai-wife-16.png)
+![](/public/assets/images/ai-wife-16.png)
 
 ### 运行生成
 
 接下来点击右上角的运行，哦对了，你还可以编辑旁边的数字来一次性生成多张图片
 
-![](/assets/images/ai-wife-10.png)
+![](/public/assets/images/ai-wife-10.png)
 
 由于我们开启了实时预览，你可以看到模型每一步的绘画进度
 
-![](/assets/images/ComfyUI_UkQQZG4KkW.gif)
+![](/public/assets/images/ComfyUI_UkQQZG4KkW.gif)
 
 点击右上角的资产，可以展开，查看大图
 
-![](/assets/images/ai-wife-11.png)
+![](/public/assets/images/ai-wife-11.png)
 
 所有生成的图片都可以在 `output` 文件夹看到
 
-![](/assets/images/ai-wife-12.png)
+![](/public/assets/images/ai-wife-12.png)
 
 如果你想画其他角色也只需要：**找LoRA，写推荐提示词，开跑！**
 
-![](/assets/images/ai-wife-13.png)
+![](/public/assets/images/ai-wife-13.png)
 
-![](/assets/images/ai-wife-14.png)
+![](/public/assets/images/ai-wife-14.png)
 
 # 常见问题与技巧
 
@@ -248,4 +248,4 @@ NoobAI模型的一大特色就是支持直接通过Danbooru里已有的角色直
 - **关于V预测模型**：由于V预测模型较新，只能在SDForge和ComfyUI上运行，原版SD无法运行，会崩图
 
 - **参考资源**：更多NoobAI模型的技巧可以到Civitai模型页面的About查看
-  ![2025-05-13-12-30-55-image.webp](/assets/images/2025-05-13-12-30-55-image.webp)
+  ![2025-05-13-12-30-55-image.webp](/public/assets/images/2025-05-13-12-30-55-image.webp)
