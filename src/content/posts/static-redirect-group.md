@@ -2,7 +2,7 @@
 title: 完全免费！搭建一个自己的短链服务！
 published: 2026-01-14T15:39:31
 description: 利用 Cloudflare Worker 和 GitHub，可以搭建一个纯静态、可自动维护的短链服务
-image: ../assets/images/static-redirect-group.webp
+image: /assets/images//static-redirect-group.webp
 draft: false
 lang: ""
 ai_level: 2

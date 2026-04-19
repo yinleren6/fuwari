@@ -2,7 +2,7 @@
 title: 终极版！国内免梯上Github！
 published: 2026-03-10T11:29:58
 description: 巨简单！1分钟自建你的Github代理！
-image: ../assets/images/cf-gh.png
+image: /assets/images//cf-gh.png
 draft: false
 lang: ""
 ---
@@ -28,7 +28,7 @@ https://bilibili.com/video/BV16YcXzeEGJ
 *.yourdomain.com CNAME CloudflareCDN
 ```
 
-![](../assets/images/gh-cf.png)
+![](/assets/images//gh-cf.png)
 
 创建Worker路由：
 
@@ -36,7 +36,7 @@ https://bilibili.com/video/BV16YcXzeEGJ
 *-gh.yourdomain.com
 ```
 
-![](../assets/images/gh-cf-1.png)
+![](/assets/images//gh-cf-1.png)
 
 创建重定向： 
 
@@ -44,11 +44,11 @@ https://bilibili.com/video/BV16YcXzeEGJ
 gh.yourdomain.com 302 github-com-gh.yourdomain.com 
 ```
 
-![](../assets/images/gh-cf-2.png)
+![](/assets/images//gh-cf-2.png)
 
 屏蔽海外（海外你连不上Github？）
 
-![](../assets/images/gh-cf-3.png)
+![](/assets/images//gh-cf-3.png)
 
 享受它！访问：
 
@@ -56,4 +56,4 @@ gh.yourdomain.com 302 github-com-gh.yourdomain.com
 gh.yourdomain.com/yourname
 ```
 
-![](../assets/images/gh-cf-4.png)
+![](/assets/images//gh-cf-4.png)
