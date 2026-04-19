@@ -93,8 +93,8 @@ function generateShortLink() {
 
 	try {
 		const encodedPart = encodeUrl(targetUrl);
-		// 使用查询参数格式：/s/?{ZWSP}=<零宽编码>（参数名也用零宽字符，更加隐形）
-		const shortLink = `${baseUrl}/s/?${ZW_PARAM_NAME}=${encodedPart}`;
+		// 使用路径格式：/s/<零宽编码>（完全不可见）
+		const shortLink = `${baseUrl}/s/${encodedPart}`;
 
 		// 验证编码/解码是否正确
 		const decoded = decodeUrl(encodedPart);
@@ -173,7 +173,7 @@ function getVisualLink(encoded: string): string {
 		<h2 class="mb-2 text-lg font-bold text-90">生成短链接</h2>
 		<p class="mb-5 text-sm leading-relaxed text-50">
 			输入目标 URL，将生成使用零宽字符编码的隐形短链接。
-			生成的链接视觉上完全相同（查询参数不可见），但实际跳转不同目标。
+			生成的链接视觉上完全相同（路径中的零宽字符不可见），但实际跳转不同目标。
 		</p>
 
 		{#if errorMessage}
@@ -248,7 +248,7 @@ function getVisualLink(encoded: string): string {
 								<p class="mb-1 text-xs text-50">编码可视化（○=ZWSP, ●=ZWNJ）</p>
 								<div class="rounded-lg border border-white/10 bg-black/30 px-3 py-2">
 									<p class="text-xs text-50 break-all font-mono">
-										/s/?○={visualizeZwChars(link.encodedPart)}
+										/s/{visualizeZwChars(link.encodedPart)}
 									</p>
 								</div>
 							</div>
@@ -303,12 +303,12 @@ function getVisualLink(encoded: string): string {
 			</li>
 			<li>
 				<span class="font-medium text-90">链接格式：</span>
-				生成的链接格式为 <code class="px-1 bg-black/20 rounded">/s/?&lt;零宽参数名&gt;=&lt;零宽编码&gt;</code>，零宽字符在浏览器地址栏中不可见，
-				所以不同 URL 生成的链接看起来完全一样。
+				生成的链接格式为 <code class="px-1 bg-black/20 rounded">/s/&lt;零宽编码&gt;</code>，零宽字符在浏览器地址栏中不可见，
+				所以不同 URL 生成的链接看起来完全一样（都显示为 <code class="px-1 bg-black/20 rounded">/s/</code>）。
 			</li>
 			<li>
 				<span class="font-medium text-90">解码流程：</span>
-				访问者打开链接时，前端 JavaScript 会从查询参数中提取零宽字符、解码还原目标 URL，然后执行跳转。
+				访问者打开链接时，前端 JavaScript 会从 URL 路径中提取零宽字符、解码还原目标 URL，然后执行跳转。
 			</li>
 			<li>
 				<span class="font-medium text-90">注意事项：</span>
@@ -322,17 +322,17 @@ function getVisualLink(encoded: string): string {
 	<div class="rounded-2xl border border-white/10 bg-white/5 p-5">
 		<h2 class="mb-3 text-lg font-bold text-90">演示对比</h2>
 		<p class="mb-4 text-sm text-50">
-			以下两个链接视觉上完全相同（查询参数名和值都不可见），但跳转不同目标（点击可测试）：
+			以下两个链接视觉上完全相同（路径中的零宽字符不可见），但跳转不同目标（点击可测试）：
 		</p>
 		<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 			<div class="rounded-xl border border-white/10 bg-black/20 p-4">
 				<p class="mb-2 text-xs text-50">链接 A → example.com</p>
 				<a
-					href="/s/?{ZW_PARAM_NAME}={encodeUrl('https://example.com')}"
+					href="/s/{encodeUrl('https://example.com')}"
 					target="_blank"
 					class="text-sm text-[var(--primary)] hover:underline"
 				>
-					/s/?
+					/s/
 				</a>
 				<p class="mt-2 text-xs text-50 break-all font-mono">
 					实际编码: {visualizeZwChars(encodeUrl('https://example.com'))}
@@ -341,11 +341,11 @@ function getVisualLink(encoded: string): string {
 			<div class="rounded-xl border border-white/10 bg-black/20 p-4">
 				<p class="mb-2 text-xs text-50">链接 B → google.com</p>
 				<a
-					href="/s/?{ZW_PARAM_NAME}={encodeUrl('https://google.com')}"
+					href="/s/{encodeUrl('https://google.com')}"
 					target="_blank"
 					class="text-sm text-[var(--primary)] hover:underline"
 				>
-					/s/?
+					/s/
 				</a>
 				<p class="mt-2 text-xs text-50 break-all font-mono">
 					实际编码: {visualizeZwChars(encodeUrl('https://google.com'))}
@@ -353,7 +353,7 @@ function getVisualLink(encoded: string): string {
 			</div>
 		</div>
 		<p class="mt-4 text-xs text-white/45">
-			两个链接都显示为 <code class="px-1 bg-black/20 rounded">/s/?</code>（查询参数完全不可见），但点击后会跳转到不同网站。
+			两个链接都显示为 <code class="px-1 bg-black/20 rounded">/s/</code>（路径中的零宽字符完全不可见），但点击后会跳转到不同网站。
 		</p>
 	</div>
 </div>

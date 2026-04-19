@@ -54,3 +54,57 @@ import Icon from "@components/Icon.astro";
 		</div>
 	</MainGridLayout>
 </Layout>
+
+<!-- 零宽短链解码脚本 -->
+<script is:inline>
+(function(){
+	// 仅在 /s/ 路径下执行
+	if (!window.location.pathname.startsWith('/s/')) return;
+
+	var ZW_CHARS=['\u200B','\u200C'];
+	
+	// 从路径中提取零宽字符编码（去掉 /s/ 前缀）
+	var pathPart = window.location.pathname.substring(3); // 移除 '/s/'
+	
+	if(pathPart){
+		try{
+			// 提取零宽字符序列
+			var seq=pathPart.split('').filter(function(c){
+				return c==='\u200B'||c==='\u200C';
+			});
+			
+			if(seq.length>0){
+				// 转换为二进制字符串
+				var bin='';
+				for(var i=0;i<seq.length;i++){
+					bin+=(seq[i]==='\u200B'?'0':'1');
+				}
+				
+				// 转换为字节数组
+				var bytes=[];
+				for(var i=0;i<bin.length;i+=8){
+					var b=bin.slice(i,i+8);
+					if(b.length===8){
+						bytes.push(parseInt(b,2));
+					}
+				}
+				
+				// 解码为 URL
+				var url=new TextDecoder().decode(new Uint8Array(bytes));
+				
+				// 验证 URL 格式
+				try{
+					new URL(url);
+					// 显示确认对话框
+					if(confirm('即将跳转到：\n' + url + '\n\n请确认这是您信任的网站。')){
+						window.location.href=url;
+					}
+					return;
+				}catch(e){}
+			}
+		}catch(e){
+			console.error('零宽短链解码失败:', e);
+		}
+	}
+})();
+</script>

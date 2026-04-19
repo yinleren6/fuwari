@@ -16,119 +16,12 @@ const title = "零宽短链生成器";
 
 <MainGridLayout title={title}>
 	<!-- 页面内容 -->
-	<div id="page-content" class="p-6 md:p-8 border-b border-white/10">
+	<div class="p-6 md:p-8 border-b border-white/10">
 		<PageCardHeader title={title} icon="material-symbols:link-rounded" pathname="/s/" />
 		<p class="mb-6 text-sm leading-relaxed text-50">
-			使用 UTF-8 零宽字符在 URL 中编码完整链接，生成视觉上完全相同的隐形短链接。
-			访问者打开链接时，前端会自动解码并跳转到目标地址。
+			使用 UTF-8 零宽字符在 URL 路径中编码完整链接，生成视觉上完全相同的隐形短链接。
+			访问者打开链接时，前端会自动解码并跳转到目标地址。所有链接看起来都是 <code class="px-1 bg-black/20 rounded">/s/</code>。
 		</p>
 		<ShortLinkGenerator client:load />
 	</div>
 </MainGridLayout>
-
-<!-- 确认跳转弹窗 -->
-<div id="redirect-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-[var(--page-bg)]">
-	<div class="mx-4 w-full max-w-md rounded-2xl border border-white/10 bg-[var(--card-bg)] p-6 shadow-2xl">
-		<div class="mb-4 flex items-center gap-3">
-			<div class="flex h-12 w-12 items-center justify-center rounded-full bg-amber-500/20">
-				<svg class="h-6 w-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-				</svg>
-			</div>
-			<div>
-				<h2 class="text-lg font-bold text-90">即将跳转</h2>
-				<p class="text-sm text-50">请确认目标地址是否安全</p>
-			</div>
-		</div>
-
-		<div class="mb-4 rounded-xl border border-white/10 bg-black/20 p-4">
-			<p class="mb-2 text-xs text-50">目标地址</p>
-			<p id="target-url-display" class="break-all text-sm font-mono text-90"></p>
-		</div>
-
-		<div class="mb-6 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3">
-			<p class="text-xs text-amber-200">
-				⚠️ 请仔细检查目标地址，确保是您信任的网站。如不确定，请取消跳转。
-			</p>
-		</div>
-
-		<div class="flex gap-3">
-			<button
-				id="cancel-btn"
-				class="flex-1 rounded-xl border border-white/10 px-4 py-3 text-sm font-medium text-50 transition-all hover:bg-white/5"
-			>
-				取消
-			</button>
-			<a
-				id="confirm-btn"
-				href="#"
-				class="flex-1 rounded-xl bg-[var(--primary)] px-4 py-3 text-center text-sm font-bold text-white shadow-lg shadow-[var(--primary)]/20 transition-all hover:brightness-110"
-			>
-				确认跳转
-			</a>
-		</div>
-	</div>
-</div>
-
-<style is:inline>
-	/* 页面初始隐藏 */
-	#page-content{opacity:0;transition:opacity 0.1s}
-	#redirect-overlay{display:none}
-</style>
-
-<script is:inline>
-(function(){
-	var ZW_CHARS=['\u200B','\u200C'];
-	var params=new URLSearchParams(window.location.search);
-	var encoded=null;
-	params.forEach(function(v,k){
-		if(k.indexOf('\u200B')>=0||k.indexOf('\u200C')>=0){encoded=v;}
-	});
-	window.__shortLinkTarget=null;
-
-	function showPage(){
-		var pc=document.getElementById('page-content');
-		if(pc){pc.style.opacity='1';}
-	}
-
-	if(encoded){
-		try{
-			var seq=encoded.split('').filter(function(c){return c==='\u200B'||c==='\u200C';});
-			if(seq.length>0){
-				var bin='';
-				for(var i=0;i<seq.length;i++){bin+=(seq[i]==='\u200B'?'0':'1');}
-				var bytes=[];
-				for(var i=0;i<bin.length;i+=8){
-					var b=bin.slice(i,i+8);
-					if(b.length===8){bytes.push(parseInt(b,2));}
-				}
-				var url=new TextDecoder().decode(new Uint8Array(bytes));
-				try{new URL(url);window.__shortLinkTarget=url;return;}catch(e){}
-			}
-		}catch(e){}
-	}
-	showPage();
-})();
-</script>
-
-<script>
-var targetUrl=window.__shortLinkTarget;
-if(targetUrl){
-	var overlay=document.getElementById('redirect-overlay');
-	var urlDisplay=document.getElementById('target-url-display');
-	var confirmBtn=document.getElementById('confirm-btn');
-	var cancelBtn=document.getElementById('cancel-btn');
-	if(overlay&&urlDisplay&&confirmBtn&&cancelBtn){
-		urlDisplay.textContent=targetUrl;
-		confirmBtn.href=targetUrl;
-		overlay.style.display='flex';
-		cancelBtn.onclick=function(){
-			overlay.style.display='none';
-			window.history.replaceState({},'', '/s/');
-			document.getElementById('page-content').style.opacity='1';
-		};
-	}else{
-		document.getElementById('page-content').style.opacity='1';
-	}
-}
-</script>
