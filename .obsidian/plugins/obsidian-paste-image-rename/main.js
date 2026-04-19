@@ -534,7 +534,10 @@ var PasteImageRenamePlugin = class extends import_obsidian2.Plugin {
       const { name: newName } = yield this.deduplicateNewName(inputNewName, file);
       debugLog("deduplicated newName:", newName);
       const originName = file.name;
-      const linkText = this.app.fileManager.generateMarkdownLink(file, sourcePath);
+      let linkText = this.app.fileManager.generateMarkdownLink(file, sourcePath);
+      if (linkText.startsWith("public/")) {
+        linkText = "/" + linkText;
+      }
       const newPath = path.join(file.parent.path, newName);
       try {
         yield this.app.fileManager.renameFile(file, newPath);
