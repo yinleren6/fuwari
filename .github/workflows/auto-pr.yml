@@ -248,6 +248,7 @@ jobs:
                 const scriptPath = '/tmp/check-url-pw.js'
                 const script = `
                   const { chromium } = require('@playwright/test');
+                  const targetUrl = process.argv[2];
                   (async () => {
                     let browser;
                     try {
@@ -257,7 +258,7 @@ jobs:
                       });
                       const page = await context.newPage();
                       
-                      const response = await page.goto('${url}', {
+                      const response = await page.goto(targetUrl, {
                         waitUntil: 'networkidle',
                         timeout: 30000
                       });
@@ -278,7 +279,7 @@ jobs:
                 
                 fs.writeFileSync(scriptPath, script)
                 
-                const result = execSync(\`node \${scriptPath}\`, {
+                const result = execSync(\`node "\${scriptPath}" "\${url}"\`, {
                   encoding: 'utf8',
                   timeout: 35000,
                   maxBuffer: 10 * 1024 * 1024
@@ -1110,6 +1111,7 @@ jobs:
                 const scriptPath = '/tmp/check-url-pw.js'
                 const script = `
                   const { chromium } = require('@playwright/test');
+                  const targetUrl = process.argv[2];
                   (async () => {
                     let browser;
                     try {
@@ -1119,7 +1121,7 @@ jobs:
                       });
                       const page = await context.newPage();
                       
-                      const response = await page.goto('${url}', {
+                      const response = await page.goto(targetUrl, {
                         waitUntil: 'networkidle',
                         timeout: 30000
                       });
@@ -1140,7 +1142,7 @@ jobs:
                 
                 fs.writeFileSync(scriptPath, script)
                 
-                const result = execSync(\`node \${scriptPath}\`, {
+                const result = execSync(\`node "\${scriptPath}" "\${url}"\`, {
                   encoding: 'utf8',
                   timeout: 35000,
                   maxBuffer: 10 * 1024 * 1024
