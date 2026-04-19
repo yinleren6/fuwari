@@ -249,19 +249,33 @@ jobs:
             }
 
             function verifyBacklink(html, expected) {
-              if (!html || !expected) return false
+              if (!html || !expected) return { found: false, links: [], reason: 'empty input' }
               const target = expected.replace(/\/$/, '')
-              const re = /href\s*=\s*["']([^"']+)["']/gi
+              
+              // Try multiple regex patterns to be more robust
+              const patterns = [
+                /href\s*=\s*["']([^"']+)["']/gi,  // Standard quoted href
+                /href\s*=\s*([^\s>]+)/gi,          // Unquoted href
+              ]
+              
               const foundLinks = []
-              let m
-              while ((m = re.exec(html)) !== null) {
-                const href = (m[1] || '').trim()
-                if (!href.startsWith('http')) continue
-                foundLinks.push(href)
-                const normalized = href.replace(/\/$/, '')
-                if (normalized === target) return { found: true, links: foundLinks }
+              const allMatches = []
+              
+              for (const re of patterns) {
+                let m
+                while ((m = re.exec(html)) !== null) {
+                  const href = (m[1] || '').trim()
+                  allMatches.push(href)
+                  if (!href.startsWith('http')) continue
+                  foundLinks.push(href)
+                  const normalized = href.replace(/\/$/, '')
+                  if (normalized === target) {
+                    return { found: true, links: foundLinks, matchedHref: href }
+                  }
+                }
               }
-              return { found: false, links: foundLinks }
+              
+              return { found: false, links: foundLinks, allMatches: allMatches.slice(0, 20), target }
             }
 
             function normalizeUrl(rawUrl) {
@@ -642,9 +656,16 @@ jobs:
                 const result = verifyBacklink(html, expected)
                 const found = result.found
                 core.info(`bidir: expected=${expected} found=${found}`)
+                core.info(`bidir: target after normalization=${result.target || expected.replace(/\/$/, '')}`)
                 core.info(`bidir: found ${result.links.length} http(s) links in page`)
+                if (result.matchedHref) {
+                  core.info(`bidir: matched href=${result.matchedHref}`)
+                }
                 if (result.links.length > 0) {
                   core.info(`bidir: first 10 links: ${result.links.slice(0, 10).join(', ')}`)
+                }
+                if (!found && result.allMatches && result.allMatches.length > 0) {
+                  core.info(`bidir: all href matches (first 20): ${result.allMatches.join(', ')}`)
                 }
 
                 if (!found) {
