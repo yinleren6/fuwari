@@ -1,5 +1,5 @@
-<script lang="ts">
- import Icon from "@iconify/svelte";
+﻿<script lang="ts">
+ import Icon from "@components/IconSvelte.svelte";
  import { siteConfig } from "@/config";
  import { onMount } from "svelte";
 

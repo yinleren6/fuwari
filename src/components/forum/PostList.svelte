@@ -1,7 +1,7 @@
-<script lang="ts">
+﻿<script lang="ts">
 import type { ForumPostSummary } from "@/forum/types/post";
 import { formatForumDateTime } from "@/utils/date-utils";
-import Icon from "@iconify/svelte";
+import Icon from "@components/IconSvelte.svelte";
 
 export let posts: ForumPostSummary[] | null | undefined = [];
 export let loading = false;

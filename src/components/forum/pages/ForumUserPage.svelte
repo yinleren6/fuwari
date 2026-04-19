@@ -1,4 +1,4 @@
-<script lang="ts">
+﻿<script lang="ts">
 import ForumSkeleton from "@/components/forum/ForumSkeleton.svelte";
 import PostList from "@/components/forum/PostList.svelte";
 import { getCurrentUser, getSession } from "@/forum/api/auth";
@@ -8,7 +8,7 @@ import { ForumApiError } from "@/forum/types/api";
 import type { ForumPostSummary } from "@/forum/types/post";
 import type { ForumUser } from "@/forum/types/user";
 import { formatForumDateTime } from "@/utils/date-utils";
-import Icon from "@iconify/svelte";
+import Icon from "@components/IconSvelte.svelte";
 import { onMount } from "svelte";
 import { get } from "svelte/store";
 

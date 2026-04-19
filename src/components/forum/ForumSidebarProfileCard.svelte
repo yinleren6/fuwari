@@ -1,9 +1,9 @@
-<script lang="ts">
+﻿<script lang="ts">
 import { getCurrentUser } from "@/forum/api/auth";
 import { forumAuth } from "@/forum/stores/auth";
 import { ForumApiError } from "@/forum/types/api";
 import type { ForumUser } from "@/forum/types/user";
-import Icon from "@iconify/svelte";
+import Icon from "@components/IconSvelte.svelte";
 import { onMount } from "svelte";
 import { get } from "svelte/store";
 

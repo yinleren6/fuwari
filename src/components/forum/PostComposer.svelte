@@ -1,4 +1,4 @@
-<script lang="ts">
+﻿<script lang="ts">
 import ForumMarkdownEditor from "@/components/forum/ForumMarkdownEditor.svelte";
 import { getSession } from "@/forum/api/auth";
 import { createPost, getPost, updatePost } from "@/forum/api/posts";
@@ -6,7 +6,7 @@ import { forumAuth } from "@/forum/stores/auth";
 import { ForumApiError } from "@/forum/types/api";
 import type { ForumPostDetail, ForumPostInput } from "@/forum/types/post";
 import { emitErrorToast, emitSuccessToast } from "@/forum/utils/toast";
-import Icon from "@iconify/svelte";
+import Icon from "@components/IconSvelte.svelte";
 import { onMount } from "svelte";
 import { get } from "svelte/store";
 

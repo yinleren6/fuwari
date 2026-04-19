@@ -1,10 +1,10 @@
-<script lang="ts">
+﻿<script lang="ts">
 import ForumMarkdownContent from "@/components/forum/ForumMarkdownContent.svelte";
 import { deleteComment, likeComment } from "@/forum/api/comments";
 import type { ForumComment } from "@/forum/types/comment";
 import type { ForumUser } from "@/forum/types/user";
 import { formatForumDateTime } from "@/utils/date-utils";
-import Icon from "@iconify/svelte";
+import Icon from "@components/IconSvelte.svelte";
 
 export let comment: ForumComment;
 export let activeReplyParentId: string | null = null;
