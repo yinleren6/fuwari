@@ -20,7 +20,7 @@ const title = "零宽短链生成器";
 		<PageCardHeader title={title} icon="material-symbols:link-rounded" pathname="/s/" />
 		<p class="mb-6 text-sm leading-relaxed text-50">
 			使用 UTF-8 零宽字符在 URL 路径中编码完整链接，生成视觉上完全相同的隐形短链接。
-			访问者打开链接时，前端会自动解码并跳转到目标地址。所有链接看起来都是 <code class="px-1 bg-black/20 rounded">/s/</code>。
+			访问者打开链接时，前端会自动解码并跳转到目标地址。所有链接看起来都是 <code class="px-1 bg-black/20 rounded">/</code>（和首页完全相同）。
 		</p>
 		<ShortLinkGenerator client:load />
 	</div>

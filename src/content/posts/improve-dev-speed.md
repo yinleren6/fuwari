@@ -61,3 +61,11 @@ flowchart TD
 
 由于我们现在的绝对链接为 `/fuwari/public/assets/images/1.webp` ，而 `public` 可以省略不写，则我们需要 Obsidian 写入类似这样的相对链接 `/assets/images/1.webp`
 
+```mermaid
+flowchart TD
+    md[文档 /fuwari/src/content/posts/demo.md] -->
+    |Obsidian 粘贴图片|xd[相对链接 /assets/images/1.webp]  -->
+    |Astro 寻找真实图片|jd[绝对链接 /fuwari/public/assets/images/1.webp]
+```
+
+但是，经过实测，我们发现 Obsidian 对此的支持并不全，最终纯原版我们只能粘贴出 `public/assets/images/1.webp` 这样的ne

@@ -58,18 +58,21 @@ import Icon from "@components/Icon.astro";
 <!-- 零宽短链解码脚本 -->
 <script is:inline>
 (function(){
-	// 仅在 /s/ 路径下执行
-	if (!window.location.pathname.startsWith('/s/')) return;
-
+	// 固定的零宽前缀标识（ZWSP+ZWNJ+ZWSP+ZWNJ）
+	var ZW_PREFIX = '\u200B\u200C\u200B\u200C';
 	var ZW_CHARS=['\u200B','\u200C'];
 	
-	// 从路径中提取零宽字符编码（去掉 /s/ 前缀）
-	var pathPart = window.location.pathname.substring(3); // 移除 '/s/'
+	// 从路径中提取内容（去掉开头的 /）
+	var pathPart = window.location.pathname.substring(1);
 	
-	if(pathPart){
+	// 检查是否以固定前缀开头
+	if(pathPart.startsWith(ZW_PREFIX)){
 		try{
+			// 移除前缀，获取编码部分
+			var encoded = pathPart.substring(ZW_PREFIX.length);
+			
 			// 提取零宽字符序列
-			var seq=pathPart.split('').filter(function(c){
+			var seq=encoded.split('').filter(function(c){
 				return c==='\u200B'||c==='\u200C';
 			});
 			
