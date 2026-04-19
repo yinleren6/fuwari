@@ -48,42 +48,7 @@ export default defineConfig({
 
 的确，这样修改后 Astro 不会再操作图片，但是对于之后的写作，我们也需要将图片放在 `public` 文件夹
 
-所以我们需要修改一下我们写作使用的 **Obsidian** 的设置
-
-首先，我们需要将工作目录从 `src/content` 切换到 `/` 。因为我们之前为了方便创建这种形式的图片链接： `../public//public/assets/images/1.webp` ，而 Astro 会自动根据当前文件所在的路径找到目标图片
-
-```mermaid
-flowchart TD
-    md[文档 /fuwari/src/content/posts/demo.md] -->
-    |Obsidian 粘贴图片|xd[相对链接 ../public//public/assets/images/1.webp]  -->
-    |Astro 寻找真实图片|jd[绝对链接 /fuwari/src/content/public//public/assets/images/1.webp]
-```
-
-由于我们现在的绝对链接为 `/fuwari/public/public//public/assets/images/1.webp` ，而 `public` 可以省略不写，则我们需要 Obsidian 写入类似这样的相对链接 `/public//public/assets/images/1.webp`
-
-```mermaid
-flowchart TD
-    md[文档 /fuwari/src/content/posts/demo.md] -->
-    |Obsidian 粘贴图片|xd[相对链接 /public//public/assets/images/1.webp]  -->
-    |Astro 寻找真实图片|jd[绝对链接 /fuwari/public/public//public/assets/images/1.webp]
-```
-
-但是，经过实测，我们发现 Obsidian 对此的支持并不全，最终纯原版我们只能粘贴出 `public/public//public/assets/images/1.webp` 这样的内容，这会导致浏览器错误拼接为 `/{当前pathname}/public/public//public/assets/images/1.webp` ，最终找不到图片
-
-所以我们需要打一个插件，我选择直接魔改我正在用的 **Paste image rename** 插件，让他在重命名的时候自动把 `public` 删除
-
-![](/public/assets/images/improve-dev-speed.png)
-直接将 https://github.com/afoim/obsidian-paste-image-rename/blob/master/dist/main.js 替换 `\.obsidian\plugins\obsidian-paste-image-rename\main.js` 即可
-
-首先配置 Obsidian 的原始行为
-
-![](/public/assets/images/improve-dev-speed-1.png)
-
-确保插件启用
-
-![](/public/assets/images/improve-dev-speed-2.png)
-
-![](/public/assets/images/Obsidian_Yjv7ZJeIVs.gif)
+而 Obsidian 的默认行为就是哪怕是粘贴绝对路径，如 `/public` 也不会自动添加前面的斜杠，所以我们需要找AI写一个小插件自动加上，否则会因为路径拼接错误导致图片404
 
 之后，Astro 将不会碰我们的图片，我们也能一如往常地去写作
 
