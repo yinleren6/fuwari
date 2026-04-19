@@ -243,9 +243,10 @@ jobs:
               try {
                 const { execSync } = require('child_process')
                 const fs = require('fs')
+                const path = require('path')
                 
-                // Create a temporary Playwright script
-                const scriptPath = '/tmp/check-url-pw.js'
+                // Create a temporary Playwright script in current directory
+                const scriptPath = path.join(process.cwd(), 'check-url-pw.js')
                 const script = `
                   const { chromium } = require('@playwright/test');
                   const targetUrl = process.argv[2];
@@ -282,8 +283,12 @@ jobs:
                 const result = execSync('node "' + scriptPath + '" "' + url + '"', {
                   encoding: 'utf8',
                   timeout: 35000,
-                  maxBuffer: 10 * 1024 * 1024
+                  maxBuffer: 10 * 1024 * 1024,
+                  cwd: process.cwd()
                 })
+                
+                // Clean up
+                try { fs.unlinkSync(scriptPath) } catch {}
                 
                 return JSON.parse(result.trim())
               } catch (e) {
@@ -1106,9 +1111,10 @@ jobs:
               try {
                 const { execSync } = require('child_process')
                 const fs = require('fs')
+                const path = require('path')
                 
-                // Create a temporary Playwright script
-                const scriptPath = '/tmp/check-url-pw.js'
+                // Create a temporary Playwright script in current directory
+                const scriptPath = path.join(process.cwd(), 'check-url-pw.js')
                 const script = `
                   const { chromium } = require('@playwright/test');
                   const targetUrl = process.argv[2];
@@ -1145,8 +1151,12 @@ jobs:
                 const result = execSync('node "' + scriptPath + '" "' + url + '"', {
                   encoding: 'utf8',
                   timeout: 35000,
-                  maxBuffer: 10 * 1024 * 1024
+                  maxBuffer: 10 * 1024 * 1024,
+                  cwd: process.cwd()
                 })
+                
+                // Clean up
+                try { fs.unlinkSync(scriptPath) } catch {}
                 
                 return JSON.parse(result.trim())
               } catch (e) {
