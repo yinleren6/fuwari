@@ -520,6 +520,26 @@ var PasteImageRenamePlugin = class extends import_obsidian2.Plugin {
         new import_obsidian2.Notice("Error: No active file found.");
         return;
       }
+      
+      // 立即修复刚粘贴的链接格式（如果是 public/ 开头）
+      const editor = this.getActiveEditor();
+      if (editor) {
+        const cursor = editor.getCursor();
+        const line = editor.getLine(cursor.line);
+        const fixedLine = line.replace(/\]\(public\//g, "](/public/");
+        if (fixedLine !== line) {
+          editor.transaction({
+            changes: [
+              {
+                from: __spreadProps(__spreadValues({}, cursor), { ch: 0 }),
+                to: __spreadProps(__spreadValues({}, cursor), { ch: line.length }),
+                text: fixedLine
+              }
+            ]
+          });
+        }
+      }
+      
       const { stem, newName, isMeaningful } = this.generateNewName(file, activeFile);
       debugLog("generated newName:", newName, isMeaningful);
       if (!isMeaningful || !autoRename) {
