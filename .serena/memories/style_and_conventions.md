@@ -1,1 +1,0 @@
-代码风格：TypeScript 严格模式，路径别名使用 @/*、@components/*、@layouts/*。页面通常复用 MainGridLayout.astro，Svelte 交互组件以 client:only="svelte" 或 client:load 挂载。UI 常用 card-base、圆角、白色半透明边框、var(--primary) 主色。不要把局部业务状态扩散到全站 config/store，论坛这类模块应在独立目录维护自己的 API/store/types。
