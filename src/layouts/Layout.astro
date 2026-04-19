@@ -8,6 +8,7 @@ import "../styles/markdown.css";
 import "../styles/markdown-extend.styl";
 
 import { profileConfig, siteConfig } from "@/config";
+import StaticBackground from "@components/StaticBackground.astro";
 import BodyThirdPartyScripts from "@components/layout/BodyThirdPartyScripts.astro";
 import DashLoaderScript from "@components/layout/DashLoaderScript.astro";
 import LiquidGlassFilter from "@components/layout/LiquidGlassFilter.astro";
@@ -208,6 +209,8 @@ const bannerOffset =
 
 
 <BodyThirdPartyScripts />
+
+		<StaticBackground />
 
 		<slot />
 
