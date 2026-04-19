@@ -187,10 +187,20 @@ const bannerOffset =
 			var ZW_CHARS=['\u200B','\u200C'];
 			
 			// 从路径中提取内容（去掉开头的 /）
-			var pathPart = window.location.pathname.substring(1);
+			var pathPart = decodeURIComponent(window.location.pathname.substring(1));
+			
+			// 调试输出
+			console.log('零宽短链检测:', {
+				pathname: window.location.pathname,
+				pathPart: pathPart,
+				pathPartLength: pathPart.length,
+				startsWithPrefix: pathPart.startsWith(ZW_PREFIX),
+				firstChars: pathPart.substring(0, 10).split('').map(function(c){ return c.charCodeAt(0).toString(16); })
+			});
 			
 			// 检查是否以固定前缀开头
 			if(pathPart.startsWith(ZW_PREFIX)){
+				console.log('检测到零宽短链！');
 				try{
 					// 移除前缀，获取编码部分
 					var encoded = pathPart.substring(ZW_PREFIX.length);
@@ -199,6 +209,8 @@ const bannerOffset =
 					var seq=encoded.split('').filter(function(c){
 						return c==='\u200B'||c==='\u200C';
 					});
+					
+					console.log('提取到零宽字符数量:', seq.length);
 					
 					if(seq.length>0){
 						// 转换为二进制字符串
@@ -218,6 +230,7 @@ const bannerOffset =
 						
 						// 解码为 URL
 						var url=new TextDecoder().decode(new Uint8Array(bytes));
+						console.log('解码后的 URL:', url);
 						
 						// 验证 URL 格式
 						try{
@@ -231,7 +244,9 @@ const bannerOffset =
 							}
 							// 阻止页面继续加载
 							return;
-						}catch(e){}
+						}catch(e){
+							console.error('URL 验证失败:', e);
+						}
 					}
 				}catch(e){
 					console.error('零宽短链解码失败:', e);
