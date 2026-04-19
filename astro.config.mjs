@@ -94,7 +94,6 @@ export default defineConfig({
 		defaultStrategy: "load",
 	},
 	base: "/",
-	trailingSlash: "always",
 	output: "static",
 	redirects: {
 		"/privacy-policy": {

@@ -68,4 +68,4 @@ flowchart TD
     |Astro 寻找真实图片|jd[绝对链接 /fuwari/public/assets/images/1.webp]
 ```
 
-但是，经过实测，我们发现 Obsidian 对此的支持并不全，最终纯原版我们只能粘贴出 `public/assets/images/1.webp` 这样的ne
+但是，经过实测，我们发现 Obsidian 对此的支持并不全，最终纯原版我们只能粘贴出 `public/assets/images/1.webp` 这样的内容，这会导致浏览器错误拼接为 `/{当前pathname}/public/assets/images/1.webp 
