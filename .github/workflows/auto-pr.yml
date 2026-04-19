@@ -24,6 +24,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - name: Install Puppeteer
+        run: |
+          npm install -g puppeteer
+          
       - name: Label PR by changed paths
         uses: actions/github-script@v7
         with:
@@ -231,16 +235,28 @@ jobs:
             // Reusable verification logic from link-utils.js (simplified for github-script)
             async function checkUrlReachability(url) {
               const controller = new AbortController()
-              const timer = setTimeout(() => controller.abort(), 10000)
+              const timer = setTimeout(() => controller.abort(), 30000)
               try {
-                const res = await fetch(url, {
-                  method: 'GET',
-                  redirect: 'follow',
-                  headers: { 'user-agent': 'fuwari-auto-pr/1.0 (+github actions)', accept: 'text/html,*/*;q=0.8' },
-                  signal: controller.signal,
+                const puppeteer = require('puppeteer')
+                const browser = await puppeteer.launch({
+                  headless: true,
+                  args: ['--no-sandbox', '--disable-setuid-sandbox']
                 })
-                const body = res.ok ? await res.text() : ''
-                return { ok: res.ok, status: res.status, body, url: res.url }
+                const page = await browser.newPage()
+                await page.setUserAgent('fuwari-auto-pr/1.0 (+github actions)')
+                
+                const response = await page.goto(url, {
+                  waitUntil: 'networkidle2',
+                  timeout: 30000
+                })
+                
+                const body = await page.content()
+                const finalUrl = page.url()
+                const status = response.status()
+                
+                await browser.close()
+                
+                return { ok: status >= 200 && status < 400, status, body, url: finalUrl }
               } catch (e) {
                 return { ok: false, error: e?.message || String(e) }
               } finally {
@@ -700,6 +716,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - name: Install Puppeteer
+        run: |
+          npm install -g puppeteer
+          
       - name: Auto-merge
         uses: actions/github-script@v7
         with:
@@ -1051,16 +1071,28 @@ jobs:
 
             async function checkUrlReachability(url) {
               const controller = new AbortController()
-              const timer = setTimeout(() => controller.abort(), 10000)
+              const timer = setTimeout(() => controller.abort(), 30000)
               try {
-                const res = await fetch(url, {
-                  method: 'GET',
-                  redirect: 'follow',
-                  headers: { 'user-agent': 'fuwari-auto-pr/1.0 (+github actions)', accept: 'text/html,*/*;q=0.8' },
-                  signal: controller.signal,
+                const puppeteer = require('puppeteer')
+                const browser = await puppeteer.launch({
+                  headless: true,
+                  args: ['--no-sandbox', '--disable-setuid-sandbox']
                 })
-                const body = res.ok ? await res.text() : ''
-                return { ok: res.ok, status: res.status, body, url: res.url }
+                const page = await browser.newPage()
+                await page.setUserAgent('fuwari-auto-pr/1.0 (+github actions)')
+                
+                const response = await page.goto(url, {
+                  waitUntil: 'networkidle2',
+                  timeout: 30000
+                })
+                
+                const body = await page.content()
+                const finalUrl = page.url()
+                const status = response.status()
+                
+                await browser.close()
+                
+                return { ok: status >= 200 && status < 400, status, body, url: finalUrl }
               } catch (e) {
                 return { ok: false, error: e?.message || String(e) }
               } finally {
