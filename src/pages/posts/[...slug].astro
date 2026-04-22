@@ -8,7 +8,7 @@ import DiffDebugEditor from "@components/widget/DiffDebugEditor.astro";
 import PostUpdateNotice from "@components/widget/PostUpdateNotice.astro";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { getSortedPosts } from "@utils/content-utils";
-import { getCommitUrl, getPostHistory } from "@utils/git-history";
+// import { getCommitUrl, getPostHistory } from "@utils/git-history";
 import { getDir, getPostUrlBySlug } from "@utils/url-utils";
 import { Icon } from "astro-icon/components";
 import { render } from "astro:content";
@@ -32,9 +32,9 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await render(entry);
 
-const history = getPostHistory(entry.id);
-const lastUpdateTime =
-	history[0]?.date || entry.data.updated || entry.data.published;
+// const history = getPostHistory(entry.id);
+// const lastUpdateTime =
+	// history[0]?.date || entry.data.updated || entry.data.published;
 
 const jsonLd = [
 	{
@@ -160,7 +160,7 @@ const jsonLd = [
 
 			<DiffDebugEditor />
 
-			<PostUpdateNotice publishedAt={entry.data.published} lastUpdated={lastUpdateTime} />
+			 <!-- <PostUpdateNotice publishedAt={entry.data.published} lastUpdated={lastUpdateTime} /> -->
 
             <Markdown class="mb-6 markdown-content">
                 <Content />
@@ -187,12 +187,12 @@ const jsonLd = [
                         </a>
                     </div>
                 </div>
-                
+
                 {gitHubEditConfig.enable && (
                     <>
                         <!-- 分隔线 -->
                         <div class="border-t border-[var(--line-divider)] my-3"></div>
-                        
+
                         <!-- GitHub编辑区域 -->
                         <div class="flex items-start gap-3">
                             <div class="h-5 w-5 bg-[var(--primary)] flex items-center justify-center">
@@ -200,7 +200,7 @@ const jsonLd = [
                             </div>
                             <div class="flex-1">
                                 <p class="text-white/80 text-sm mb-1">发现错误或想要改进这篇文章？</p>
-                                <a 
+                                <a
                                     href={`${gitHubEditConfig.baseUrl}/${entry.id}.md`}
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -213,7 +213,7 @@ const jsonLd = [
                             </div>
                         </div>
 
-                        <!-- 修订历史 -->
+                       {/*   <!-- 修订历史 -->
                         {history.length > 0 && (
                             <div id="revision-history" class="flex items-start gap-3 mt-4 scroll-mt-20">
                                 <div class="h-5 w-5 bg-[var(--primary)] flex items-center justify-center">
@@ -241,23 +241,23 @@ const jsonLd = [
                                     </details>
                                 </div>
                             </div>
-                        )}
+                        )}*/}
                     </>
                 )}
             </div>
 
             {licenseConfig.enable && <License title={entry.data.title} slug={entry.id} pubDate={entry.data.published} class="mb-6 rounded-xl license-container"></License>}
-            
+
             <!-- Giscus 评论区 -->
             <div id="giscus-container" class="giscus"></div>
             <script is:inline>
                 function loadGiscus() {
                     const container = document.getElementById('giscus-container');
                     if (!container) return;
-                    
+
                     // 清除旧的 Giscus
                     container.innerHTML = '';
-                    
+
                     // 创建新的 script 标签
                     const script = document.createElement('script');
                     script.src = 'https://giscus.app/client.js';
@@ -275,10 +275,10 @@ const jsonLd = [
                     script.setAttribute('data-loading', 'lazy');
                     script.setAttribute('crossorigin', 'anonymous');
                     script.async = true;
-                    
+
                     container.appendChild(script);
                 }
-                
+
                 // 页面加载时加载 Giscus
                 loadGiscus();
             </script>
