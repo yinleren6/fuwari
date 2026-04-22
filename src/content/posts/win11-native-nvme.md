@@ -2,7 +2,7 @@
 title: 一行命令拉爆你的Win11硬盘4K随机性能！
 published: 2026-02-26T22:27:08
 description: 你知道吗？其实Windows一直都在让NVMe硬盘以兼容模式跑！
-image: ../assets/images/win11-native-nvme.png
+image: /public/assets/images/win11-native-nvme.png
 draft: false
 lang: ""
 ---
@@ -10,15 +10,15 @@ lang: ""
 
 简单来说，Windows为了兼容性，始终都在让我们的NVMe固态硬盘模拟为SCSI跑
 
-![](../assets/images/win11-native-nvme-1.png)
+![](/public/assets/images/win11-native-nvme-1.png)
 
 但是就在前不久，微软为新版Windows11提供了一个开关，允许将NVMe固态硬盘使用原生的NVMe驱动
 
 # 实测
 
-![](../assets/images/4833b89c-f0b6-42f0-9430-55dafc770678.png)
+![](/public/assets/images/4833b89c-f0b6-42f0-9430-55dafc770678.png)
 
-![](../assets/images/d86fb68e-f5a4-4a18-a94f-e31d309457bd.png)
+![](/public/assets/images/d86fb68e-f5a4-4a18-a94f-e31d309457bd.png)
 
 可以明显看到，在4K随机读写都有不小的提升。而4K性能提升有助于提升在频繁IO工作下的性能，比如浏览网页，列出文件，查看任务管理器
 
@@ -38,7 +38,7 @@ lang: ""
 
 接下来查看你的系统版本号，不同版本需要执行不同命令：
 
-![](../assets/images/win11-native-nvme-2.png)
+![](/public/assets/images/win11-native-nvme-2.png)
 
 对于Windows 11 24H2/25H2： 
 ```sql
@@ -52,7 +52,7 @@ vivetool.exe /enable /id:48613417,48433719,49453572
 
 执行命令后重启电脑，开机后打开 **设备管理器** ，若多出新条目 **存储磁盘** ，且该条目中有若干个 **NVMe磁盘** 则开启成功
 
-![](../assets/images/win11-native-nvme-3.png)
+![](/public/assets/images/win11-native-nvme-3.png)
 
 # 参考文献 · 鸣谢
 

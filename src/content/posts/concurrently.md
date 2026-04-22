@@ -2,7 +2,7 @@
 title: 你在做全栈吗？你想要前后端统一的热重载吗？
 published: 2026-03-24T11:51:17
 description: 经常做全栈的小伙伴们都知道，写完后端看效果要dev，写完前端看效果也要dev，那么有没有一劳永逸的解决方案呢？
-image: ../assets/images/concurrently.png
+image: /public/assets/images/concurrently.png
 draft: false
 lang: ""
 ---
@@ -16,19 +16,19 @@ lang: ""
 
 前端是一坨React
 
-![](../assets/images/concurrently-1.png)
+![](/public/assets/images/concurrently-1.png)
 
 后端是一坨 Typescript
 
-![](../assets/images/concurrently-2.png)
+![](/public/assets/images/concurrently-2.png)
 
 而前端要用 Vite 来 Dev
 
-![](../assets/images/concurrently-3.png)
+![](/public/assets/images/concurrently-3.png)
 
 那么后端还要使用 Wrangler 来 Dev
 
-![](../assets/images/concurrently-4.png)
+![](/public/assets/images/concurrently-4.png)
 
 那么如果我们想要测试，就需要把前后端的dev一起拉起来，对吧？
 
@@ -92,6 +92,6 @@ npm install -D concurrently
 npm run dev
 ```
 
-![](../assets/images/concurrently-5.png)
+![](/public/assets/images/concurrently-5.png)
 
-![](../assets/images/concurrently-6.png)
+![](/public/assets/images/concurrently-6.png)

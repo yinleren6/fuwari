@@ -8,9 +8,8 @@ import {
 	listFiles,
 } from "./utils/content-files.js";
 
-const OLD_PATH = "../assets/images/";
-const NEW_PATH =
-	"https://cnb.cool/2x.nz/fuwari/-/git/raw/main/src/content/assets/images/";
+const OLD_PATH_PATTERN = /\/public\/assets\/images\//g;
+const NEW_PATH = "https://cnb.cool/2x.nz/fuwari/-/git/raw/main/public/assets/images/";
 
 async function getAllMarkdownFiles() {
 	try {
@@ -21,9 +20,8 @@ async function getAllMarkdownFiles() {
 	}
 }
 
-function countOccurrences(content, literal) {
-	const escaped = literal.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-	const matches = content.match(new RegExp(escaped, "g"));
+function countOccurrences(content, pattern) {
+	const matches = content.match(pattern);
 	return matches ? matches.length : 0;
 }
 
@@ -36,7 +34,7 @@ async function cdnifyImages() {
 	// 安全保护：扫描结果为空时中止，禁止继续删除 assets。
 	if (markdownFiles.length === 0) {
 		console.error(
-			"❌ 未找到 markdown 文件，已中止执行。为避免误删，不会删除 src/content/assets。",
+			"❌ 未找到 markdown 文件，已中止执行。为避免误删，不会删除 public/assets。",
 		);
 		return;
 	}
@@ -47,12 +45,18 @@ async function cdnifyImages() {
 	for (const file of markdownFiles) {
 		try {
 			const content = fs.readFileSync(file, "utf-8");
-			if (!content.includes(OLD_PATH)) {
+			// 重置正则表达式的 lastIndex
+			OLD_PATH_PATTERN.lastIndex = 0;
+			if (!OLD_PATH_PATTERN.test(content)) {
 				continue;
 			}
 
-			const occurrences = countOccurrences(content, OLD_PATH);
-			const newContent = content.replaceAll(OLD_PATH, NEW_PATH);
+			// 重置正则表达式的 lastIndex
+			OLD_PATH_PATTERN.lastIndex = 0;
+			const occurrences = countOccurrences(content, OLD_PATH_PATTERN);
+			// 重置正则表达式的 lastIndex
+			OLD_PATH_PATTERN.lastIndex = 0;
+			const newContent = content.replace(OLD_PATH_PATTERN, NEW_PATH);
 			fs.writeFileSync(file, newContent);
 
 			console.log(
@@ -71,22 +75,22 @@ async function cdnifyImages() {
 
 	// 安全保护：没有发生替换时，不执行删除。
 	if (totalReplaced === 0) {
-		console.warn("ℹ️  未发生任何路径替换，跳过删除 src/content/assets。");
+		console.warn("ℹ️  未发生任何路径替换，跳过删除 public/assets。");
 		return;
 	}
 
-	const assetsDirToDelete = path.join(process.cwd(), "src/content/assets");
+	const assetsDirToDelete = path.join(process.cwd(), "public/assets");
 	if (!fs.existsSync(assetsDirToDelete)) {
-		console.log("ℹ️  src/content/assets 不存在，无需删除。");
+		console.log("ℹ️  public/assets 不存在，无需删除。");
 		return;
 	}
 
 	console.log(`🗑️  正在删除 ${assetsDirToDelete}...`);
 	try {
 		fs.rmSync(assetsDirToDelete, { recursive: true, force: true });
-		console.log("✅ src/content/assets 文件夹已成功删除。");
+		console.log("✅ public/assets 文件夹已成功删除。");
 	} catch (error) {
-		console.warn(`⚠️  删除 src/content/assets 失败: ${error.message}`);
+		console.warn(`⚠️  删除 public/assets 失败: ${error.message}`);
 	}
 }
 

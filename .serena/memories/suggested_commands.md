@@ -1,1 +1,0 @@
-开发常用命令：pnpm install 安装依赖；pnpm dev 本地开发；pnpm build 构建；pnpm preview 预览；pnpm type-check 运行 TypeScript 检查；pnpm format 使用 Biome 格式化 src；pnpm lint 使用 Biome 检查并修复 src。Windows 环境但 shell 使用 Unix 语法风格。

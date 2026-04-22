@@ -2,7 +2,7 @@
 title: 如何提高网站的SEO？
 published: 2025-07-29T16:00:00
 description: '很多人把网站做出来之后就不再维护了，但如果你希望搜索引擎更快收录并获得更好的排名，其实还有不少细节值得优化。'
-image: '../assets/images/f334c97b-bb75-4920-8bd1-e62c9e5c675c.webp'
+image: '/public/assets/images/f334c97b-bb75-4920-8bd1-e62c9e5c675c.webp'
 tags: [SEO]
 category: '记录'
 draft: false 
@@ -91,11 +91,11 @@ Lighthouse 是一个常用的浏览器工具，可以分析站点的性能、无
 
 注意，最好在无痕模式下进行测试，以免其他浏览器插件影响 Lighthouse 的结果。
 
-![](../assets/images/579087ce-3a48-4390-8ba3-e42dea60135e.webp)
+![](/public/assets/images/579087ce-3a48-4390-8ba3-e42dea60135e.webp)
 
 对于每一项出现的问题，Lighthouse 都会给出相对明确的说明。你可以根据这些提示逐项优化自己的网站。
 
-![](../assets/images/5174f53e-5c7f-49a9-86fc-ea6797975d59.webp)
+![](/public/assets/images/5174f53e-5c7f-49a9-86fc-ea6797975d59.webp)
 
 # 接入必应网站管理员
 
@@ -105,9 +105,9 @@ Lighthouse 是一个常用的浏览器工具，可以分析站点的性能、无
 
 同时，它也会从搜索引擎的视角指出一些潜在问题，你可以据此继续优化。
 
-![](../assets/images/eabc21ac-c306-4165-afe0-1b9da3d2a179.webp)
+![](/public/assets/images/eabc21ac-c306-4165-afe0-1b9da3d2a179.webp)
 
-![](../assets/images/081682fd-2d05-4d3f-a191-1c0f5c9b624c.webp)
+![](/public/assets/images/081682fd-2d05-4d3f-a191-1c0f5c9b624c.webp)
 
 # 接入各大分析
 
@@ -127,7 +127,7 @@ Lighthouse 是一个常用的浏览器工具，可以分析站点的性能、无
 
 尽管大多数搜索引擎都会主动探测 `/robots.txt`、`/sitemap.xml`、`rss.xml`、`atom.xml` 等路径来发现站点地图，但我仍然建议你主动提交一次。
 
-![](../assets/images/improve-seo-1.webp)
+![](/public/assets/images/improve-seo-1.webp)
 
 
 # 使用IndexNow
@@ -138,4 +138,4 @@ Lighthouse 是一个常用的浏览器工具，可以分析站点的性能、无
 
 如果你使用的是 Cloudflare CDN，这项能力基本可以开箱即用。只需要进入你的域名设置页面，依次打开 `缓存 -> 配置`，启用 **Crawler Hints** 即可。
 
-![](../assets/images/303b37e5-4104-4e2a-8a3b-bdb6094159e7.webp)
+![](/public/assets/images/303b37e5-4104-4e2a-8a3b-bdb6094159e7.webp)

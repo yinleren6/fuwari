@@ -2,7 +2,7 @@
 title: 保姆级通过Google Adsense的教程！
 published: 2026-02-23T12:46:15
 description: 你是否正在运营一个脍炙人口的网站？手把手教你变现！
-image: ../assets/images/google-adsense1.png
+image: /public/assets/images/google-adsense1.png
 draft: false
 lang: ""
 ---
@@ -40,7 +40,7 @@ lang: ""
 
 自从25年8月开始（实际上更早），我就开始申请Adsense了。期间一直被拒，直到今天成功通过
 
-![](../assets/images/google-adsense-1.png)
+![](/public/assets/images/google-adsense-1.png)
 
 最开始被拒绝的理由是 **低价值内容** ，但在随后的几次直接变为了账号违反 Adsense 准则，不再提供详细的理由了
 
@@ -48,32 +48,32 @@ lang: ""
 
 从最初的只有50多篇文章，到如今的137篇文章
 
-![](../assets/images/google-adsense-2.png)
+![](/public/assets/images/google-adsense-2.png)
 
 从最初的简单静态只读站点，到如今的加入了访问量，评论区，文章Diff，以及各种小功能
 
-![](../assets/images/google-adsense-3.png)
+![](/public/assets/images/google-adsense-3.png)
 
-![](../assets/images/google-adsense-4.png)
+![](/public/assets/images/google-adsense-4.png)
 
-![](../assets/images/google-adsense-5.png)
+![](/public/assets/images/google-adsense-5.png)
 
 从最初的没有友链，到如今的109条友链
 
-![](../assets/images/google-adsense-7.png)
+![](/public/assets/images/google-adsense-7.png)
 
 从最初的各种跟踪器百花齐放，到如今的分类规整，访客可以自由调节允许收集的信息
 
-![](../assets/images/google-adsense-8.png)
+![](/public/assets/images/google-adsense-8.png)
 
 从最初的博客，仅提供文章查阅，到如今的官网，各类精品功能应有尽有
 
-![](../assets/images/google-adsense-9.png)
+![](/public/assets/images/google-adsense-9.png)
 
-![](../assets/images/google-adsense-10.png)
+![](/public/assets/images/google-adsense-10.png)
 
 从最初的只有我一人浏览，到如今的月IP12k
 
-![](../assets/images/google-adsense-11.png)
+![](/public/assets/images/google-adsense-11.png)
 
 一路走来，感谢有你。无论是想要让网站赚取收入，又或是仅仅想让它变得更好，都需要我们一步一个脚印，千里之行，始于足下，让我们一起迈向更好的明天！

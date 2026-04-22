@@ -10,7 +10,6 @@ interface Props {
 	loading?: "eager" | "lazy";
 	objectFit?: "cover" | "contain";
 }
-import { Image } from "astro:assets";
 import { siteConfig } from "../../config";
 import { url } from "../../utils/url-utils";
 
@@ -25,37 +24,23 @@ const {
 } = Astro.props;
 const className = Astro.props.class;
 
-const isLocal = !(
-	src.startsWith("/") ||
-	src.startsWith("http") ||
-	src.startsWith("https") ||
-	src.startsWith("data:") ||
-	src === "random" ||
-	src.includes("random")
-);
+// 判断图片类型
+const isRandom = src === "random" || src.includes("random");
+const isExternal = src.startsWith("http") || src.startsWith("https") || src.startsWith("data:");
 const isPublic = src.startsWith("/");
+const isLocal = !isExternal && !isPublic && !isRandom;
 
-// TODO temporary workaround for images dynamic import
-// https://github.com/withastro/astro/issues/3373
-// biome-ignore lint/suspicious/noImplicitAnyLet: <explanation>
-let img;
-if (isLocal) {
-	const files = import.meta.glob<ImageMetadata>(
-		"../../**/*.{png,jpg,jpeg,webp,avif,gif,svg}",
-		{
-			import: "default",
-		},
-	);
-	let normalizedPath = path
-		.normalize(path.join("../../", basePath, src))
-		.replace(/\\/g, "/");
-	const file = files[normalizedPath];
-	if (!file) {
-		console.error(
-			`\n[ERROR] Image file not found: ${normalizedPath.replace("../../", "src/")}`,
-		);
-	}
-	img = await file();
+// 计算最终路径
+let finalSrc = src;
+if (isRandom) {
+	finalSrc = "https://p.2x.nz/ri/h/1.webp";
+} else if (isLocal) {
+	// 本地相对路径：'/public/assets/images/xxx.webp'
+	// 转换为绝对路径：'/public/assets/images/xxx.webp'
+	// public 目录下的文件在构建后直接映射到根路径
+	finalSrc = src.replace(/^\.\.\//, "/");
+} else if (isPublic) {
+	finalSrc = url(src);
 }
 
 const imageClass = `w-full h-full object-${objectFit}`;
@@ -63,10 +48,15 @@ const imageStyle = `object-position: ${position}`;
 const fetchPriority = loading === "eager" ? "high" : "low";
 ---
 <div id={id} class:list={[className, 'overflow-hidden relative image-wrapper']} style={`--theme-hue: ${siteConfig.themeColor.hue}`}>
-    {isLocal && img && <Image src={img} alt={alt || ""} class={`${imageClass} image-content ${src === 'random' || src.includes('random') ? 'post-cover-random' : ''}`} style={imageStyle} loading={loading} fetchpriority={fetchPriority} decoding="async" />}
-    {!isLocal && (
-        <img src={src === 'random' ? 'https://p.2x.nz/ri/h/1.webp' : (isPublic ? url(src) : src)} alt={alt || ""} class={`${imageClass} image-content ${src === 'random' || src.includes('random') ? 'post-cover-random' : ''}`} style={imageStyle} loading={loading} fetchpriority={fetchPriority} decoding="async" />
-    )}
+	<img 
+		src={finalSrc} 
+		alt={alt || ""} 
+		class={`${imageClass} image-content ${isRandom ? 'post-cover-random' : ''}`} 
+		style={imageStyle} 
+		loading={loading} 
+		fetchpriority={fetchPriority} 
+		decoding="async"
+	/>
 </div>
 
 <style>

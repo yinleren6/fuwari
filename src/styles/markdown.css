@@ -51,30 +51,38 @@
         }
     }
 
+    .frame {
+        @apply relative my-4;
+    }
+
+    .frame pre {
+        @apply pr-12 my-0;
+    }
+
     .copy-btn {
         all: initial;
         @apply flex items-center justify-center
         bg-[oklch(0.30_0.02_var(--hue))] hover:bg-[oklch(0.35_0.03_var(--hue))] active:bg-[oklch(0.40_0.03_var(--hue))]
-        opacity-0 shadow-lg shadow-black/50 absolute active:scale-90 h-8 w-8 top-3 right-3 text-sm transition-all ease-in-out z-20 cursor-pointer border border-white/10;
+        opacity-0 shadow-lg shadow-black/50 absolute active:scale-90 h-8 w-8 top-3 right-3 text-sm transition-all ease-in-out z-20 cursor-pointer border border-white/10 rounded;
     }
     .frame:hover .copy-btn {
         opacity: 1;
     }
 
     .copy-btn-icon {
-        @apply absolute top-1/2 left-1/2 transition -translate-x-1/2 -translate-y-1/2 w-4 h-4 fill-white pointer-events-none;
+        @apply absolute top-1/2 left-1/2 transition-all duration-200 -translate-x-1/2 -translate-y-1/2 w-4 h-4 fill-white pointer-events-none;
     }
     .copy-btn .copy-icon {
         @apply opacity-100 fill-white/75;
     }
     .copy-btn.success .copy-icon {
-        @apply opacity-0 fill-[var(--deep-text)]
+        @apply opacity-0 scale-0;
     }
     .copy-btn .success-icon {
-        @apply opacity-0 fill-white;
+        @apply opacity-0 scale-0 fill-green-500;
     }
     .copy-btn.success .success-icon {
-        @apply opacity-100
+        @apply opacity-100 scale-100;
     }
 
     .expressive-code {

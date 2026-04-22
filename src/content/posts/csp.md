@@ -2,7 +2,7 @@
 title: CSP标头是什么？为什么有人能神不知鬼不觉地盗走你的信息？
 published: 2025-07-30T16:00:00
 description: 'CSP 是内容安全策略，它可以限制恶意脚本执行，从而降低 XSS 攻击带来的信息泄露风险'
-image: '../assets/images/e245d917-2255-4d2d-85fb-aa7538a18022.webp'
+image: '/public/assets/images/e245d917-2255-4d2d-85fb-aa7538a18022.webp'
 tags: [XSS攻击, CSP]
 category: '记录'
 draft: false 
@@ -16,7 +16,7 @@ ai_level: 1
 
 不出意外，你的浏览器会弹出一个提示
 
-![](../assets/images/b279f283-b5d2-4dbd-955e-5b3bba6ff656.webp)
+![](/public/assets/images/b279f283-b5d2-4dbd-955e-5b3bba6ff656.webp)
 
 # 这是如何做到的？
 
@@ -49,7 +49,7 @@ HTML内容为
 
 比如你输入 https://none-csp-demo.pages.dev/nocsp?name=AcoFork 网页就会显示
 
-![](../assets/images/366d0934-9c3a-4196-a7ae-1c230c916daf.webp)
+![](/public/assets/images/366d0934-9c3a-4196-a7ae-1c230c916daf.webp)
 
 从源码可以看出，这个网页是通过 `innerHTML` 直接插入文本内容的。
 
@@ -63,11 +63,11 @@ https://none-csp-demo.pages.dev/nocsp?name=%3Cimg%20src=x%20onerror=%22alert(%27
 
 你会发现网站并没有打印出任何用户名，而且浏览器还弹出了一个奇怪的窗口
 
-![](../assets/images/e86cfeed-a9d4-402b-aed0-fc3624f3e925.webp)
+![](/public/assets/images/e86cfeed-a9d4-402b-aed0-fc3624f3e925.webp)
 
 我们F12查看当前网页的源代码
 
-![](../assets/images/ad38bc52-e689-4923-b79c-894dc9ab4136.webp)
+![](/public/assets/images/ad38bc52-e689-4923-b79c-894dc9ab4136.webp)
 
 发现在 `<span id="name"></span>` 中
 
@@ -102,7 +102,7 @@ https://none-csp-demo.pages.dev/csp?name=%3Cimg%20src=x%20onerror=%22alert(%27XS
 
 你会发现并未弹出提示框，并且F12控制台出现报错
 
-![](../assets/images/2febeecf-6f54-4c6a-b775-ef2ac8598f37.webp)
+![](/public/assets/images/2febeecf-6f54-4c6a-b775-ef2ac8598f37.webp)
 
 **以下是GPT给出的翻译和解释**
 

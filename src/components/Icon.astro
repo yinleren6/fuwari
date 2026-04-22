@@ -1,0 +1,36 @@
+---
+interface Props {
+	name: string;
+	class?: string;
+	[key: string]: any;
+}
+
+const { name, class: className, ...rest } = Astro.props;
+
+// 解析图标名称，格式：collection:icon-name
+const [collection, iconName] = name.includes(':') ? name.split(':', 2) : ['', name];
+
+// Iconify CDN URL
+const iconifyUrl = `https://api.iconify.design/${collection}/${iconName}.svg`;
+---
+
+<span 
+	class:list={["iconify-icon", className]} 
+	data-icon={name}
+	{...rest}
+	style={`
+		display: inline-block;
+		width: 1em;
+		height: 1em;
+		background-color: currentColor;
+		mask-image: url('${iconifyUrl}');
+		mask-size: contain;
+		mask-repeat: no-repeat;
+		mask-position: center;
+		-webkit-mask-image: url('${iconifyUrl}');
+		-webkit-mask-size: contain;
+		-webkit-mask-repeat: no-repeat;
+		-webkit-mask-position: center;
+		vertical-align: -0.125em;
+	`}
+></span>

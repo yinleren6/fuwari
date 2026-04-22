@@ -1,1 +1,0 @@
-完成任务后优先运行 pnpm type-check 做最小验证；若报错需区分是本次改动引入还是仓库既有问题。当前仓库本身存在与论坛无关的 type-check 错误，位于 src/scripts/layout-fancybox-runtime.ts、src/scripts/layout-main-runtime.ts、src/utils/git-history.ts。

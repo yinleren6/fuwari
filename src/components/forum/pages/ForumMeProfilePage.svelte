@@ -1,4 +1,4 @@
-<script lang="ts">
+﻿<script lang="ts">
 import {
 	type ForumProfilePayload,
 	getCurrentUser,
@@ -8,7 +8,7 @@ import { forumAuth } from "@/forum/stores/auth";
 import { ForumApiError } from "@/forum/types/api";
 import type { ForumUser, ForumUserGender } from "@/forum/types/user";
 import { emitErrorToast, emitSuccessToast } from "@/forum/utils/toast";
-import Icon from "@iconify/svelte";
+import Icon from "@components/IconSvelte.svelte";
 import { onMount } from "svelte";
 
 type GenderOption = {

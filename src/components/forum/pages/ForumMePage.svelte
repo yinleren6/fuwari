@@ -1,4 +1,4 @@
-<script lang="ts">
+﻿<script lang="ts">
 import ForumSkeleton from "@/components/forum/ForumSkeleton.svelte";
 import {
 	changeEmail,
@@ -16,7 +16,7 @@ import { forumAuth } from "@/forum/stores/auth";
 import type { ForumUser } from "@/forum/types/user";
 import { compressAvatarImage } from "@/forum/utils/image-compression";
 import { emitErrorToast, emitSuccessToast } from "@/forum/utils/toast";
-import Icon from "@iconify/svelte";
+import Icon from "@components/IconSvelte.svelte";
 import QRCode from "qrcode";
 import { onMount } from "svelte";
 

@@ -2,7 +2,7 @@
 title: 自建一个匿名文件上传终结点
 published: 2025-11-08T03:02:04
 description: 你有没有遇到过一种场景？在学校/公司电脑需要带一个文件走，但是又不想安装远程软件。那么今天，教你无需U盘，让你在任何地方将你想要的文件带回你家！
-image: ../assets/images/unknown-upload.webp
+image: /public/assets/images/unknown-upload.webp
 tags:
   - EdgeOne
   - 对象存储
@@ -42,13 +42,13 @@ https://www.bilibili.com/video/BV1Hz1DBZEov/
 
 借助对象存储，我只需要找一个云函数连接到我的对象存储，然后提供一个上传端点即可。
 
-![](../assets/images/unknown-upload-1.webp)
+![](/public/assets/images/unknown-upload-1.webp)
 
 ## 正式开始
 
 于是我找到了EdgeOne Pages，它的Functions非常适合做这件事，且支持原生Node运行时，也就是 `node-functions` 直接使用 `AWS-S3` 这个NPM包再做一个最简单的前端上传页面，搞定！
 
-![](../assets/images/unknown-upload-2.webp)
+![](/public/assets/images/unknown-upload-2.webp)
 
 为了防止上传重名文件，每个文件上传后都会被重命名为 `原文件名_时间戳_IP` 
 
@@ -86,16 +86,16 @@ python -m uploadserver --bind :: 8000
 ```
 
 接下来，你就可以在内网环境使用这个 **文件上载器** 了
-![](../assets/images/py-uploadserver.webp)
+![](/public/assets/images/py-uploadserver.webp)
 
 ## 打到公网
 
 ### 方法一：使用EdgeOne进行IPv6回源
 
 将你的IPv6做 **DDNS** ，然后使用EdgeOne回源
-![](../assets/images/py-uploadserver-1.webp)
+![](/public/assets/images/py-uploadserver-1.webp)
 
 ### 方法二：STUN（仅NAT1可用）
 
 当你的家庭网络为 **NAT1** ，则可以使用类似这样的软件将你的 **内网端口** 直接打到 **公网端口** （貌似该程序对TCP分片敏感，会导致RST） [MikeWang000000/Natter: Expose your TCP/UDP port behind full-cone NAT to the Internet.](https://github.com/MikeWang000000/Natter) 
-![](../assets/images/py-uploadserver-2.webp)
+![](/public/assets/images/py-uploadserver-2.webp)

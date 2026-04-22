@@ -2,7 +2,7 @@
 title: 你...买 Cloudflare Pro 了吗？来玩超级牛逼的 Snippets ！
 published: 2026-03-18T10:53:50
 description: Snippets 是 Cloudflare 提供的不限量不计费的轻量Worker，我们可以拿她干不少有趣的业务！
-image: ../assets/images/snippets-1.png
+image: /public/assets/images/snippets-1.png
 draft: false
 lang: ""
 ---

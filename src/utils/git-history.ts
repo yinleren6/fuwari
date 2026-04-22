@@ -12,10 +12,16 @@ export interface Commit {
 export function getPostHistory(postId: string): Commit[] {
 	try {
 		// Normalize ID to match keys in JSON (forward slashes)
-		const normalizedId = postId.replace(/\\/g, "/");
+		let normalizedId = postId.replace(/\\/g, "/");
+		
+		// Add .md extension if not present (entry.id doesn't include extension)
+		if (!normalizedId.endsWith('.md') && !normalizedId.endsWith('.mdx')) {
+			normalizedId += '.md';
+		}
 
 		// Look up in the pre-generated history map
 		const historyMap = gitHistory as Record<string, Commit[]>;
+		
 		if (historyMap?.[normalizedId]) {
 			return historyMap[normalizedId];
 		}

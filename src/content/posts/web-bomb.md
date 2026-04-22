@@ -2,7 +2,7 @@
 title: 如何在你的网站上放一个压缩炸弹？
 published: 2026-02-14T03:59:29
 description: 你知道压缩炸弹吗？就是那种看着人畜无害小小的只有几kb的文件，但是解压后却有高达几十几百G的文件的神秘东西！
-image: ../assets/images/web-bomb.png
+image: /public/assets/images/web-bomb.png
 draft: false
 lang: ""
 ---
@@ -17,7 +17,7 @@ lang: ""
 
 打开F12控制台，我去！这玩意怎么有10个G！不对！它还在加载！
 
-![](../assets/images/web-bomb.png)
+![](/public/assets/images/web-bomb.png)
 
 随后得知这就是个Web压缩炸弹，今天又想起来这件事了，就尝试折腾了一下
 
@@ -60,11 +60,11 @@ lang: ""
 
 接下来我们就得到一个压缩炸弹了，它看起来人畜无害
 
-![](../assets/images/web-bomb-1.png)
+![](/public/assets/images/web-bomb-1.png)
 
 当我们使用解压工具进行解压后就能得到这个巨大的原文件了
 
-![](../assets/images/web-bomb-2.png)
+![](/public/assets/images/web-bomb-2.png)
 
 ok，接下来我们只需要将这个压缩炸弹放到web上，然后设置压缩标头即可
 
@@ -76,7 +76,7 @@ ok，接下来我们只需要将这个压缩炸弹放到web上，然后设置压
 我们以Cloudflare Page/Worker 的静态托管举例
 
 首先，将压缩炸弹放到静态资产目录（为了伪装，我这边重命名为了 `index.html` ）
-![](../assets/images/web-bomb-3.png)
+![](/public/assets/images/web-bomb-3.png)
 
 接下来，编辑Cloudflare规则，使其能给客户端一个我们所期望的标头
 
@@ -86,7 +86,7 @@ ok，接下来我们只需要将这个压缩炸弹放到web上，然后设置压
 
 这样就没有效果了，所以我们首先需要禁用Cloudflare的自动压缩，使其直接提供原始文件
 
-![](../assets/images/web-bomb-4.png)
+![](/public/assets/images/web-bomb-4.png)
 
 接下来由于Cloudflare自动压缩被禁用了，`Content-Encoding` 响应标头也会被移除，此时如果客户端拉取，就是以下结果
 
@@ -94,11 +94,11 @@ ok，接下来我们只需要将这个压缩炸弹放到web上，然后设置压
 
 我们仍然没有达到我们的目的，所以我们需要额外再配置一条响应标头规则，强制让客户端以 br 算法解压我们的压缩炸弹 *保险起见，这里让客户端将文件类型强制解析为html，避免其他类型导致客户端忽略 `Content-Encoding`*
 
-![](../assets/images/web-bomb-5.png)
+![](/public/assets/images/web-bomb-5.png)
 
 接下来再尝试访问，不出意外，客户端成功吃到我们的压缩炸弹了！
 
-![](../assets/images/msedge_xYm7TNsMiq.gif)
+![](/public/assets/images/msedge_xYm7TNsMiq.gif)
 
 # 压缩炸弹的用处？
 

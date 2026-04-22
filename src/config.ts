@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import type {
   GitHubEditConfig,
   ImageFallbackConfig,
@@ -165,7 +166,6 @@ export const umamiConfig: UmamiConfig = {
 
 export const gitHubEditConfig: GitHubEditConfig = {
   enable: true,
-  baseUrl: "https://github.com/afoim/fuwari/blob/main/src/content/posts",
+  baseUrl: "https://github.com/yinleren6/fuwari-Astro/blob/main/src/content/posts",
 };
 
-// todoConfig removed from here

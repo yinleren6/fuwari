@@ -3,7 +3,7 @@ import { siteConfig } from "@/config";
 import type { Friend } from "@/types/data";
 import LinkSubmitInfo from "@components/misc/LinkSubmitInfo.astro";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
-import { Icon } from "astro-icon/components";
+import Icon from "@components/Icon.astro";
 
 const friends = Object.values(
 	import.meta.glob<Friend>("@/data/friends/*.json", {

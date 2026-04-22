@@ -2,7 +2,7 @@
 category: 教程
 description: 搭建Github全站代理的完整指南，涵盖原理讲解与多种部署方案（Cloudflare Worker、EdgeOne Pages、Vercel、VPS+Go）
 draft: false
-image: ../assets/images/8bb2d8ae-1703-44e8-9f3b-10b46ab69913.webp
+image: /public/assets/images/8bb2d8ae-1703-44e8-9f3b-10b46ab69913.webp
 lang: ''
 published: 2025-04-14T16:00:00
 tags: [Github, 反向代理, Cloudflare Worker, EdgeOne, Vercel]
@@ -112,11 +112,11 @@ const domain_mappings = {
 
 2. 部署到Vercel
 
-![](../assets/images/2025-08-30-22-14-07-aa3b925d5e2e522cc0a0abccd87b5887.webp)
+![](/public/assets/images/2025-08-30-22-14-07-aa3b925d5e2e522cc0a0abccd87b5887.webp)
 
 3. 绑定你自己的域名
 
-![](../assets/images/2025-08-30-22-14-10-b79c2d588117ab15fc4a08efe359db4f.webp)
+![](/public/assets/images/2025-08-30-22-14-10-b79c2d588117ab15fc4a08efe359db4f.webp)
 
 4. 根据你的域名修改域名映射配置，绑定所有子域名即可使用
 
@@ -171,7 +171,7 @@ const domain_mappings = {
 
 目录结构：
 
-![](../assets/images/2025-08-30-20-43-29-image.webp)
+![](/public/assets/images/2025-08-30-20-43-29-image.webp)
 
 #### 2. 修改域名配置
 
@@ -179,13 +179,13 @@ const domain_mappings = {
 
 #### 3. 上传到EdgeOne Pages
 
-![](../assets/images/2025-08-30-20-45-20-image.webp)
+![](/public/assets/images/2025-08-30-20-45-20-image.webp)
 
 #### 4. 绑定域名
 
 按照前缀绑定所有需要的子域名：
 
-![](../assets/images/2025-08-30-20-46-18-image.webp)
+![](/public/assets/images/2025-08-30-20-46-18-image.webp)
 
 ### 为什么目录结构这么特殊？
 
@@ -452,19 +452,19 @@ root@localhost:~/go_proxy# go run .
 
 使用Nginx或OpenResty反向代理 `localhost:8080`，配置域名格式为 `gh.你的域名`：
 
-![](../assets/images/123a521d-2340-4433-b9fe-4965d46d4321.webp)
+![](/public/assets/images/123a521d-2340-4433-b9fe-4965d46d4321.webp)
 
 #### 6. 签发SSL证书
 
 签发泛域名证书并部署：
 
-![](../assets/images/b58b55fe-adbd-4d3e-8977-c3f7efaf0185.webp)
+![](/public/assets/images/b58b55fe-adbd-4d3e-8977-c3f7efaf0185.webp)
 
 #### 7. 完成
 
 现在你可以通过自己的域名+VPS代理访问Github，国内直连，无需梯子：
 
-![](../assets/images/fccbc8af-d2b1-479f-b32d-d0f023fd4c06.webp)
+![](/public/assets/images/fccbc8af-d2b1-479f-b32d-d0f023fd4c06.webp)
 
 ---
 
