@@ -1,1 +1,0 @@
-fuwari 是一个基于 Astro 5 + Svelte 5 + Tailwind 的静态内容站点，主布局使用 src/layouts/MainGridLayout.astro 与 src/layouts/Layout.astro。站点配置集中在 src/config.ts，导航、SEO 元信息、外链等都从这里接入。页面路由主要位于 src/pages，支持 Astro 页面壳中挂载 Svelte islands。新增业务模块可按 src/forum 与 src/components/forum 这种方式隔离实现。

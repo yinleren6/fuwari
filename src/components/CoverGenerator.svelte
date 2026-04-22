@@ -1,5 +1,5 @@
-<script lang="ts">
- import Icon from "@iconify/svelte";
+﻿<script lang="ts">
+ import Icon from "@components/IconSvelte.svelte";
  import { siteConfig } from "@/config";
  import { onMount } from "svelte";
 
@@ -11,6 +11,7 @@ let iconName = "arcticons:wuthering-waves";
 let fontSize = 64;
 let iconSize = 64;
 let gap = 20;
+let showIcon = true; // New: toggle to show/hide icon
 
 // Font state
 let customFont: string | null = null;
@@ -755,7 +756,7 @@ function downloadLink(url: string, filename: string) {
                     white-space: nowrap;
                 ">{leftText}</span>
                 
-                {#if iconSvg || localIcon}
+                {#if showIcon && (iconSvg || localIcon)}
                     <div style="
                         width: {iconSize + iconBgPadding * 2}px; 
                         height: {iconSize + iconBgPadding * 2}px; 
@@ -979,8 +980,14 @@ function downloadLink(url: string, filename: string) {
             </div>
 
             <div class="flex flex-col gap-2">
-                <label class="text-sm font-bold text-gray-300">图标设置</label>
-                <div class="grid grid-cols-2 gap-2">
+                <div class="flex items-center justify-between mb-2">
+                    <label class="text-sm font-bold text-gray-300">图标设置</label>
+                    <label class="flex items-center gap-2 text-xs font-normal cursor-pointer select-none bg-transparent border border-[var(--line-color)] px-2 py-1 rounded hover:bg-[var(--btn-regular-bg)] transition-colors text-gray-300">
+                        <input type="checkbox" bind:checked={showIcon} class="accent-[var(--primary)]" />
+                        显示图标
+                    </label>
+                </div>
+                <div class="grid grid-cols-2 gap-2" class:opacity-50={!showIcon} class:pointer-events-none={!showIcon}>
                     <div class="relative">
                         <input type="file" accept="image/*" on:change={handleLocalIconUpload} class="hidden" id="icon-upload" />
                         <label for="icon-upload" class="flex items-center justify-center w-full px-2 py-2 border-2 border-dashed border-gray-600 rounded-lg cursor-pointer hover:border-[var(--primary)] hover:bg-[var(--primary)]/5 transition-all group h-10">

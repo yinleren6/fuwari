@@ -1,7 +1,5 @@
-import { fileURLToPath } from "node:url";
 import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
-import icon from "astro-icon";
 import { defineConfig, passthroughImageService } from "astro/config";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeComponents from "rehype-components"; /* Render the custom directive content */
@@ -96,7 +94,6 @@ export default defineConfig({
 		defaultStrategy: "load",
 	},
 	base: "/",
-	trailingSlash: "always",
 	output: "static",
 	redirects: {
 		"/privacy-policy": {
@@ -184,9 +181,6 @@ export default defineConfig({
 	integrations: [
 		tailwind({
 			nesting: true,
-		}),
-		icon({
-			iconDir: "public/icons",
 		}),
 		svelte({
 			compilerOptions: {
@@ -287,26 +281,7 @@ export default defineConfig({
 			],
 		},
 		resolve: {
-			alias: [
-				{
-					find: /^@iconify\/svelte$/,
-					replacement: fileURLToPath(
-						new URL(
-							"./node_modules/@iconify/svelte/dist/Icon.svelte",
-							import.meta.url,
-						),
-					),
-				},
-				{
-					find: /^@iconify\/svelte\/dist\/Icon\.svelte$/,
-					replacement: fileURLToPath(
-						new URL(
-							"./node_modules/@iconify/svelte/dist/Icon.svelte",
-							import.meta.url,
-						),
-					),
-				},
-			],
+			alias: [],
 		},
 		server: {
 			allowedHosts: [siteConfig.customDomain],

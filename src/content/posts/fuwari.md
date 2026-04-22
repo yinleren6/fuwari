@@ -2,7 +2,7 @@
 category: 教程
 description: Fuwari 是一个静态博客框架，配合 Cloudflare Pages 可以快速搭建一个轻量、安全且易维护的个人博客
 draft: false
-image: ../assets/images/f286ef4d-326c-4c7c-8a1e-ed150937a12b.webp
+image: /public/assets/images/f286ef4d-326c-4c7c-8a1e-ed150937a12b.webp
 lang: ""
 published: 2025-09-16T16:00:00
 tags:
@@ -42,7 +42,7 @@ ai_level: 2
 
 2. 如果你不熟悉 Fork 仓库的流程，可以参考下面的图片教程。
 
-3. ![](../assets/images/2024-10-14-12-15-44-image.webp)![](../assets/images/2024-10-14-12-17-03-image.webp)
+3. ![](/public/assets/images/2024-10-14-12-15-44-image.webp)![](/public/assets/images/2024-10-14-12-17-03-image.webp)
 
 4. 然后将仓库克隆到本地：`git clone <你的仓库URL>`。如果可以使用 SSH，后续推送通常会更方便。
 
@@ -68,7 +68,7 @@ ai_level: 2
    
   - lang：博客显示语言。注释里已经列出了一些常见值，例如 `en`、`zh_CN`、`zh_TW`、`ja`、`ko`
    
-  - themeColor：`hue` 表示博客主题色。你可以先在博客右上角的调色板里挑选喜欢的颜色，再把数值写回配置中。![](../assets/images/2024-10-15-09-16-30-image.webp)
+  - themeColor：`hue` 表示博客主题色。你可以先在博客右上角的调色板里挑选喜欢的颜色，再把数值写回配置中。![](/public/assets/images/2024-10-15-09-16-30-image.webp)
    
    - banner：src：即banner图片，支持http/https URL
    
@@ -82,13 +82,13 @@ ai_level: 2
    
   - bio：个性签名，会显示在头像和名字下方
    
-  - `NavBarConfig` 用于配置导航栏链接，`ProfileConfig` 用于配置个人资料区域的链接，效果如下图所示。![](../assets/images/2024-10-15-17-49-30-image.webp)
+  - `NavBarConfig` 用于配置导航栏链接，`ProfileConfig` 用于配置个人资料区域的链接，效果如下图所示。![](/public/assets/images/2024-10-15-17-49-30-image.webp)
    
   - icon：你可以前往 [icones.js](https://icones.js.org/) 搜索想要的图标。例如 QQ 可以填写 `fa6-brands:qq`。Fuwari 默认支持 `fa6-brands`、`fa6-regular`、`fa6-solid`、`material-symbols` 等类型，必要时也可以在 `astro.config.mjs` 中继续扩展。
    
-   - ![](../assets/images/1ef05530-10fd-4301-af4e-21ddadf18605.webp)
+   - ![](/public/assets/images/1ef05530-10fd-4301-af4e-21ddadf18605.webp)
    
-   - ![](../assets/images/da94494b-cc4b-4f07-ae95-8bf3b2f95d3c.webp)
+   - ![](/public/assets/images/da94494b-cc4b-4f07-ae95-8bf3b2f95d3c.webp)
    
    - 这里我附上我的 `config.ts` 
    
@@ -232,7 +232,7 @@ ai_level: 2
    
   - 依次点击 MarkText 左上角菜单 -> `File` -> `Preferences` -> 左侧 `Image` 分类，然后按照下图进行设置。注意把第一个选项改成以 `Copy` 开头的模式，开启 `Prefer` 开关，并在上下两个文本框中分别填写绝对路径和相对路径。
    
-   - ![](../assets/images/2024-10-14-12-54-21-image.webp)
+   - ![](/public/assets/images/2024-10-14-12-54-21-image.webp)
    
   - 这样一来，插入图片时就会先把图片复制到 `https://eo-r2.2x.nz/myblog/img` 对应的位置，再自动以 `![1](https://eo-r2.2x.nz/myblog/img/1.webp)` 这样的格式写入 Markdown 文件。你只需要复制粘贴，剩下的步骤 MarkText 会自动完成。
 
@@ -240,7 +240,7 @@ ai_level: 2
 
 #### 本地预览，然后发布到Github
 
-1. 当你觉得文章写得差不多时，可以在项目根目录执行：`pnpm dev`。稍等片刻后，就能在本地预览博客效果。![](../assets/images/2024-10-14-13-03-44-image.webp)
+1. 当你觉得文章写得差不多时，可以在项目根目录执行：`pnpm dev`。稍等片刻后，就能在本地预览博客效果。![](/public/assets/images/2024-10-14-13-03-44-image.webp)
 
 2. 接下来就可以使用 Git 把这些改动发布到 GitHub。
    
@@ -254,14 +254,14 @@ ai_level: 2
    
   - 最后，把本地更改推送到远程仓库：`git push`
 
-3. 完成后，你的 GitHub 仓库里就应该能看到新的提交记录了。![](../assets/images/2024-10-14-13-10-12-image.webp)
+3. 完成后，你的 GitHub 仓库里就应该能看到新的提交记录了。![](/public/assets/images/2024-10-14-13-10-12-image.webp)
 
 #### 让Cloudflare连接上Github，使用Pages服务展示你的博客（FREE！）
 
-1. 前往Cloudflare的 Workers 和 Pages 页面，创建一个新Pages![](../assets/images/2024-10-14-13-14-28-image.webp)
+1. 前往Cloudflare的 Workers 和 Pages 页面，创建一个新Pages![](/public/assets/images/2024-10-14-13-14-28-image.webp)
 
-2. 然后选择连接Git存储库，连接你的Github，随后设置构建命令：`pnpm build`  ，然后设置构建输出目录：`dist` ，如图![](../assets/images/2024-10-14-13-16-15-image.webp)
+2. 然后选择连接Git存储库，连接你的Github，随后设置构建命令：`pnpm build`  ，然后设置构建输出目录：`dist` ，如图![](/public/assets/images/2024-10-14-13-16-15-image.webp)
 
-3. 绑定自定义域，访问自定义域即可访问你的博客！![](../assets/images/2024-10-14-13-17-00-image.webp)
+3. 绑定自定义域，访问自定义域即可访问你的博客！![](/public/assets/images/2024-10-14-13-17-00-image.webp)
 
 4. 随后，你只需要在本地编写文章，然后[使用Git将更改推送到远程仓库](#本地预览然后发布到github)，Cloudflare就会自动部署，更新你的博客！

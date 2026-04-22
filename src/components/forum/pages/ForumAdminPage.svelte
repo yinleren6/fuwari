@@ -1,4 +1,4 @@
-<script lang="ts">
+﻿<script lang="ts">
 import {
 	cleanupAdminStorageGc,
 	createAdminCategory,
@@ -30,7 +30,7 @@ import type {
 import type { ForumCategory } from "@/forum/types/post";
 import type { ForumUser } from "@/forum/types/user";
 import { emitErrorToast, emitSuccessToast } from "@/forum/utils/toast";
-import Icon from "@iconify/svelte";
+import Icon from "@components/IconSvelte.svelte";
 import { onMount } from "svelte";
 
 const defaultSettings: ForumAdminSettings = {

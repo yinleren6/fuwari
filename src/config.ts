@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import type {
   GitHubEditConfig,
   ImageFallbackConfig,
@@ -168,4 +169,3 @@ export const gitHubEditConfig: GitHubEditConfig = {
   baseUrl: "https://github.com/afoim/fuwari/blob/main/src/content/posts",
 };
 
-// todoConfig removed from here

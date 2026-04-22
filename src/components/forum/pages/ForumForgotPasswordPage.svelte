@@ -1,8 +1,8 @@
-<script lang="ts">
+﻿<script lang="ts">
 import { forgotPassword } from "@/forum/api/auth";
 import { getForumConfig } from "@/forum/api/config";
 import { emitErrorToast, emitSuccessToast } from "@/forum/utils/toast";
-import Icon from "@iconify/svelte";
+import Icon from "@components/IconSvelte.svelte";
 import { onMount } from "svelte";
 
 let email = "";

@@ -9,7 +9,7 @@
 - 集合定义入口：`src/content/config.ts`
 - 文章目录：`src/content/posts/*.md`
 - 公告目录：`src/content/spec/**/*.md`
-- 素材目录：`src/content/assets/images/*`
+- 素材目录：`src/content/public/assets/images/*`
 
 ## 对外接口
 - 通过 Astro Content Collections 对外提供：
@@ -46,7 +46,7 @@
 - `src/content/config.ts`
 - `src/content/posts/*.md`
 - `src/content/spec/announcement.md`
-- `src/content/assets/images/*`
+- `src/content/public/assets/images/*`
 - `scripts/clean-unused-images.js`（跨模块依赖）
 - `scripts/cdnify-images.js`（跨模块依赖）
 

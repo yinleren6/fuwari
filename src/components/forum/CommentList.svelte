@@ -1,8 +1,8 @@
-<script lang="ts">
+﻿<script lang="ts">
 import CommentItem from "@/components/forum/CommentItem.svelte";
 import ForumMarkdownEditor from "@/components/forum/ForumMarkdownEditor.svelte";
 import type { ForumComment } from "@/forum/types/comment";
-import Icon from "@iconify/svelte";
+import Icon from "@components/IconSvelte.svelte";
 
 export let comments: ForumComment[] = [];
 export let loading = false;

@@ -1,7 +1,7 @@
 <script lang="ts">
 import { renderForumMarkdown } from "@/forum/utils/markdown";
 import { highlightAllCodeBlocks } from "@/utils/code-highlight";
-import { afterUpdate } from "svelte";
+import { afterUpdate, tick } from "svelte";
 
 export let content = "";
 export let className = "";
@@ -20,7 +20,8 @@ $: classes = [
 	.filter(Boolean)
 	.join(" ");
 
-afterUpdate(() => {
+afterUpdate(async () => {
+	await tick();
 	highlightAllCodeBlocks();
 });
 </script>

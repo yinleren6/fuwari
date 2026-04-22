@@ -1,6 +1,6 @@
-<script lang="ts">
+﻿<script lang="ts">
 import { FORUM_API_BASE_URLS, forumEnv } from "@/forum/stores/env";
-import Icon from "@iconify/svelte";
+import Icon from "@components/IconSvelte.svelte";
 import { get } from "svelte/store";
 
 let currentEnv = get(forumEnv);

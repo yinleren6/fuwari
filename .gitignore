@@ -61,3 +61,6 @@ _bmad-output/
 
 # 课表
 src/data/timetable/source/
+
+#  Git Diff
+json/git-history.json

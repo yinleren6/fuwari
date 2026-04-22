@@ -1,4 +1,4 @@
-<script lang="ts">
+﻿<script lang="ts">
 import CommentList from "@/components/forum/CommentList.svelte";
 import ForumMarkdownContent from "@/components/forum/ForumMarkdownContent.svelte";
 import ForumMarkdownEditor from "@/components/forum/ForumMarkdownEditor.svelte";
@@ -25,7 +25,7 @@ import type { ForumUser } from "@/forum/types/user";
 import { renderForumMarkdown } from "@/forum/utils/markdown";
 import { emitErrorToast, emitSuccessToast } from "@/forum/utils/toast";
 import { formatForumDateTime } from "@/utils/date-utils";
-import Icon from "@iconify/svelte";
+import Icon from "@components/IconSvelte.svelte";
 import { onDestroy, onMount } from "svelte";
 import { get } from "svelte/store";
 

@@ -67,7 +67,7 @@ function syncValue(nextValue: string) {
 	}
 }
 
-function updatePreviewClasses() {
+async function updatePreviewClasses() {
 	const previewEl = containerEl?.querySelector(".toastui-editor-contents");
 	if (!previewEl) return;
 	previewEl.classList.add(
@@ -79,6 +79,10 @@ function updatePreviewClasses() {
 		"text-white/75",
 	);
 	previewEl.classList.remove("forum-comment-md");
+	
+	// 导入并应用代码高亮
+	const { highlightAllCodeBlocks } = await import("@/utils/code-highlight");
+	highlightAllCodeBlocks();
 }
 
 function setDisabledState(nextDisabled: boolean) {
@@ -195,7 +199,7 @@ onMount(() => {
 
 		editor.on("change", () => {
 			syncValue(editor?.getMarkdown() || "");
-			updatePreviewClasses();
+			void updatePreviewClasses();
 		});
 
 		const keydownHandler = (event: KeyboardEvent) => {
@@ -214,7 +218,7 @@ onMount(() => {
 		keydownCleanup = () =>
 			containerEl.removeEventListener("keydown", keydownHandler);
 
-		updatePreviewClasses();
+		await updatePreviewClasses();
 		setDisabledState(disabled || submitting);
 	})();
 
@@ -233,7 +237,7 @@ onDestroy(() => {
 $: if (editor && value !== internalValue) {
 	internalValue = value;
 	editor.setMarkdown(value, false);
-	updatePreviewClasses();
+	void updatePreviewClasses();
 }
 
 $: if (editor && placeholder) {

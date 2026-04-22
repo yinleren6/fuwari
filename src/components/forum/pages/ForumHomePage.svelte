@@ -1,4 +1,4 @@
-<script lang="ts">
+﻿<script lang="ts">
 import EnvironmentSwitcher from "@/components/forum/EnvironmentSwitcher.svelte";
 import PostList from "@/components/forum/PostList.svelte";
 import { getAdminCategories } from "@/forum/api/admin";
@@ -10,7 +10,7 @@ import {
 } from "@/forum/api/posts";
 import type { ForumCategory, ForumPostSummary } from "@/forum/types/post";
 import { forumAuth } from "@/forum/stores/auth";
-import Icon from "@iconify/svelte";
+import Icon from "@components/IconSvelte.svelte";
 import { onMount } from "svelte";
 import { siteConfig } from "../../../config.ts";
 

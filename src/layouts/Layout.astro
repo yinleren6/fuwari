@@ -8,7 +8,7 @@ import "../styles/markdown.css";
 import "../styles/markdown-extend.styl";
 
 import { profileConfig, siteConfig } from "@/config";
-import AnimatedBackground from "@components/AnimatedBackground.astro";
+import StaticBackground from "@components/StaticBackground.astro";
 import BodyThirdPartyScripts from "@components/layout/BodyThirdPartyScripts.astro";
 import DashLoaderScript from "@components/layout/DashLoaderScript.astro";
 import LiquidGlassFilter from "@components/layout/LiquidGlassFilter.astro";
@@ -178,6 +178,82 @@ const bannerOffset =
 			offset = offset - offset % 4;
 			document.documentElement.style.setProperty('--banner-height-extend', `${offset}px`);
 		</script>
+
+		<!-- 零宽短链解码脚本 - 必须在页面加载前执行 -->
+		<script is:inline>
+		(function(){
+			// 固定的零宽前缀标识（ZWSP+ZWNJ+ZWSP+ZWNJ）
+			var ZW_PREFIX = '\u200B\u200C\u200B\u200C';
+			var ZW_CHARS=['\u200B','\u200C'];
+			
+			// 从路径中提取内容（去掉开头的 /）
+			var pathPart = decodeURIComponent(window.location.pathname.substring(1));
+			
+			// 调试输出
+			console.log('零宽短链检测:', {
+				pathname: window.location.pathname,
+				pathPart: pathPart,
+				pathPartLength: pathPart.length,
+				startsWithPrefix: pathPart.startsWith(ZW_PREFIX),
+				firstChars: pathPart.substring(0, 10).split('').map(function(c){ return c.charCodeAt(0).toString(16); })
+			});
+			
+			// 检查是否以固定前缀开头
+			if(pathPart.startsWith(ZW_PREFIX)){
+				console.log('检测到零宽短链！');
+				try{
+					// 移除前缀，获取编码部分
+					var encoded = pathPart.substring(ZW_PREFIX.length);
+					
+					// 提取零宽字符序列
+					var seq=encoded.split('').filter(function(c){
+						return c==='\u200B'||c==='\u200C';
+					});
+					
+					console.log('提取到零宽字符数量:', seq.length);
+					
+					if(seq.length>0){
+						// 转换为二进制字符串
+						var bin='';
+						for(var i=0;i<seq.length;i++){
+							bin+=(seq[i]==='\u200B'?'0':'1');
+						}
+						
+						// 转换为字节数组
+						var bytes=[];
+						for(var i=0;i<bin.length;i+=8){
+							var b=bin.slice(i,i+8);
+							if(b.length===8){
+								bytes.push(parseInt(b,2));
+							}
+						}
+						
+						// 解码为 URL
+						var url=new TextDecoder().decode(new Uint8Array(bytes));
+						console.log('解码后的 URL:', url);
+						
+						// 验证 URL 格式
+						try{
+							new URL(url);
+							// 显示确认对话框
+							if(confirm('即将跳转到：\n' + url + '\n\n请确认这是您信任的网站。')){
+								window.location.href=url;
+							} else {
+								// 用户取消，跳转到首页
+								window.location.href='/';
+							}
+							// 阻止页面继续加载
+							return;
+						}catch(e){
+							console.error('URL 验证失败:', e);
+						}
+					}
+				}catch(e){
+					console.error('零宽短链解码失败:', e);
+				}
+			}
+		})();
+		</script>
         
         <style define:vars={{ configHue }}>
             /* Fallback for no-js: Apply default theme hue */
@@ -210,8 +286,7 @@ const bannerOffset =
 
 <BodyThirdPartyScripts />
 
-
-		<AnimatedBackground />
+		<StaticBackground />
 
 		<slot />
 
